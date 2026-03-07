@@ -1,0 +1,33 @@
+name: CI - Testes e Build
+
+env:
+  ZIP_NAME: pestto-latest.zip
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # Job 1: Garantir que o código está funcionando
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm test
+
+  # Job 2: Só roda se o 'test' terminar com sucesso
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm run build
+      - name: Salvar Artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: pestto-latest-build
+          path: ${{ env.ZIP_NAME }}
