@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "description": "Extensão minimalista para conversão automática de Markdown ao colar texto no WhatsApp Web.",
   "main": "content.js",
+  "config": {
+    "zipName": "pestto-latest.zip"
+  },
   "scripts": {
     "test": "vitest",
-    "build": "rm -f pestto-latest.zip && zip -q pestto-latest.zip manifest.json content.js converter.js icon-128.png",
+    "build": "rm -f $npm_package_config_zipName && zip -q $npm_package_config_zipName manifest.json content.js converter.js icon-128.png",
     "version": "node sync-version.js && git add manifest.json",
     "undo-version": "git tag -d $(git tag --points-at HEAD) && git reset --hard HEAD~1"
   },
