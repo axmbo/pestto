@@ -3,3 +3,6 @@ node_modules/
 
 # Arquivos de log do npm
 npm-debug.log*
+
+# Ignora artefatos de build (pacotes gerados)
+*.zip
