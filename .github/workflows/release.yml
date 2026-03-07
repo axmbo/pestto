@@ -1,0 +1,38 @@
+name: Publicar Release Oficial
+
+env:
+  ZIP_NAME: pestto-latest.zip
+
+on:
+  push:
+    tags:
+      - "v*" # Roda apenas quando enviarmos uma tag (ex: v0.2.0)
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Fazer checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Usa o seu script maravilhoso para gerar o pestto-local.zip
+      - name: Construir extensão
+        run: npm run build
+
+      # Renomeia o arquivo para ficar com o nome da versão bonitinho
+      - name: Renomear arquivo para a versão
+        run: mv ${{ env.ZIP_NAME }} pestto-${{ github.ref_name }}.zip
+
+      - name: Publicar na aba Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          files: pestto-${{ github.ref_name }}.zip
+          generate_release_notes: true
