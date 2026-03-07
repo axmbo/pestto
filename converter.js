@@ -3,7 +3,7 @@
  * @param {string} text - O texto original em Markdown.
  * @returns {string} - O texto formatado para o WhatsApp.
  */
-export function convertMarkdown(text) {
+function convertMarkdown(text) {
     let convertedText = text;
 
     // 1. Itálico (*texto*): Converte para _texto_
