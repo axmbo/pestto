@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Pestto",
+  "version": "0.1",
+  "description": "Converte Markdown automaticamente ao colar texto no WhatsApp Web.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://web.whatsapp.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
