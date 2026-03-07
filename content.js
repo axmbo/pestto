@@ -1,30 +1,4 @@
 /**
- * Função responsável por converter a sintaxe Markdown para a sintaxe do WhatsApp.
- * @param {string} text - O texto original em Markdown.
- * @returns {string} - O texto formatado para o WhatsApp.
- */
-function convertMarkdown(text) {
-    let convertedText = text;
-
-    // 1. Itálico (*texto*): Converte para _texto_
-    // Usamos (?<!\*) e (?!\*) para garantir que é apenas UM asterisco isolado.
-    // Isso impede que ele capture os dois asteriscos do negrito (**)
-    convertedText = convertedText.replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '_$1_');
-
-    // 2. Negrito (**texto**): Converte para *texto*
-    // Agora podemos converter o negrito com segurança, pois a regra do itálico já rodou
-    convertedText = convertedText.replace(/\*\*(.+?)\*\*/g, '*$1*');
-
-    // 3. Tachado (~~texto~~): Converte para ~texto~
-    convertedText = convertedText.replace(/~~(.+?)~~/g, '~$1~');
-
-    // 4. Código em linha (`texto`): Converte para ```texto```
-    convertedText = convertedText.replace(/(?<!`)`(?!`)(.+?)(?<!`)`(?!`)/g, '```$1```');
-
-    return convertedText;
-}
-
-/**
  * Intercepta o evento de colar (paste) na FASE DE CAPTURA.
  * O 'true' no final do addEventListener é o que ativa essa fase.
  */
@@ -63,4 +37,4 @@ document.addEventListener('paste', function(event) {
     } else {
         console.log("[Pestto] Nenhum Markdown encontrado no texto colado."); // Debug 5
     }
-}, true); // <--- ESTE 'true' É A CHAVE PARA O SUCESSO AQUI
+}, true);

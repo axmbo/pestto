@@ -1,0 +1,24 @@
+{
+  "name": "pestto",
+  "version": "1.0.0",
+  "description": "Extensão minimalista para conversão automática de Markdown ao colar texto no WhatsApp Web.",
+  "main": "content.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axmbo/pestto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/axmbo/pestto/issues"
+  },
+  "homepage": "https://github.com/axmbo/pestto#readme",
+  "devDependencies": {
+    "vitest": "^4.0.18"
+  }
+}
