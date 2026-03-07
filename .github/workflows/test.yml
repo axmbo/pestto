@@ -1,0 +1,32 @@
+name: Testes Automatizados
+
+# 1. Quando este roteiro deve rodar?
+on:
+  push:
+    branches: [ "main" ] # Roda sempre que houver um push na branch main
+  pull_request:
+    branches: [ "main" ] # Roda quando alguém tentar contribuir com o projeto
+
+# 2. O que ele deve fazer?
+jobs:
+  test:
+    runs-on: ubuntu-latest # Pega um computador virtual com Linux (Ubuntu)
+
+    steps:
+    # Passo A: Baixa o código do seu repositório para o computador virtual
+    - name: Fazer checkout do código
+      uses: actions/checkout@v4
+
+    # Passo B: Instala o Node.js no computador virtual
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20 # Usa a versão 20 do Node.js (estável)
+
+    # Passo C: Instala as dependências usando o famoso package-lock.json!
+    - name: Instalar dependências (Clean Install)
+      run: npm ci
+
+    # Passo D: Executa o Vitest
+    - name: Rodar testes do Vitest
+      run: npx vitest run
