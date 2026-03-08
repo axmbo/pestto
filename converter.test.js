@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import './converter.js'; // Apenas importa o arquivo para ele rodar e registrar a função
 
 // Pegamos a função que foi injetada no ambiente global pelo arquivo acima
-const convertMarkdown = globalThis.convertMarkdown;
+const convertMarkdown = globalThis.markdownToWhatsApp;
 describe('Conversor Markdown -> WhatsApp', () => {
 
     it('deve converter negrito corretamente', () => {

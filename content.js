@@ -25,9 +25,12 @@ document.addEventListener('paste', function(event) {
         return;
     }
 
-    const convertedText = convertMarkdown(pastedText);
+    const converted = markdownToWhatsApp(pastedText);
+    const finalVersion = isDevelopment ? `${converted}\n\n_ ${BUILD_INFO} _` : converted;
 
-    if (convertedText !== pastedText) {
+//    const finalVersion = convertMarkdown(pastedText);
+
+    if (finalVersion !== pastedText) {
         console.log("[Pestto] Markdown detectado! Convertendo e inserindo..."); // Debug 4
 
         // Impede o comportamento padrão e impede que o WhatsApp receba o evento original
@@ -35,7 +38,7 @@ document.addEventListener('paste', function(event) {
         event.stopPropagation();
 
         // Insere o texto convertido
-        document.execCommand('insertText', false, convertedText);
+        document.execCommand('insertText', false, finalVersion);
     } else {
         console.log("[Pestto] Nenhum Markdown encontrado no texto colado."); // Debug 5
     }

@@ -3,7 +3,7 @@
  * @param {string} text - O texto original em Markdown.
  * @returns {string} - O texto formatado para o WhatsApp.
  */
-function convertMarkdown(text) {
+function markdownToWhatsApp(text) {
     let convertedText = text;
 
     // 1. Itálico (*texto*): Converte para _texto_
@@ -27,5 +27,5 @@ function convertMarkdown(text) {
 // Compatibilidade "Zero Build" para testes no Node.js.
 // Se estamos rodando fora do navegador (ex: Vitest), anexamos a função ao objeto global.
 if (typeof process !== 'undefined' && process.release.name === 'node') {
-    globalThis.convertMarkdown = convertMarkdown;
+    globalThis.markdownToWhatsApp = markdownToWhatsApp;
 }
