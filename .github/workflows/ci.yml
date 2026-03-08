@@ -32,7 +32,7 @@ jobs:
       - name: Gerar version.js
         run: |
           VERSION=$(npm pkg get version | tr -d '"')
-          INFO="Pestto v$VERSION (${{ github.run_number }}) [${{ github.sha }}]"
+          INFO="Pestto v$VERSION (${{ github.run_number }}) [${GITHUB_SHA::7}]"
           echo "const BUILD_INFO = '$INFO';" > version.js
           echo "🏗️  version.js gerado no CI"
       - run: npm run build
