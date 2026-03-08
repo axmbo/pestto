@@ -9,35 +9,32 @@ document.addEventListener('paste', (event) => {
     if (event.isPesttoEvent) return;
 
     const clipboard = event.clipboardData || window.clipboardData;
-    const rawText = clipboard.getData('text/plain');
-    const rawHtml = clipboard.getData('text/html');
+    const types = Array.from(clipboard.types);
 
-    // MODO RAIO-X LIGADO 🕵️‍♂️
-    console.log('--- DIAGNÓSTICO DE ÁREA DE TRANSFERÊNCIA ---');
-    console.log('1. Tipos de dados:', clipboard.types);
-    console.log('2. Texto Puro:', rawText);
-    console.log('3. HTML Original:', rawHtml);
-    console.log('--------------------------------------------');
+    // 2. A MÁGICA DA EXCEÇÃO: Se a cópia veio do próprio WhatsApp, não fazemos NADA!
+    if (types.includes('application/whatsapp')) {
+        console.log('Cópia interna do WhatsApp detectada. Abortando Pestto.');
+        return;
+    }
+
+    const rawText = clipboard.getData('text/plain');
 
     if (!rawText) return;
 
-    // 2. Matamos o evento original para que o WhatsApp nem veja o texto puro
+    // 3. Matamos o evento original para que o WhatsApp nem veja o texto puro
     event.preventDefault();
     event.stopPropagation();
     event.stopImmediatePropagation();
 
-    // 3. Convertemos o texto (quebras de linha originais \n são mantidas)
+    // 4. Convertemos o texto (quebras de linha originais \n são mantidas)
     const converted = markdownToWhatsApp(rawText);
     console.log('Texto convertido:', converted);
 
-    // 4. Criamos a nossa maleta de dados "falsa"
+    // 5. Criamos a nossa maleta de dados "falsa"
     const dataTransfer = new DataTransfer();
     dataTransfer.setData('text/plain', converted);
 
-    // (Opcional) Damos o HTML de brinde pro WhatsApp, o que garante 100% as quebras de linha
-    dataTransfer.setData('text/html', converted.replace(/\r?\n/g, '<br>'));
-
-    // 5. Criamos o evento de colar falso
+    // 6. Criamos o evento de colar falso
     const fakePasteEvent = new ClipboardEvent('paste', {
         clipboardData: dataTransfer,
         bubbles: true,
@@ -47,7 +44,7 @@ document.addEventListener('paste', (event) => {
     // Marcamos o evento para não entrarmos em um loop infinito no Passo 1
     fakePasteEvent.isPesttoEvent = true;
 
-    // 6. Injetamos o Cavalo de Tróia no exato elemento onde o usuário estava digitando!
+    // 7. Injetamos o Cavalo de Tróia no exato elemento onde o usuário estava digitando!
     event.target.dispatchEvent(fakePasteEvent);
 
 }, true);
