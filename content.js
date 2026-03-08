@@ -1,4 +1,4 @@
-console.log(`%c🍝 ${BUILD_INFO} carregado!`, "color: #2E7D32; font-weight: bold;");
+console.log(`%c🍝 ${BUILD_INFO} carregado!`, "color: green; font-weight: bold;");
 
 /**
  * Intercepta o evento de colar (paste) na FASE DE CAPTURA.
@@ -28,7 +28,7 @@ document.addEventListener('paste', function(event) {
     const converted = markdownToWhatsApp(pastedText);
 
     const isBeta = BUILD_INFO.includes("v0.");
-    const finalVersion = isBeta ? `${converted}\n\n_ ${BUILD_INFO} _` : converted;
+    const finalVersion = isBeta ? `${converted}\n \n_Convertido por *${BUILD_INFO}*_` : converted;
 
     if (finalVersion !== pastedText) {
         console.log("[Pestto] Markdown detectado! Convertendo e inserindo..."); // Debug 4
