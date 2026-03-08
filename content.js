@@ -26,9 +26,9 @@ document.addEventListener('paste', function(event) {
     }
 
     const converted = markdownToWhatsApp(pastedText);
-    const finalVersion = isDevelopment ? `${converted}\n\n_ ${BUILD_INFO} _` : converted;
 
-//    const finalVersion = convertMarkdown(pastedText);
+    const isBeta = BUILD_INFO.includes("v0.");
+    const finalVersion = isBeta ? `${converted}\n\n_ ${BUILD_INFO} _` : converted;
 
     if (finalVersion !== pastedText) {
         console.log("[Pestto] Markdown detectado! Convertendo e inserindo..."); // Debug 4
