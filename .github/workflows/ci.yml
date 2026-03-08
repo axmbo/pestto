@@ -25,6 +25,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Gerar version.js
+        run: |
+          VERSION=$(npm pkg get version | tr -d '"')
+          DATETIME=$(date +'%Y-%m-%d %H:%M')
+          GIT_HASH=$(git rev-parse --short HEAD)
+          INFO="Pestto v$VERSION ($DATETIME) [$GIT_HASH]"
+          echo "const BUILD_INFO = '$INFO';" > version.js
+          echo "🏗️  version.js gerado no CI"
       - run: npm run build
       - name: Salvar Artefato
         uses: actions/upload-artifact@v4
