@@ -8,7 +8,17 @@ document.addEventListener('paste', (event) => {
     // 1. Se o evento já for o nosso "Cavalo de Tróia", deixamos o WhatsApp agir livremente!
     if (event.isPesttoEvent) return;
 
-    const rawText = (event.clipboardData || window.clipboardData).getData('text/plain');
+    const clipboard = event.clipboardData || window.clipboardData;
+    const rawText = clipboard.getData('text/plain');
+    const rawHtml = clipboard.getData('text/html');
+
+    // MODO RAIO-X LIGADO 🕵️‍♂️
+    console.log('--- DIAGNÓSTICO DE ÁREA DE TRANSFERÊNCIA ---');
+    console.log('1. Tipos de dados:', clipboard.types);
+    console.log('2. Texto Puro:', rawText);
+    console.log('3. HTML Original:', rawHtml);
+    console.log('--------------------------------------------');
+
     if (!rawText) return;
 
     // 2. Matamos o evento original para que o WhatsApp nem veja o texto puro
