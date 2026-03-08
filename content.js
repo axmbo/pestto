@@ -1,3 +1,5 @@
+console.log(`%c🍝 ${BUILD_INFO} carregado!`, "color: #2E7D32; font-weight: bold;");
+
 /**
  * Intercepta o evento de colar (paste) na FASE DE CAPTURA.
  * O 'true' no final do addEventListener é o que ativa essa fase.

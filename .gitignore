@@ -6,3 +6,6 @@ npm-debug.log*
 
 # Ignora artefatos de build (pacotes gerados)
 *.zip
+
+# Arquivo regerado pelo build.sh, não precisa versionar
+version.js
