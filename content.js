@@ -4,42 +4,40 @@ console.log(`%c🍝 ${BUILD_INFO} carregado!`, "color: green; font-weight: bold;
  * Intercepta o evento de colar (paste) na FASE DE CAPTURA.
  * O 'true' no final do addEventListener é o que ativa essa fase.
  */
-document.addEventListener('paste', function(event) {
-    console.log("[Pestto] Evento paste detectado na fase de captura!"); // Debug 1
+document.addEventListener('paste', (event) => {
+    // 1. Se o evento já for o nosso "Cavalo de Tróia", deixamos o WhatsApp agir livremente!
+    if (event.isPesttoEvent) return;
 
-    const activeElement = document.activeElement;
+    const rawText = (event.clipboardData || window.clipboardData).getData('text/plain');
+    if (!rawText) return;
 
-    // O WhatsApp usa divs onde a propriedade isContentEditable é verdadeira
-    const isEditable = activeElement && (activeElement.isContentEditable || activeElement.getAttribute('contenteditable') === 'true');
+    // 2. Matamos o evento original para que o WhatsApp nem veja o texto puro
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
 
-    if (!isEditable) {
-        console.log("[Pestto] Elemento não é editável. Ignorando."); // Debug 2
-        return;
-    }
+    // 3. Convertemos o texto (quebras de linha originais \n são mantidas)
+    const converted = markdownToWhatsApp(rawText);
+    console.log('Texto convertido:', converted);
 
-    const clipboardData = event.clipboardData || window.clipboardData;
-    const pastedText = clipboardData.getData('text/plain');
+    // 4. Criamos a nossa maleta de dados "falsa"
+    const dataTransfer = new DataTransfer();
+    dataTransfer.setData('text/plain', converted);
 
-    if (!pastedText) {
-        console.log("[Pestto] Nenhum texto puro encontrado na área de transferência."); // Debug 3
-        return;
-    }
+    // (Opcional) Damos o HTML de brinde pro WhatsApp, o que garante 100% as quebras de linha
+    dataTransfer.setData('text/html', converted.replace(/\r?\n/g, '<br>'));
 
-    const converted = markdownToWhatsApp(pastedText);
+    // 5. Criamos o evento de colar falso
+    const fakePasteEvent = new ClipboardEvent('paste', {
+        clipboardData: dataTransfer,
+        bubbles: true,
+        cancelable: true
+    });
 
-    const isBeta = BUILD_INFO.includes("v0.");
-    const finalVersion = isBeta ? `${converted}\n \n_Convertido por *${BUILD_INFO}*_` : converted;
+    // Marcamos o evento para não entrarmos em um loop infinito no Passo 1
+    fakePasteEvent.isPesttoEvent = true;
 
-    if (finalVersion !== pastedText) {
-        console.log("[Pestto] Markdown detectado! Convertendo e inserindo..."); // Debug 4
+    // 6. Injetamos o Cavalo de Tróia no exato elemento onde o usuário estava digitando!
+    event.target.dispatchEvent(fakePasteEvent);
 
-        // Impede o comportamento padrão e impede que o WhatsApp receba o evento original
-        event.preventDefault();
-        event.stopPropagation();
-
-        // Insere o texto convertido
-        document.execCommand('insertText', false, finalVersion);
-    } else {
-        console.log("[Pestto] Nenhum Markdown encontrado no texto colado."); // Debug 5
-    }
 }, true);
