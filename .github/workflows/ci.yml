@@ -32,9 +32,7 @@ jobs:
       - name: Gerar version.js
         run: |
           VERSION=$(npm pkg get version | tr -d '"')
-          DATETIME=$(date +'%Y-%m-%d %H:%M')
-          GIT_HASH=$(git rev-parse --short HEAD)
-          INFO="Pestto v$VERSION ($DATETIME) [$GIT_HASH]"
+          INFO="Pestto v$VERSION (${{ github.run_number }}) [${{ github.sha }}]"
           echo "const BUILD_INFO = '$INFO';" > version.js
           echo "🏗️  version.js gerado no CI"
       - run: npm run build
