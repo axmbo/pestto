@@ -23,7 +23,13 @@ jobs:
         with:
           node-version: 20
 
-      # Usa o seu script maravilhoso para gerar o pestto-local.zip
+      - name: Gerar version.js
+        run: |
+          VERSION=$(npm pkg get version | tr -d '"')
+          INFO="Pestto v$VERSION (${{ github.run_number }}) [${GITHUB_SHA::7}]"
+          echo "const BUILD_INFO = '$INFO';" > version.js
+          echo "🏗️  version.js gerado no Release"
+
       - name: Construir extensão
         run: npm run build
 
