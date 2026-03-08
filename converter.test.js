@@ -39,4 +39,16 @@ describe('Conversor Markdown -> WhatsApp', () => {
         const input = 'Texto normal sem formatação.';
         expect(convertMarkdown(input)).toBe(input);
     });
+
+    it('deve proteger código inline de conversões', () => {
+        const input = "Aqui temos um `código com **negrito** falso` no meio.";
+        const output = "Aqui temos um `código com **negrito** falso` no meio.";
+        expect(markdownToWhatsApp(input)).toBe(output);
+    });
+
+    it('deve proteger blocos de código de conversões', () => {
+        const input = "Um bloco:\n```\n**negrito** e *itálico*\n```\nFim.";
+        const output = "Um bloco:\n```\n**negrito** e *itálico*\n```\nFim.";
+        expect(markdownToWhatsApp(input)).toBe(output);
+    });
 });
