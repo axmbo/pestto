@@ -23,9 +23,9 @@ describe('Conversor Markdown -> WhatsApp', () => {
         expect(convertMarkdown(input)).toBe(expected);
     });
 
-    it('deve converter código em linha corretamente', () => {
+    it('deve não converter código em linha', () => {
         const input = 'Teste de `código` aqui.';
-        const expected = 'Teste de ```código``` aqui.';
+        const expected = 'Teste de `código` aqui.';
         expect(convertMarkdown(input)).toBe(expected);
     });
 
