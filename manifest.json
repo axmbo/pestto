@@ -10,14 +10,8 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://web.whatsapp.com/*"
-      ],
-      "js": [
-        "version.js",
-        "converter.js",
-        "content.js"
-      ],
+      "matches": ["https://web.whatsapp.com/*"],
+      "js": ["version.js", "converter.js", "content.js"],
       "run_at": "document_idle"
     }
   ]
