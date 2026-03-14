@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { execSync } = require('child_process');
 const packageJson = require('./package.json');
 const manifestJson = require('./manifest.json');
 
@@ -11,6 +12,9 @@ fs.writeFileSync(
   JSON.stringify(manifestJson, null, 2) + '\n'
 );
 
+// Formata o manifest.json com o prettier para o CI não quebrar
+execSync('npx prettier --write manifest.json', { stdio: 'inherit' });
+
 console.log(
-  `✅ manifest.json sincronizado para a versão ${packageJson.version}`
+  `✅ manifest.json sincronizado e formatado para a versão ${packageJson.version}`
 );
