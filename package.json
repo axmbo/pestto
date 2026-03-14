@@ -16,8 +16,13 @@
     "type": "git",
     "url": "git+https://github.com/axmbo/pestto.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "chrome-extension",
+    "whatsapp",
+    "markdown",
+    "clipboard"
+  ],
+  "author": "axmbo",
   "license": "MIT",
   "type": "commonjs",
   "bugs": {
