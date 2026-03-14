@@ -2,7 +2,6 @@ name: Publicar Release Oficial
 
 env:
   ZIP_NAME: pestto-latest.zip
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 on:
   push:
@@ -35,7 +34,7 @@ jobs:
         run: mv ${{ env.ZIP_NAME }} pestto-${{ github.ref_name }}.zip
 
       - name: Publicar na aba Releases
-        uses: softprops/action-gh-release@v2
-        with:
-          files: pestto-${{ github.ref_name }}.zip
-          generate_release_notes: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create ${{ github.ref_name }} pestto-${{ github.ref_name }}.zip --generate-notes
