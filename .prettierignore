@@ -2,3 +2,4 @@ node_modules/
 version.js
 *.zip
 package-lock.json
+casos_de_teste.md
