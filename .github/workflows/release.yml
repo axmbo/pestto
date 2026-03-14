@@ -2,6 +2,7 @@ name: Publicar Release Oficial
 
 env:
   ZIP_NAME: pestto-latest.zip
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
   push:
@@ -21,7 +22,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Gerar version.js
         run: ./generate-version.sh "${{ github.run_number }}" "${GITHUB_SHA::7}"
