@@ -20,7 +20,7 @@ Textos gerados por IA (ChatGPT, Gemini, etc.) usam Markdown (`**negrito**`, `*it
 ## Arquitetura
 
 | Arquivo             | Responsabilidade                                                                |
-|---------------------|---------------------------------------------------------------------------------|
+| ------------------- | ------------------------------------------------------------------------------- |
 | `manifest.json`     | Manifest V3 — declara a extensão, permissões e content scripts                  |
 | `content.js`        | Intercepta o evento `paste` no WhatsApp Web (fase de captura)                   |
 | `converter.js`      | Lógica pura de conversão Markdown → WhatsApp (sem dependência do DOM)           |
@@ -49,7 +49,7 @@ Usuário cola texto (Ctrl+V)
 ### Conversões Suportadas
 
 | Markdown    | WhatsApp  | Tipo    |
-|-------------|-----------|---------|
+| ----------- | --------- | ------- |
 | `**texto**` | `*texto*` | Negrito |
 | `*texto*`   | `_texto_` | Itálico |
 | `~~texto~~` | `~texto~` | Tachado |
@@ -61,10 +61,12 @@ Usuário cola texto (Ctrl+V)
 ## CI/CD (GitHub Actions)
 
 ### `ci.yml` — Push na `main`
+
 1. **test** — Instala dependências e roda `npm test` (Vitest)
 2. **build** — Gera `version.js`, cria o zip e salva como artefato
 
 ### `release.yml` — Push de tag `v*`
+
 1. Gera `version.js` com info da release
 2. Cria o zip renomeado (`pestto-v0.x.x.zip`)
 3. Publica na aba **Releases** do GitHub
@@ -74,7 +76,7 @@ Usuário cola texto (Ctrl+V)
 ## Stack Técnica
 
 | Componente | Tecnologia                           |
-|------------|--------------------------------------|
+| ---------- | ------------------------------------ |
 | Linguagem  | JavaScript (vanilla, sem frameworks) |
 | Manifest   | Chrome Extensions Manifest V3        |
 | Testes     | Vitest                               |

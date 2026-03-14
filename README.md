@@ -2,7 +2,7 @@
 
 Uma extensão de navegador minimalista que converte automaticamente a formatação Markdown ao colar textos no WhatsApp Web.
 
-*(O nome é uma brincadeira com "paste + to" e um trocadilho com o famoso molho pesto).*
+_(O nome é uma brincadeira com "paste + to" e um trocadilho com o famoso molho pesto)._
 
 ## 🎯 Objetivo
 
@@ -24,13 +24,15 @@ Como o projeto está em sua versão inicial (v0.1), a instalação é feita loca
 
 A extensão intercepta o evento global de `paste` no navegador, rodando exclusivamente no domínio `https://web.whatsapp.com/*`.
 
-* Verifica se o usuário está em um campo `contenteditable` (a caixa de mensagem).
-* Lê o texto puro da área de transferência (`text/plain`).
-* Converte a sintaxe Markdown para a sintaxe do WhatsApp em memória.
-* Previne o comportamento padrão e insere o texto já formatado.
+- Verifica se o usuário está em um campo `contenteditable` (a caixa de mensagem).
+- Lê o texto puro da área de transferência (`text/plain`).
+- Converte a sintaxe Markdown para a sintaxe do WhatsApp em memória.
+- Previne o comportamento padrão e insere o texto já formatado.
 
 ### O que a extensão NÃO FAZ:
+
 Seguindo princípios estritos de segurança e privacidade:
+
 - Não lê suas mensagens enviadas ou recebidas.
 - Não percorre o DOM da página.
 - Não usa `MutationObserver`.
@@ -51,4 +53,4 @@ npx vitest run
 
 ## 🤝 Contribuição
 
-Contribuições são bem-vindas! O foco atual é manter a extensão pequena, clara e com as permissões mínimas possíveis. Se você encontrar casos onde a conversão falha (edge cases do Regex), sinta-se à vontade para abrir uma *Issue* ou enviar um *Pull Request*.
+Contribuições são bem-vindas! O foco atual é manter a extensão pequena, clara e com as permissões mínimas possíveis. Se você encontrar casos onde a conversão falha (edge cases do Regex), sinta-se à vontade para abrir uma _Issue_ ou enviar um _Pull Request_.

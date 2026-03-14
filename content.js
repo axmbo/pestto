@@ -1,10 +1,15 @@
-console.log(`%c🍝 ${BUILD_INFO} carregado!`, "color: green; font-weight: bold;");
+console.log(
+  `%c🍝 ${BUILD_INFO} carregado!`,
+  'color: green; font-weight: bold;'
+);
 
 /**
  * Intercepta o evento de colar (paste) na FASE DE CAPTURA.
  * O 'true' no final do addEventListener é o que ativa essa fase.
  */
-document.addEventListener('paste', (event) => {
+document.addEventListener(
+  'paste',
+  (event) => {
     // 1. Se o evento já for o nosso "Cavalo de Tróia", deixamos o WhatsApp agir livremente!
     if (event.isPesttoEvent) return;
 
@@ -13,8 +18,8 @@ document.addEventListener('paste', (event) => {
 
     // 2. A MÁGICA DA EXCEÇÃO: Se a cópia veio do próprio WhatsApp, não fazemos NADA!
     if (types.includes('application/whatsapp')) {
-        console.log('Cópia interna do WhatsApp detectada. Abortando Pestto.');
-        return;
+      console.log('Cópia interna do WhatsApp detectada. Abortando Pestto.');
+      return;
     }
 
     const rawText = clipboard.getData('text/plain');
@@ -36,9 +41,9 @@ document.addEventListener('paste', (event) => {
 
     // 6. Criamos o evento de colar falso
     const fakePasteEvent = new ClipboardEvent('paste', {
-        clipboardData: dataTransfer,
-        bubbles: true,
-        cancelable: true
+      clipboardData: dataTransfer,
+      bubbles: true,
+      cancelable: true,
     });
 
     // Marcamos o evento para não entrarmos em um loop infinito no Passo 1
@@ -46,5 +51,6 @@ document.addEventListener('paste', (event) => {
 
     // 7. Injetamos o Cavalo de Tróia no exato elemento onde o usuário estava digitando!
     event.target.dispatchEvent(fakePasteEvent);
-
-}, true);
+  },
+  true
+);

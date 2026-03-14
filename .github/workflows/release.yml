@@ -6,7 +6,7 @@ env:
 on:
   push:
     tags:
-      - "v*" # Roda apenas quando enviarmos uma tag (ex: v0.2.0)
+      - 'v*' # Roda apenas quando enviarmos uma tag (ex: v0.2.0)
 
 jobs:
   release:

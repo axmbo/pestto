@@ -4,51 +4,50 @@ import './converter.js'; // Apenas importa o arquivo para ele rodar e registrar 
 // Pegamos a função que foi injetada no ambiente global pelo arquivo acima
 const convertMarkdown = globalThis.markdownToWhatsApp;
 describe('Conversor Markdown -> WhatsApp', () => {
+  it('deve converter negrito corretamente', () => {
+    const input = 'Teste de **negrito** aqui.';
+    const expected = 'Teste de *negrito* aqui.';
+    expect(convertMarkdown(input)).toBe(expected);
+  });
 
-    it('deve converter negrito corretamente', () => {
-        const input = 'Teste de **negrito** aqui.';
-        const expected = 'Teste de *negrito* aqui.';
-        expect(convertMarkdown(input)).toBe(expected);
-    });
+  it('deve converter itálico corretamente', () => {
+    const input = 'Teste de *itálico* aqui.';
+    const expected = 'Teste de _itálico_ aqui.';
+    expect(convertMarkdown(input)).toBe(expected);
+  });
 
-    it('deve converter itálico corretamente', () => {
-        const input = 'Teste de *itálico* aqui.';
-        const expected = 'Teste de _itálico_ aqui.';
-        expect(convertMarkdown(input)).toBe(expected);
-    });
+  it('deve converter tachado corretamente', () => {
+    const input = 'Teste de ~~tachado~~ aqui.';
+    const expected = 'Teste de ~tachado~ aqui.';
+    expect(convertMarkdown(input)).toBe(expected);
+  });
 
-    it('deve converter tachado corretamente', () => {
-        const input = 'Teste de ~~tachado~~ aqui.';
-        const expected = 'Teste de ~tachado~ aqui.';
-        expect(convertMarkdown(input)).toBe(expected);
-    });
+  it('deve não converter código em linha', () => {
+    const input = 'Teste de `código` aqui.';
+    const expected = 'Teste de `código` aqui.';
+    expect(convertMarkdown(input)).toBe(expected);
+  });
 
-    it('deve não converter código em linha', () => {
-        const input = 'Teste de `código` aqui.';
-        const expected = 'Teste de `código` aqui.';
-        expect(convertMarkdown(input)).toBe(expected);
-    });
+  it('deve lidar com o caso do falso itálico no negrito (substituição em cascata)', () => {
+    const input = 'Texto com **negrito** e *itálico*.';
+    const expected = 'Texto com *negrito* e _itálico_.';
+    expect(convertMarkdown(input)).toBe(expected);
+  });
 
-    it('deve lidar com o caso do falso itálico no negrito (substituição em cascata)', () => {
-        const input = 'Texto com **negrito** e *itálico*.';
-        const expected = 'Texto com *negrito* e _itálico_.';
-        expect(convertMarkdown(input)).toBe(expected);
-    });
+  it('não deve alterar texto sem formatação', () => {
+    const input = 'Texto normal sem formatação.';
+    expect(convertMarkdown(input)).toBe(input);
+  });
 
-    it('não deve alterar texto sem formatação', () => {
-        const input = 'Texto normal sem formatação.';
-        expect(convertMarkdown(input)).toBe(input);
-    });
+  it('deve proteger código inline de conversões', () => {
+    const input = 'Aqui temos um `código com **negrito** falso` no meio.';
+    const output = 'Aqui temos um `código com **negrito** falso` no meio.';
+    expect(convertMarkdown(input)).toBe(output);
+  });
 
-    it('deve proteger código inline de conversões', () => {
-        const input = "Aqui temos um `código com **negrito** falso` no meio.";
-        const output = "Aqui temos um `código com **negrito** falso` no meio.";
-        expect(convertMarkdown(input)).toBe(output);
-    });
-
-    it('deve proteger blocos de código de conversões', () => {
-        const input = "Um bloco:\n```\n**negrito** e *itálico*\n```\nFim.";
-        const output = "Um bloco:\n```\n**negrito** e *itálico*\n```\nFim.";
-        expect(convertMarkdown(input)).toBe(output);
-    });
+  it('deve proteger blocos de código de conversões', () => {
+    const input = 'Um bloco:\n```\n**negrito** e *itálico*\n```\nFim.';
+    const output = 'Um bloco:\n```\n**negrito** e *itálico*\n```\nFim.';
+    expect(convertMarkdown(input)).toBe(output);
+  });
 });

@@ -8,6 +8,10 @@
   },
   "scripts": {
     "test": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "build": "rm -f $npm_package_config_zipName && zip -q $npm_package_config_zipName manifest.json content.js converter.js version.js icon-128.png",
     "version": "node sync-version.js && git add manifest.json",
     "undo-version": "git tag -d $(git tag --points-at HEAD) && git reset --hard HEAD~1"
@@ -30,6 +34,10 @@
   },
   "homepage": "https://github.com/axmbo/pestto#readme",
   "devDependencies": {
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.4.0",
+    "prettier": "^3.8.1",
     "vitest": "^4.0.18"
   }
 }

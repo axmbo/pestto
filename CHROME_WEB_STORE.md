@@ -29,7 +29,7 @@ https://github.com/axmbo/pestto/issues
 
 ## Descrição
 
-```text
+````text
 Pestto — Cole textos com Markdown no WhatsApp Web e veja a formatação funcionar automaticamente. 🍝
 
 Você usa ChatGPT, Gemini, Copilot ou outra IA no dia a dia? Então já deve ter passado por isso: você copia uma resposta bem formatada, cola no WhatsApp Web e… o texto chega cru, sem negrito, sem itálico, sem nada. Toda aquela estrutura bonita se perde. Ou, pior, a formatação do MarkDown é interpretada de forma diversa da pretendida.
@@ -61,7 +61,7 @@ Minimalista por design:
 O Pestto não tenta fazer tudo. Ele faz uma única coisa — converter Markdown ao colar — e faz isso bem. Sem bloatware, sem permissões desnecessárias, sem surpresas.
 
 O nome é uma brincadeira com "paste + to" e um trocadilho com o famoso molho pesto. 🍝
-```
+````
 
 ---
 
