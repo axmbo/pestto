@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "build": "rm -f $npm_package_config_zipName && zip -q $npm_package_config_zipName manifest.json content.js converter.js version.js icon-16.png icon-48.png icon-128.png",
-    "version": "node sync-version.js && git add manifest.json",
+    "version": "node sync-version.js && conventional-changelog -p angular -i CHANGELOG.md -s && git add manifest.json CHANGELOG.md",
     "undo-version": "git tag -d $(git tag --points-at HEAD) && git reset --hard HEAD~1"
   },
   "repository": {
@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/axmbo/pestto#readme",
   "devDependencies": {
+    "conventional-changelog-cli": "^5.0.0",
     "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.4.0",
