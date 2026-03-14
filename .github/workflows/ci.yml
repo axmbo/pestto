@@ -26,8 +26,8 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
       - run: npm install
@@ -35,7 +35,7 @@ jobs:
         run: ./generate-version.sh "${{ github.run_number }}" "${GITHUB_SHA::7}"
       - run: npm run build
       - name: Salvar Artefato
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: pestto-latest-build
           path: ${{ env.ZIP_NAME }}
