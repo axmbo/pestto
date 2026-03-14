@@ -21,15 +21,29 @@ function markdownToWhatsApp(text) {
     return `__INLINE_${inlineCodes.length - 1}__`;
   });
 
-  // ==========================================
   // 3. APLICAR SUAS REGRAS DE CONVERSÃO AQUI
+  // Converte a formatação para tokens temporários para evitar interferência entre expressões regulares
   processedText = processedText.replace(
-    /(?<!\*)\*(?!\*)(.*?)(?<!\*)\*(?!\*)/g,
-    '_$1_'
+    /(?<!\*)\*\*\*([\s\S]+?)\*\*\*(?!\*)/g,
+    '\x01\x03$1\x04\x02'
   );
-  processedText = processedText.replace(/\*\*(.*?)\*\*/g, '*$1*');
-  processedText = processedText.replace(/~~(.*?)~~/g, '~$1~');
-  // ==========================================
+  processedText = processedText.replace(
+    /(?<!\*)\*\*(?!\s)([\s\S]+?)(?<!\s)\*\*(?!\*)/g,
+    '\x01$1\x02'
+  );
+  processedText = processedText.replace(
+    /(?<!\*)\*(?!\s)([\s\S]+?)(?<!\s)\*(?!\*)/g,
+    '\x03$1\x04'
+  );
+  processedText = processedText.replace(
+    /~~(?!\s)([\s\S]+?)(?<!\s)~~/g,
+    '\x05$1\x06'
+  );
+
+  // Restaura os tokens para as marcações definitivas reconhecidas pelo WhatsApp
+  processedText = processedText.replace(/\x01/g, '*').replace(/\x02/g, '*');
+  processedText = processedText.replace(/\x03/g, '_').replace(/\x04/g, '_');
+  processedText = processedText.replace(/\x05/g, '~').replace(/\x06/g, '~');
 
   // 4. RESTAURAR CÓDIGO INLINE
   processedText = processedText.replace(/__INLINE_(\d+)__/g, (match, id) => {

@@ -50,4 +50,28 @@ describe('Conversor Markdown -> WhatsApp', () => {
     const output = 'Um bloco:\n```\n**negrito** e *itálico*\n```\nFim.';
     expect(convertMarkdown(input)).toBe(output);
   });
+
+  it('deve converter negrito e itálico juntos (aninhados)', () => {
+    const input = 'Texto ***aninhado*** aqui.';
+    const expected = 'Texto *_aninhado_* aqui.';
+    expect(convertMarkdown(input)).toBe(expected);
+  });
+
+  it('deve converter formatação multilinha sem quebrar', () => {
+    const input = '**linha1\nlinha2**';
+    const expected = '*linha1\nlinha2*';
+    expect(convertMarkdown(input)).toBe(expected);
+  });
+
+  it('não deve converter asteriscos matemáticos soltos', () => {
+    const input = 'A conta é 2 * 3 = 6 e 4 * 5 = 20.';
+    const expected = 'A conta é 2 * 3 = 6 e 4 * 5 = 20.';
+    expect(convertMarkdown(input)).toBe(expected);
+  });
+
+  it('não deve alterar formatação incompleta', () => {
+    const input = 'Um **negrito aberto mas não fechado';
+    const expected = 'Um **negrito aberto mas não fechado';
+    expect(convertMarkdown(input)).toBe(expected);
+  });
 });
