@@ -26,7 +26,6 @@ function markdownToWhatsApp(text) {
     processedText = processedText.replace(/(?<!\*)\*(?!\*)(.*?)(?<!\*)\*(?!\*)/g, '_$1_');
     processedText = processedText.replace(/\*\*(.*?)\*\*/g, '*$1*');
     processedText = processedText.replace(/~~(.*?)~~/g, '~$1~');
-    //processedText = processedText.replace(/(?<!`)`(?!`)(.+?)(?<!`)`(?!`)/g, '```$1```');
     // ==========================================
 
     // 4. RESTAURAR CÓDIGO INLINE
