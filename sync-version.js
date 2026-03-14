@@ -6,6 +6,6 @@ const manifestJson = require('./manifest.json');
 manifestJson.version = packageJson.version;
 
 // Salva o manifest.json atualizado
-fs.writeFileSync('./manifest.json', JSON.stringify(manifestJson, null, 2));
+fs.writeFileSync('./manifest.json', JSON.stringify(manifestJson, null, 2) + '\n');
 
 console.log(`✅ manifest.json sincronizado para a versão ${packageJson.version}`);
