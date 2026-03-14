@@ -7,6 +7,7 @@
 - **Versão atual:** 0.1.1
 - **Licença:** MIT
 - **Repositório:** [github.com/axmbo/pestto](https://github.com/axmbo/pestto)
+- **Chrome Web Store:** [Pestto](https://chromewebstore.google.com/detail/gkgbejhaebncdjjkmejinkdmnomcijgi)
 
 ---
 
@@ -18,15 +19,15 @@ Textos gerados por IA (ChatGPT, Gemini, etc.) usam Markdown (`**negrito**`, `*it
 
 ## Arquitetura
 
-| Arquivo | Responsabilidade |
-|---|---|
-| `manifest.json` | Manifest V3 — declara a extensão, permissões e content scripts |
-| `content.js` | Intercepta o evento `paste` no WhatsApp Web (fase de captura) |
-| `converter.js` | Lógica pura de conversão Markdown → WhatsApp (sem dependência do DOM) |
-| `version.js` | Gerado pelo CI/CD — contém `BUILD_INFO` com versão, build e commit hash |
-| `sync-version.js` | Script npm `version` — sincroniza a versão do `package.json` no `manifest.json` |
-| `converter.test.js` | Testes unitários com Vitest |
-| `build.sh` | Script auxiliar de build (zip) |
+| Arquivo             | Responsabilidade                                                                |
+|---------------------|---------------------------------------------------------------------------------|
+| `manifest.json`     | Manifest V3 — declara a extensão, permissões e content scripts                  |
+| `content.js`        | Intercepta o evento `paste` no WhatsApp Web (fase de captura)                   |
+| `converter.js`      | Lógica pura de conversão Markdown → WhatsApp (sem dependência do DOM)           |
+| `version.js`        | Gerado pelo CI/CD — contém `BUILD_INFO` com versão, build e commit hash         |
+| `sync-version.js`   | Script npm `version` — sincroniza a versão do `package.json` no `manifest.json` |
+| `converter.test.js` | Testes unitários com Vitest                                                     |
+| `build.sh`          | Script auxiliar de build (zip)                                                  |
 
 ### Fluxo de Execução
 
@@ -47,10 +48,10 @@ Usuário cola texto (Ctrl+V)
 
 ### Conversões Suportadas
 
-| Markdown | WhatsApp | Tipo |
-|---|---|---|
+| Markdown    | WhatsApp  | Tipo    |
+|-------------|-----------|---------|
 | `**texto**` | `*texto*` | Negrito |
-| `*texto*` | `_texto_` | Itálico |
+| `*texto*`   | `_texto_` | Itálico |
 | `~~texto~~` | `~texto~` | Tachado |
 
 > **Proteção de código:** texto dentro de código inline (`` `...` ``) e blocos de código (` ```...``` `) **não é convertido**. O conversor protege esses trechos antes de aplicar as regras de formatação e os restaura intactos ao final, garantindo que marcações Markdown dentro de código sejam preservadas literalmente.
@@ -72,13 +73,13 @@ Usuário cola texto (Ctrl+V)
 
 ## Stack Técnica
 
-| Componente | Tecnologia |
-|---|---|
-| Linguagem | JavaScript (vanilla, sem frameworks) |
-| Manifest | Chrome Extensions Manifest V3 |
-| Testes | Vitest |
-| CI/CD | GitHub Actions |
-| Build | npm scripts + zip |
+| Componente | Tecnologia                           |
+|------------|--------------------------------------|
+| Linguagem  | JavaScript (vanilla, sem frameworks) |
+| Manifest   | Chrome Extensions Manifest V3        |
+| Testes     | Vitest                               |
+| CI/CD      | GitHub Actions                       |
+| Build      | npm scripts + zip                    |
 
 ---
 
