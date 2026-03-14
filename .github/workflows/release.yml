@@ -2,7 +2,7 @@ name: Publicar Release Oficial
 
 env:
   ZIP_NAME: pestto-latest.zip
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 on:
   push:
