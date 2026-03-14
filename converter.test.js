@@ -53,13 +53,13 @@ describe('Conversor Markdown -> WhatsApp', () => {
 
   it('deve converter negrito e itálico juntos (aninhados)', () => {
     const input = 'Texto ***aninhado*** aqui.';
-    const expected = 'Texto *_aninhado_* aqui.';
+    const expected = 'Texto _*aninhado*_ aqui.';
     expect(convertMarkdown(input)).toBe(expected);
   });
 
-  it('deve converter formatação multilinha sem quebrar', () => {
+  it('não deve converter formatação multilinha (devido a restrição do WhatsApp)', () => {
     const input = '**linha1\nlinha2**';
-    const expected = '*linha1\nlinha2*';
+    const expected = '**linha1\nlinha2**';
     expect(convertMarkdown(input)).toBe(expected);
   });
 

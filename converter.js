@@ -24,19 +24,19 @@ function markdownToWhatsApp(text) {
   // 3. APLICAR SUAS REGRAS DE CONVERSÃO AQUI
   // Converte a formatação para tokens temporários para evitar interferência entre expressões regulares
   processedText = processedText.replace(
-    /(?<!\*)\*\*\*([\s\S]+?)\*\*\*(?!\*)/g,
-    '\x01\x03$1\x04\x02'
+    /(?<!\*)\*\*\*([^\n]+?)\*\*\*(?!\*)/g,
+    '\x03\x01$1\x02\x04'
   );
   processedText = processedText.replace(
-    /(?<!\*)\*\*(?!\s)([\s\S]+?)(?<!\s)\*\*(?!\*)/g,
+    /(?<!\*)\*\*(?!\s)([^\n]+?)(?<!\s)\*\*(?!\*)/g,
     '\x01$1\x02'
   );
   processedText = processedText.replace(
-    /(?<!\*)\*(?!\s)([\s\S]+?)(?<!\s)\*(?!\*)/g,
+    /(?<!\*)\*(?!\s)([^\n]+?)(?<!\s)\*(?!\*)/g,
     '\x03$1\x04'
   );
   processedText = processedText.replace(
-    /~~(?!\s)([\s\S]+?)(?<!\s)~~/g,
+    /~~(?!\s)([^\n]+?)(?<!\s)~~/g,
     '\x05$1\x06'
   );
 

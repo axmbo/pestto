@@ -20,9 +20,6 @@ console.log(text);
 ## 3. Casos Aninhados e Compostos
 - **Múltiplos formatos na mesma linha**: Um texto com **negrito** e também com *itálico*.
 - **Negrito e Itálico simultâneos**: Esse é um teste ***aninhado*** com os dois formatos.
-- **Formatação multilinha**:
-**Esta frase começa aqui
-e termina na linha de baixo.**
 
 ## 4. Casos Extremos (Devem ser ignorados / mantidos)
 - **Matemática (asteriscos soltos)**: A conta de 2 * 3 = 6 e de 4 * 5 = 20.
