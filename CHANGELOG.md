@@ -1,3 +1,4 @@
+## [0.2.6](https://github.com/axmbo/pestto/compare/v0.2.5...v0.2.6) (2026-03-14)
 
 ## [0.2.5](https://github.com/axmbo/pestto/compare/v0.2.4...v0.2.5) (2026-03-14)
 
