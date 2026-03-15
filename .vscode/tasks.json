@@ -127,6 +127,17 @@
         "reveal": "always",
         "panel": "shared"
       }
+    },
+    {
+      "label": "Git: Push with Tags",
+      "type": "shell",
+      "command": "git push --follow-tags",
+      "group": "none",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
     }
   ]
 }
