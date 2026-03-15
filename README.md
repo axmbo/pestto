@@ -46,13 +46,14 @@ Seguindo princípios estritos de segurança e privacidade:
 
 ## 🧪 Testes
 
-A lógica de conversão é isolada do navegador e coberta por testes automatizados utilizando [Vitest](https://vitest.dev/). Há suítes de teste para o conversor (`converter.test.js`), para o script de sincronização de versão (`sync-version.test.js`) e para o script de geração de versão (`generate-version.test.js`).
+A lógica de conversão é isolada do navegador e coberta por testes automatizados utilizando [Vitest](https://vitest.dev/). As suítes de teste estão localizadas na pasta `tests/`.
 
 Para rodar os testes localmente:
 
 ```bash
 npm install
-npm test
+npm test            # Executa os testes uma única vez e encerra
+npm run test:watch  # Executa os testes e aguarda alterações (modo interativo)
 ```
 
 ## 🔍 Qualidade de Código
