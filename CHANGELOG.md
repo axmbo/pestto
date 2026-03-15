@@ -1,3 +1,10 @@
+# [0.3.0-rc.4](https://github.com/axmbo/pestto/compare/v0.3.0-rc.3...v0.3.0-rc.4) (2026-03-15)
+
+
+### Features
+
+* Add new VS Code task for pushing Git changes with tags. ([770cced](https://github.com/axmbo/pestto/commit/770cced21fa77ae166a45e4612842ef2534327d1))
+* Add VS Code tasks for linting, formatting, and version management, and update the build task label. ([4573b5e](https://github.com/axmbo/pestto/commit/4573b5e2f745846d6b91db540f8f76e61c341f1a))
 # [0.3.0-rc.3](https://github.com/axmbo/pestto/compare/v0.3.0-rc.2...v0.3.0-rc.3) (2026-03-15)
 
 
