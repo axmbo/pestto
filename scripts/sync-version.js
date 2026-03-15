@@ -7,8 +7,10 @@ const packageJson = require(path.join(root, 'package.json'));
 const manifestPath = path.join(root, 'manifest.json');
 const manifestJson = require(manifestPath);
 
-// Copia a versão do package.json (o Chefe) para o manifest.json
-manifestJson.version = packageJson.version;
+// O Chrome só aceita versões no formato N.N.N.N (sem sufixos como -rc.0, -beta.1).
+// Sanitizamos aqui antes de escrever no manifest.json.
+const chromeVersion = packageJson.version.replace(/-.*$/, '');
+manifestJson.version = chromeVersion;
 
 // Salva o manifest.json atualizado
 fs.writeFileSync(manifestPath, JSON.stringify(manifestJson, null, 2) + '\n');

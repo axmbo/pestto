@@ -7,10 +7,16 @@ describe('sync-version.js', () => {
     execSync('node scripts/sync-version.js');
   });
 
-  it('deve sincronizar a versão do package.json no manifest.json', () => {
+  it('deve sincronizar a versão do package.json no manifest.json (sem sufixo pre-release)', () => {
     const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
     const manifest = JSON.parse(fs.readFileSync('./manifest.json', 'utf-8'));
-    expect(manifest.version).toBe(pkg.version);
+    const chromeVersion = pkg.version.replace(/-.*$/, '');
+    expect(manifest.version).toBe(chromeVersion);
+  });
+
+  it('não deve incluir sufixo pre-release na versão do manifest.json', () => {
+    const manifest = JSON.parse(fs.readFileSync('./manifest.json', 'utf-8'));
+    expect(manifest.version).toMatch(/^\d+\.\d+\.\d+(\.\d+)?$/);
   });
 
   it('deve gerar um manifest.json válido (JSON parseable)', () => {
