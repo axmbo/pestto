@@ -1,3 +1,9 @@
+# [0.3.0-rc.2](https://github.com/axmbo/pestto/compare/v0.3.0-rc.1...v0.3.0-rc.2) (2026-03-15)
+
+
+### Bug Fixes
+
+* Prevent `generate-version.sh` from modifying `manifest.json` during local builds, updating it only for CI builds, and adjust tests accordingly. ([af554fa](https://github.com/axmbo/pestto/commit/af554faa3e19ee7c934fdf7e829272a748d3e385))
 # [0.3.0-rc.1](https://github.com/axmbo/pestto/compare/v0.3.0-rc.0...v0.3.0-rc.1) (2026-03-15)
 
 

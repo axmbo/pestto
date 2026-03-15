@@ -1,6 +1,6 @@
 {
   "name": "pestto",
-  "version": "0.3.0-rc.1",
+  "version": "0.3.0-rc.2",
   "description": "Extensão minimalista para conversão automática de Markdown ao colar texto no WhatsApp Web.",
   "main": "src/content.js",
   "config": {
