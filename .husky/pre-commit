@@ -1,5 +1,40 @@
-echo "🧹 Rodando linters e formatadores (lint-staged)..."
-npx lint-staged
+#!/usr/bin/env sh
+
+# Captura apenas a saída de erro do lint-staged (que já imprimirá os problemas de check no console)
+echo "🧹 Verificando formatação (lint-staged)..."
+
+# Roda lint-staged, se falhar, nós tratamos o erro
+if ! npx lint-staged; then
+  echo ""
+  echo "⚠️ Foram detectados problemas de formatação ou lint no código que você tentou commitar."
+  echo "Aplicando as correções na sua área de trabalho..."
+  
+  # Pegar a lista de arquivos que estavam em staging (adicionados pro commit)
+  STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM || true)
+  
+  if [ -n "$STAGED_FILES" ]; then
+    # Filtrar arquivos
+    JS_FILES=$(echo "$STAGED_FILES" | grep -E '\.js$' || true)
+    OTHER_FILES=$(echo "$STAGED_FILES" | grep -E '\.(json|md|yml|yaml)$' || true)
+    
+    # Aplicar correções na working tree
+    if [ -n "$JS_FILES" ]; then
+      echo "$JS_FILES" | xargs npx eslint --fix >/dev/null 2>&1 || true
+      echo "$JS_FILES" | xargs npx prettier --write >/dev/null 2>&1 || true
+    fi
+    
+    if [ -n "$OTHER_FILES" ]; then
+      echo "$OTHER_FILES" | xargs npx prettier --write >/dev/null 2>&1 || true
+    fi
+  fi
+  
+  echo ""
+  echo "❌ Commit abortado."
+  echo "A sua versão (staged) continha erros, mas os arquivos foram corrigidos soltos na sua working tree (versão não-staged)."
+  echo "Use 'git diff' para comparar a sua versão com a que os formatadores fizeram."
+  echo "Depois, faça 'git add' para aceitá-las e tente o commit novamente."
+  exit 1
+fi
 
 echo "🧪 Rodando testes unitarios (Vitest)..."
 npm run test -- --run
