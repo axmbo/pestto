@@ -1,0 +1,5 @@
+echo "🧹 Rodando linters e formatadores (lint-staged)..."
+npx lint-staged
+
+echo "🧪 Rodando testes unitarios (Vitest)..."
+npm run test -- --run

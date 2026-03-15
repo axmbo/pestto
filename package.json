@@ -14,7 +14,8 @@
     "format:check": "prettier --check .",
     "build": "rm -f $npm_package_config_zipName && zip -q $npm_package_config_zipName manifest.json content.js converter.js version.js icon-16.png icon-48.png icon-128.png",
     "version": "node sync-version.js && conventional-changelog -p angular -i CHANGELOG.md -s && git add manifest.json CHANGELOG.md",
-    "undo-version": "git tag -d $(git tag --points-at HEAD) && git reset --hard HEAD~1"
+    "undo-version": "git tag -d $(git tag --points-at HEAD) && git reset --hard HEAD~1",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -38,7 +39,18 @@
     "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
     "vitest": "^4.0.18"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   }
 }
