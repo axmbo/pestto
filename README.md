@@ -1,5 +1,7 @@
 # 🍝 Pestto
 
+[![CI - Testes e Build](https://github.com/axmbo/pestto/actions/workflows/ci.yml/badge.svg)](https://github.com/axmbo/pestto/actions/workflows/ci.yml)
+
 Uma extensão de navegador minimalista que converte automaticamente a formatação Markdown ao colar textos no WhatsApp Web.
 
 _(O nome é uma brincadeira com "paste + to" e um trocadilho com o famoso molho pesto)._
