@@ -4,7 +4,7 @@
 
 **Pestto** é uma extensão de navegador (Chrome/Chromium) minimalista que converte automaticamente a formatação Markdown para a sintaxe nativa do WhatsApp ao colar texto no [WhatsApp Web](https://web.whatsapp.com). O nome é um trocadilho com "paste + to" e o molho pesto 🍝.
 
-- **Versão atual:** 0.1.1
+- **Versão atual:** 0.2.6
 - **Licença:** MIT
 - **Repositório:** [github.com/axmbo/pestto](https://github.com/axmbo/pestto)
 - **Chrome Web Store:** [Pestto](https://chromewebstore.google.com/detail/gkgbejhaebncdjjkmejinkdmnomcijgi)
@@ -19,15 +19,18 @@ Textos gerados por IA (ChatGPT, Gemini, etc.) usam Markdown (`**negrito**`, `*it
 
 ## Arquitetura
 
-| Arquivo             | Responsabilidade                                                                |
-| ------------------- | ------------------------------------------------------------------------------- |
-| `manifest.json`     | Manifest V3 — declara a extensão, permissões e content scripts                  |
-| `content.js`        | Intercepta o evento `paste` no WhatsApp Web (fase de captura)                   |
-| `converter.js`      | Lógica pura de conversão Markdown → WhatsApp (sem dependência do DOM)           |
-| `version.js`        | Gerado pelo CI/CD — contém `BUILD_INFO` com versão, build e commit hash         |
-| `sync-version.js`   | Script npm `version` — sincroniza a versão do `package.json` no `manifest.json` |
-| `converter.test.js` | Testes unitários com Vitest                                                     |
-| `build.sh`          | Script auxiliar de build (zip)                                                  |
+| Arquivo                    | Responsabilidade                                                                  |
+| -------------------------- | --------------------------------------------------------------------------------- |
+| `manifest.json`            | Manifest V3 — declara a extensão, permissões e content scripts                    |
+| `content.js`               | Intercepta o evento `paste` no WhatsApp Web (fase de captura)                     |
+| `converter.js`             | Lógica pura de conversão Markdown → WhatsApp (sem dependência do DOM)             |
+| `version.js`               | Gerado pelo CI/CD — contém `BUILD_INFO` com versão, build e commit hash           |
+| `generate-version.sh`      | Script bash que gera `version.js` (aceita argumentos do CI ou usa valores locais) |
+| `sync-version.js`          | Script npm `version` — sincroniza a versão do `package.json` no `manifest.json`   |
+| `converter.test.js`        | Testes unitários do conversor com Vitest                                          |
+| `sync-version.test.js`     | Testes unitários do script de sincronização de versão                             |
+| `generate-version.test.js` | Testes de integração do script `generate-version.sh`                              |
+| `build.sh`                 | Script auxiliar de build (zip)                                                    |
 
 ### Fluxo de Execução
 
@@ -48,11 +51,12 @@ Usuário cola texto (Ctrl+V)
 
 ### Conversões Suportadas
 
-| Markdown    | WhatsApp  | Tipo    |
-| ----------- | --------- | ------- |
-| `**texto**` | `*texto*` | Negrito |
-| `*texto*`   | `_texto_` | Itálico |
-| `~~texto~~` | `~texto~` | Tachado |
+| Markdown      | WhatsApp    | Tipo              |
+| ------------- | ----------- | ----------------- |
+| `**texto**`   | `*texto*`   | Negrito           |
+| `*texto*`     | `_texto_`   | Itálico           |
+| `~~texto~~`   | `~texto~`   | Tachado           |
+| `***texto***` | `_*texto*_` | Negrito + Itálico |
 
 > **Proteção de código:** texto dentro de código inline (`` `...` ``) e blocos de código (` ```...``` `) **não é convertido**. O conversor protege esses trechos antes de aplicar as regras de formatação e os restaura intactos ao final, garantindo que marcações Markdown dentro de código sejam preservadas literalmente.
 
@@ -63,13 +67,32 @@ Usuário cola texto (Ctrl+V)
 ### `ci.yml` — Push na `main`
 
 1. **test** — Instala dependências e roda `npm test` (Vitest)
-2. **build** — Gera `version.js`, cria o zip e salva como artefato
+2. **build** — Executa `generate-version.sh` para gerar `version.js`, cria o zip e salva como artefato
 
 ### `release.yml` — Push de tag `v*`
 
-1. Gera `version.js` com info da release
-2. Cria o zip renomeado (`pestto-v0.x.x.zip`)
-3. Publica na aba **Releases** do GitHub
+1. Executa `generate-version.sh` com o `run_number` e o SHA do commit para gerar `version.js`
+2. Gera o `CHANGELOG.md` via `conventional-changelog`
+3. Cria o zip renomeado (`pestto-v0.x.x.zip`)
+4. Publica na aba **Releases** do GitHub com o changelog gerado
+
+---
+
+## Qualidade de Código
+
+| Ferramenta  | Função                                                          |
+| ----------- | --------------------------------------------------------------- |
+| ESLint      | Linting de JS com escopos distintos: browser, Node e Vitest     |
+| Prettier    | Formatação automática de `.js`, `.json`, `.md`, `.yml`          |
+| lint-staged | Roda ESLint + Prettier apenas nos arquivos em staging no commit |
+| Husky       | Hook `pre-commit` que executa `lint-staged` e depois `npm test` |
+
+### Comportamento do `pre-commit`
+
+1. Roda `lint-staged` (ESLint + Prettier check nos arquivos staged).
+2. Se houver erros, aplica `eslint --fix` e `prettier --write` na _working tree_ (versão não-staged) e **aborta o commit**.
+3. O desenvolvedor revisa as correções com `git diff`, faz `git add` e tenta o commit novamente.
+4. Se lint-staged passar, roda os testes unitários (`npm test -- --run`).
 
 ---
 

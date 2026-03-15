@@ -10,9 +10,13 @@ O Pestto foi criado para resolver um problema recorrente: copiar respostas gerad
 
 Este é um projeto **open-source**, focado em simplicidade extrema, elegância e segurança. Não há coleta de dados, nem comunicação externa.
 
-## 🚀 Como instalar (Modo Desenvolvedor)
+## 🚀 Como instalar
 
-Como o projeto está em sua versão inicial (v0.1), a instalação é feita localmente:
+**Opção 1 — Chrome Web Store (recomendado):**
+
+Instale diretamente pela [Chrome Web Store](https://chromewebstore.google.com/detail/gkgbejhaebncdjjkmejinkdmnomcijgi).
+
+**Opção 2 — Modo Desenvolvedor (instalação local):**
 
 1. Faça o download ou clone este repositório.
 2. Abra o seu navegador (Chrome, Edge, Brave, etc.) e acesse a página de extensões (`chrome://extensions/`).
@@ -42,13 +46,26 @@ Seguindo princípios estritos de segurança e privacidade:
 
 ## 🧪 Testes
 
-A lógica de conversão é isolada do navegador e coberta por testes automatizados utilizando [Vitest](https://vitest.dev/).
+A lógica de conversão é isolada do navegador e coberta por testes automatizados utilizando [Vitest](https://vitest.dev/). Há suítes de teste para o conversor (`converter.test.js`), para o script de sincronização de versão (`sync-version.test.js`) e para o script de geração de versão (`generate-version.test.js`).
 
 Para rodar os testes localmente:
 
 ```bash
 npm install
-npx vitest run
+npm test
+```
+
+## 🔍 Qualidade de Código
+
+O projeto usa **ESLint** (com escopos distintos para browser, Node e Vitest) e **Prettier** para manter a consistência do código.
+
+O **Husky** configura um hook `pre-commit` que, via **lint-staged**, roda ESLint + Prettier nos arquivos em staging antes de cada commit. Se houver problemas, o commit é abortado, as correções são aplicadas na _working tree_ para revisão, e os testes unitários só são executados se o lint passar.
+
+```bash
+npm run lint        # verifica todos os arquivos
+npm run lint:fix    # corrige automaticamente
+npm run format      # formata todos os arquivos
+npm run format:check  # apenas verifica (sem alterar)
 ```
 
 ## 🤝 Contribuição
