@@ -1,3 +1,10 @@
+# [0.3.0-rc.3](https://github.com/axmbo/pestto/compare/v0.3.0-rc.2...v0.3.0-rc.3) (2026-03-15)
+
+
+### Features
+
+* Add VS Code launch and task configurations for building and testing. ([6cfb6aa](https://github.com/axmbo/pestto/commit/6cfb6aa7488b5bef526e47015dea4d1e6c7f0578))
+* Separate test execution into run-once (`npm test`) and watch mode (`npm run test:watch`), updating VS Code tasks and documentation. ([88d788d](https://github.com/axmbo/pestto/commit/88d788de695ac97893b9ff5cde2af9069f638160))
 # [0.3.0-rc.2](https://github.com/axmbo/pestto/compare/v0.3.0-rc.1...v0.3.0-rc.2) (2026-03-15)
 
 
