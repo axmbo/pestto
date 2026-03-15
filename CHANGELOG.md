@@ -1,3 +1,14 @@
+# [0.3.0-rc.1](https://github.com/axmbo/pestto/compare/v0.3.0-rc.0...v0.3.0-rc.1) (2026-03-15)
+
+
+### Bug Fixes
+
+* Remove pre-release suffixes from manifest version to comply with Chrome Web Store format. ([ae46b16](https://github.com/axmbo/pestto/commit/ae46b1639a812430719f20cf8a3611d20be72f87))
+
+
+### Features
+
+* Implement manifest.json versioning with a 4th digit build number and remove pre-release suffixes from the base version. ([73f0c41](https://github.com/axmbo/pestto/commit/73f0c41a05a7581f5cb50186ba648bc3ae9c8501))
 # [0.3.0-rc.0](https://github.com/axmbo/pestto/compare/v0.2.6...v0.3.0-rc.0) (2026-03-15)
 
 
