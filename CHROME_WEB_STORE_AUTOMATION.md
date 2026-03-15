@@ -3,6 +3,7 @@
 Para automatizar o processo de publicação da extensão na Chrome Web Store via GitHub Actions e não precisar mais subir arquivos manualmente, siga este roteiro de configuração em três etapas principais.
 
 ## 1. Obter as Credenciais da Google Cloud Platform (GCP)
+
 A Chrome Web Store APi exige o protocolo OAuth 2.0 para acesso programático.
 
 1. Acesse o **Google Cloud Console** (https://console.cloud.google.com).
@@ -35,6 +36,7 @@ A Chrome Web Store APi exige o protocolo OAuth 2.0 para acesso programático.
    - `REFRESH_TOKEN` (Do passo 10).
 
 ## 3. Criar o Novo Workflow do GitHub
+
 Crie um arquivo em `.github/workflows/deploy-chrome.yml` com o seguinte padrão:
 
 ```yaml
@@ -72,5 +74,6 @@ jobs:
 ```
 
 ### Como Utilizar depois de Pronto:
+
 Sempre que o `pestto-latest.zip` mudar (por exemplo, após você gerar sua release do SemVer), você vai no seu GitHub > Aba "Actions" > Clica em "Deploy na Chrome Web Store" > Botão verde "Run workflow".
-O script compilará a extensão fresquinha do código-fonte e fará o *upload* da mesma para a Chrome Store instantaneamente, poupando minutos preciosos em acessos e formulários.
+O script compilará a extensão fresquinha do código-fonte e fará o _upload_ da mesma para a Chrome Store instantaneamente, poupando minutos preciosos em acessos e formulários.
