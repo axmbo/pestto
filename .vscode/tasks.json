@@ -2,24 +2,13 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build Pestto (Local)",
+      "label": "Build Pestto (Local ZIP)",
       "type": "shell",
       "command": "./scripts/build.sh",
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "problemMatcher": [],
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      }
-    },
-    {
-      "label": "Run Tests (Watch)",
-      "type": "shell",
-      "command": "npm run test:watch",
-      "group": "test",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
@@ -34,6 +23,105 @@
         "kind": "test",
         "isDefault": true
       },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Run Tests (Watch Mode)",
+      "type": "shell",
+      "command": "npm run test:watch",
+      "group": "test",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Lint: Check Code",
+      "type": "shell",
+      "command": "npm run lint",
+      "group": "none",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Lint: Fix Issues",
+      "type": "shell",
+      "command": "npm run lint:fix",
+      "group": "none",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Format: Prettier",
+      "type": "shell",
+      "command": "npm run format",
+      "group": "none",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Version: Prerelease (rc)",
+      "type": "shell",
+      "command": "npm version prerelease",
+      "group": "none",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Version: Bump Patch",
+      "type": "shell",
+      "command": "npm version patch",
+      "group": "none",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Version: Bump Minor",
+      "type": "shell",
+      "command": "npm version minor",
+      "group": "none",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Version: Bump Major",
+      "type": "shell",
+      "command": "npm version major",
+      "group": "none",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Version: Undo Last Version",
+      "type": "shell",
+      "command": "npm run undo-version",
+      "group": "none",
       "problemMatcher": [],
       "presentation": {
         "reveal": "always",
