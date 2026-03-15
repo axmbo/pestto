@@ -1,3 +1,10 @@
+# [0.3.0-rc.0](https://github.com/axmbo/pestto/compare/v0.2.6...v0.3.0-rc.0) (2026-03-15)
+
+
+### Features
+
+* Add 640x400 promotional image. ([9be63b2](https://github.com/axmbo/pestto/commit/9be63b2b26fc1ba489eaa691d3d4ab604ed4951a))
+* Add a guide for automating Chrome Web Store publication using GitHub Actions. ([5f0ff2d](https://github.com/axmbo/pestto/commit/5f0ff2d236bcc85057e3ed21c6c2669ec73cdc39))
 ## [0.2.6](https://github.com/axmbo/pestto/compare/v0.2.5...v0.2.6) (2026-03-14)
 
 ## [0.2.5](https://github.com/axmbo/pestto/compare/v0.2.4...v0.2.5) (2026-03-14)
