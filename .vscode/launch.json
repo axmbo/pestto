@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Build Extension ZIP",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "./scripts/build.sh"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
