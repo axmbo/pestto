@@ -1,3 +1,4 @@
+# [0.3.0-rc.5](https://github.com/axmbo/pestto/compare/v0.3.0-rc.4...v0.3.0-rc.5) (2026-03-15)
 # [0.3.0-rc.4](https://github.com/axmbo/pestto/compare/v0.3.0-rc.3...v0.3.0-rc.4) (2026-03-15)
 
 
