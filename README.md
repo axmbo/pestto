@@ -48,6 +48,8 @@ Seguindo princípios estritos de segurança e privacidade:
 
 A lógica de conversão é isolada do navegador e coberta por testes automatizados utilizando [Vitest](https://vitest.dev/). As suítes de teste estão localizadas na pasta `tests/`.
 
+Atualmente, o projeto possui **22 testes unitários** que garantem a integridade da conversão e dos scripts de build.
+
 Para rodar os testes localmente:
 
 ```bash
@@ -55,6 +57,15 @@ npm install
 npm test            # Executa os testes uma única vez e encerra
 npm run test:watch  # Executa os testes e aguarda alterações (modo interativo)
 ```
+
+## 🔢 Versionamento
+
+Este projeto utiliza um sistema híbrido para atender aos requisitos da Chrome Web Store:
+
+1.  **SemVer:** O `package.json` segue o Semantic Versioning (ex: `0.3.0-rc.4`).
+2.  **Chrome Version:** O manifesto usa uma versão sanitizada de 4 dígitos (`X.Y.Z.N`):
+    - Os 3 primeiros dígitos são extraídos do SemVer (ex: `0.3.0-rc.4` vira `0.3.0`).
+    - O 4º dígito é o **Build Number** (apenas em builds do CI), permitindo versões únicas na loja para cada execução do pipeline.
 
 ## 🔍 Qualidade de Código
 
