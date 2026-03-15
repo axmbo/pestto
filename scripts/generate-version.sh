@@ -13,5 +13,5 @@ HASH="${2:-$(git rev-parse --short HEAD)}"
 
 INFO="Pestto v$VERSION ($BUILD_ID) [$HASH]"
 
-echo "const BUILD_INFO = '$INFO';" > version.js
+echo "const BUILD_INFO = '$INFO';" > src/version.js
 echo "🏗️  version.js gerado: $INFO"

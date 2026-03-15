@@ -32,7 +32,7 @@ jobs:
           node-version: 24
       - run: npm install
       - name: Gerar version.js
-        run: ./generate-version.sh "${{ github.run_number }}" "${GITHUB_SHA::7}"
+        run: ./scripts/generate-version.sh "${{ github.run_number }}" "${GITHUB_SHA::7}"
       - run: npm run build
       - name: Salvar Artefato
         uses: actions/upload-artifact@v6

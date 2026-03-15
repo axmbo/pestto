@@ -8,4 +8,4 @@ npm-debug.log*
 *.zip
 
 # Arquivo regerado pelo build.sh, não precisa versionar
-version.js
+src/version.js

@@ -2,7 +2,7 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const path = require('path');
 
-const filePath = path.join(__dirname, 'casos_de_teste.md');
+const filePath = path.resolve(__dirname, '../tests/casos_de_teste.md');
 
 try {
   const content = fs.readFileSync(filePath, 'utf8');

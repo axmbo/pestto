@@ -4,7 +4,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 export default [
   {
     // Arquivos do browser (extensão Chrome)
-    files: ['content.js', 'converter.js'],
+    files: ['src/content.js', 'src/converter.js'],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -15,7 +15,7 @@ export default [
   },
   {
     // Scripts Node.js
-    files: ['sync-version.js'],
+    files: ['scripts/sync-version.js', 'scripts/copiar_testes.js'],
     languageOptions: {
       globals: {
         ...globals.node,
@@ -37,6 +37,6 @@ export default [
   eslintConfigPrettier,
   {
     // Ignora arquivos gerados e dependências
-    ignores: ['node_modules/', 'version.js'],
+    ignores: ['node_modules/', 'src/version.js'],
   },
 ];

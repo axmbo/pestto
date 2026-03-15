@@ -2,7 +2,7 @@
 set -e
 
 # 1. Gera o version.js (script centralizado)
-./generate-version.sh
+./scripts/generate-version.sh
 
 # 2. Roda o comando de build do package.json (que agora inclui o version.js no zip)
 npm run build

@@ -1,6 +1,6 @@
 node_modules/
-version.js
+src/version.js
 *.zip
 package-lock.json
-casos_de_teste.md
+tests/casos_de_teste.md
 CHANGELOG.md

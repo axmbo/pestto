@@ -24,7 +24,7 @@ jobs:
           node-version: 24
 
       - name: Gerar version.js
-        run: ./generate-version.sh "${{ github.run_number }}" "${GITHUB_SHA::7}"
+        run: ./scripts/generate-version.sh "${{ github.run_number }}" "${GITHUB_SHA::7}"
 
       - name: Construir extensão
         run: npm run build

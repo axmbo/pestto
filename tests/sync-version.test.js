@@ -4,7 +4,7 @@ import fs from 'fs';
 
 describe('sync-version.js', () => {
   beforeAll(() => {
-    execSync('node sync-version.js');
+    execSync('node scripts/sync-version.js');
   });
 
   it('deve sincronizar a versão do package.json no manifest.json', () => {

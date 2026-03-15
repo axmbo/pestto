@@ -4,14 +4,14 @@
   "version": "0.2.6",
   "description": "Converte Markdown automaticamente ao colar texto no WhatsApp Web.",
   "icons": {
-    "16": "icon-16.png",
-    "48": "icon-48.png",
-    "128": "icon-128.png"
+    "16": "src/icons/icon-16.png",
+    "48": "src/icons/icon-48.png",
+    "128": "src/icons/icon-128.png"
   },
   "content_scripts": [
     {
       "matches": ["https://web.whatsapp.com/*"],
-      "js": ["version.js", "converter.js", "content.js"],
+      "js": ["src/version.js", "src/converter.js", "src/content.js"],
       "run_at": "document_idle"
     }
   ]

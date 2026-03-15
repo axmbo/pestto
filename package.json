@@ -2,7 +2,7 @@
   "name": "pestto",
   "version": "0.2.6",
   "description": "Extensão minimalista para conversão automática de Markdown ao colar texto no WhatsApp Web.",
-  "main": "content.js",
+  "main": "src/content.js",
   "config": {
     "zipName": "pestto-latest.zip"
   },
@@ -12,8 +12,9 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "build": "rm -f $npm_package_config_zipName && zip -q $npm_package_config_zipName manifest.json content.js converter.js version.js icon-16.png icon-48.png icon-128.png",
-    "version": "node sync-version.js && conventional-changelog -p angular -i CHANGELOG.md -s && git add manifest.json CHANGELOG.md",
+    "build": "rm -f $npm_package_config_zipName && zip -q $npm_package_config_zipName manifest.json src/content.js src/converter.js src/version.js src/icons/icon-16.png src/icons/icon-48.png src/icons/icon-128.png",
+    "version": "node scripts/sync-version.js && conventional-changelog -p angular -i CHANGELOG.md -s && git add manifest.json CHANGELOG.md",
+    "copy-tests": "node scripts/copiar_testes.js",
     "undo-version": "git tag -d $(git tag --points-at HEAD) && git reset --hard HEAD~1",
     "prepare": "husky"
   },
