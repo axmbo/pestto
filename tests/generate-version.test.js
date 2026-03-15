@@ -44,15 +44,16 @@ describe('generate-version.sh', () => {
     expect(content).toContain(`v${chromeVersion}`);
   });
 
-  it('deve atualizar o manifest.json com versão X.Y.Z.0 no build local', () => {
-    execSync('./scripts/generate-version.sh');
-    const manifest = JSON.parse(fs.readFileSync('./manifest.json', 'utf-8'));
-    expect(manifest.version).toMatch(/^\d+\.\d+\.\d+\.0$/);
-  });
-
   it('deve atualizar o manifest.json com o run_number do CI no 4º dígito', () => {
     execSync('./scripts/generate-version.sh "42" "abc1234"');
     const manifest = JSON.parse(fs.readFileSync('./manifest.json', 'utf-8'));
     expect(manifest.version).toMatch(/^\d+\.\d+\.\d+\.42$/);
+  });
+
+  it('não deve modificar o manifest.json em build local (sem argumentos)', () => {
+    const before = fs.readFileSync('./manifest.json', 'utf-8');
+    execSync('./scripts/generate-version.sh');
+    const after = fs.readFileSync('./manifest.json', 'utf-8');
+    expect(after).toBe(before);
   });
 });
