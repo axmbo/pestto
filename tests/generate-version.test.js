@@ -3,19 +3,22 @@ import { execSync } from 'child_process';
 import fs from 'fs';
 
 describe('generate-version.sh', () => {
-  // Salva o version.js original (se existir) para restaurar depois
-  let originalContent = null;
+  // Salva os arquivos gerados para restaurar depois
+  let originalVersionContent = null;
+  let originalManifestContent = null;
 
   beforeAll(() => {
     if (fs.existsSync('./src/version.js')) {
-      originalContent = fs.readFileSync('./src/version.js', 'utf-8');
+      originalVersionContent = fs.readFileSync('./src/version.js', 'utf-8');
     }
+    originalManifestContent = fs.readFileSync('./manifest.json', 'utf-8');
   });
 
   afterAll(() => {
-    if (originalContent !== null) {
-      fs.writeFileSync('./src/version.js', originalContent);
+    if (originalVersionContent !== null) {
+      fs.writeFileSync('./src/version.js', originalVersionContent);
     }
+    fs.writeFileSync('./manifest.json', originalManifestContent);
   });
 
   it('deve gerar version.js com parâmetros do CI', () => {
@@ -33,10 +36,23 @@ describe('generate-version.sh', () => {
     expect(content).toMatch(/Pestto v\d+\.\d+\.\d+/);
   });
 
-  it('deve incluir a versão do package.json', () => {
+  it('deve incluir a versão do package.json (sem sufixo pre-release)', () => {
     execSync('./scripts/generate-version.sh');
     const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+    const chromeVersion = pkg.version.replace(/-.*$/, '');
     const content = fs.readFileSync('./src/version.js', 'utf-8');
-    expect(content).toContain(`v${pkg.version}`);
+    expect(content).toContain(`v${chromeVersion}`);
+  });
+
+  it('deve atualizar o manifest.json com versão X.Y.Z.0 no build local', () => {
+    execSync('./scripts/generate-version.sh');
+    const manifest = JSON.parse(fs.readFileSync('./manifest.json', 'utf-8'));
+    expect(manifest.version).toMatch(/^\d+\.\d+\.\d+\.0$/);
+  });
+
+  it('deve atualizar o manifest.json com o run_number do CI no 4º dígito', () => {
+    execSync('./scripts/generate-version.sh "42" "abc1234"');
+    const manifest = JSON.parse(fs.readFileSync('./manifest.json', 'utf-8'));
+    expect(manifest.version).toMatch(/^\d+\.\d+\.\d+\.42$/);
   });
 });

@@ -10,8 +10,13 @@ describe('sync-version.js', () => {
   it('deve sincronizar a versão do package.json no manifest.json (sem sufixo pre-release)', () => {
     const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
     const manifest = JSON.parse(fs.readFileSync('./manifest.json', 'utf-8'));
-    const chromeVersion = pkg.version.replace(/-.*$/, '');
-    expect(manifest.version).toBe(chromeVersion);
+    const chromeBase = pkg.version.replace(/-.*$/, '');
+    // sync-version.js escreve a versão base (X.Y.Z) no manifest.
+    // O 4º dígito de build é responsabilidade do generate-version.sh.
+    // Verificamos que a versão começa com a base correta.
+    expect(manifest.version).toMatch(
+      new RegExp(`^${chromeBase.replace(/\./g, '\\.')}(\\.\\d+)?$`)
+    );
   });
 
   it('não deve incluir sufixo pre-release na versão do manifest.json', () => {
