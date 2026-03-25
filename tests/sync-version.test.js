@@ -2,6 +2,11 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import { execSync } from 'child_process';
 import fs from 'fs';
 
+// Escapes all RegExp special characters in a string so it can be used safely in a pattern.
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 describe('sync-version.js', () => {
   beforeAll(() => {
     execSync('node scripts/sync-version.js');
@@ -15,7 +20,7 @@ describe('sync-version.js', () => {
     // O 4º dígito de build é responsabilidade do generate-version.sh.
     // Verificamos que a versão começa com a base correta.
     expect(manifest.version).toMatch(
-      new RegExp(`^${chromeBase.replace(/\./g, '\\.')}(\\.\\d+)?$`)
+      new RegExp(`^${escapeRegExp(chromeBase)}(\\.\\d+)?$`)
     );
   });
 
