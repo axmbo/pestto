@@ -53,6 +53,12 @@ document.addEventListener(
       target.tagName === 'TEXTAREA';
     if (!isEditable) return;
 
+    // Proteção Extra 1: Ignora a barra lateral (onde fica a pesquisa de conversas).
+    // O campo de pesquisa ignora eventos sintéticos e precisa do fluxo nativo do navegador.
+    if (target.closest && target.closest('#side')) {
+      return;
+    }
+
     const clipboard = event.clipboardData || window.clipboardData;
     const types = Array.from(clipboard.types);
 
@@ -66,13 +72,18 @@ document.addEventListener(
 
     if (!rawText) return;
 
+    // Fazemos a conversão antes de decidir se vamos interceptar
+    const converted = markdownToWhatsApp(rawText);
+
+    // Proteção Extra 2: Se o texto não sofrer alteração (não tem Markdown),
+    // abortamos a intervenção e deixamos o navegador colar o texto naturalmente.
+    if (converted === rawText) return;
+
     // 3. Matamos o evento original para que o WhatsApp nem veja o texto puro
     event.preventDefault();
     event.stopPropagation();
     event.stopImmediatePropagation();
 
-    // 4. Convertemos o texto (quebras de linha originais \n são mantidas)
-    const converted = markdownToWhatsApp(rawText);
     console.log('Texto convertido:', converted);
 
     // 5 e 6. Criamos a maleta de dados e o evento falso usando a função extraída
