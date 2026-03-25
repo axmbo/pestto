@@ -8,17 +8,21 @@ function markdownToWhatsApp(text) {
   const codeBlocks = [];
   const inlineCodes = [];
 
+  const hash = Math.random().toString(36).substring(2, 9);
+  const BLOCK_TOKEN = `__BLOCK_${hash}_`;
+  const INLINE_TOKEN = `__INLINE_${hash}_`;
+
   // 1. PROTEGER BLOCOS DE CÓDIGO (```texto```)
   // O [\s\S]*? pega tudo, inclusive múltiplas quebras de linha
   let processedText = text.replace(/```([\s\S]*?)```/g, (match) => {
     codeBlocks.push(match);
-    return `__BLOCK_${codeBlocks.length - 1}__`;
+    return `${BLOCK_TOKEN}${codeBlocks.length - 1}__`;
   });
 
   // 2. PROTEGER CÓDIGO INLINE (`texto`)
   processedText = processedText.replace(/`([^`]+)`/g, (match) => {
     inlineCodes.push(match);
-    return `__INLINE_${inlineCodes.length - 1}__`;
+    return `${INLINE_TOKEN}${inlineCodes.length - 1}__`;
   });
 
   // 3. APLICAR SUAS REGRAS DE CONVERSÃO AQUI
@@ -46,12 +50,14 @@ function markdownToWhatsApp(text) {
   processedText = processedText.replace(/\x05/g, '~').replace(/\x06/g, '~');
 
   // 4. RESTAURAR CÓDIGO INLINE
-  processedText = processedText.replace(/__INLINE_(\d+)__/g, (match, id) => {
+  const inlineRegex = new RegExp(`${INLINE_TOKEN}(\\d+)__`, 'g');
+  processedText = processedText.replace(inlineRegex, (match, id) => {
     return inlineCodes[id];
   });
 
   // 5. RESTAURAR BLOCOS DE CÓDIGO
-  processedText = processedText.replace(/__BLOCK_(\d+)__/g, (match, id) => {
+  const blockRegex = new RegExp(`${BLOCK_TOKEN}(\\d+)__`, 'g');
+  processedText = processedText.replace(blockRegex, (match, id) => {
     return codeBlocks[id];
   });
 
