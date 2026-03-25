@@ -13,6 +13,14 @@ document.addEventListener(
     // 1. Se o evento já for o nosso "Cavalo de Tróia", deixamos o WhatsApp agir livremente!
     if (event.isPesttoEvent) return;
 
+    // 1.5. Validação de Alvo: Só atua se o usuário estiver focado num campo de texto (WhatsApp input)
+    const target = event.target;
+    const isEditable =
+      target.isContentEditable ||
+      target.tagName === 'INPUT' ||
+      target.tagName === 'TEXTAREA';
+    if (!isEditable) return;
+
     const clipboard = event.clipboardData || window.clipboardData;
     const types = Array.from(clipboard.types);
 
@@ -35,9 +43,19 @@ document.addEventListener(
     const converted = markdownToWhatsApp(rawText);
     console.log('Texto convertido:', converted);
 
-    // 5. Criamos a nossa maleta de dados "falsa"
+    // 5. Criamos a maleta de dados, preservando imagens e outros formatos do clipboard original
     const dataTransfer = new DataTransfer();
-    dataTransfer.setData('text/plain', converted);
+
+    for (const item of clipboard.items) {
+      if (item.type === 'text/plain') {
+        dataTransfer.setData('text/plain', converted);
+      } else if (item.kind === 'file') {
+        const file = item.getAsFile();
+        if (file) dataTransfer.items.add(file);
+      } else if (item.kind === 'string') {
+        dataTransfer.setData(item.type, clipboard.getData(item.type));
+      }
+    }
 
     // 6. Criamos o evento de colar falso
     const fakePasteEvent = new ClipboardEvent('paste', {
