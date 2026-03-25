@@ -4,6 +4,38 @@ console.log(
 );
 
 /**
+ * Constrói um evento de colar (ClipboardEvent) customizado.
+ * Função isolada para facilitar testes (via jsdom) e reduzir o acoplamento do DOM.
+ *
+ * @param {DataTransfer} originalClipboard - A área de transferência original.
+ * @param {string} convertedText - O texto já convertido para WhatsApp.
+ * @returns {ClipboardEvent} Novo evento de paste.
+ */
+function createPesttoPasteEvent(originalClipboard, convertedText) {
+  const dataTransfer = new DataTransfer();
+
+  for (const item of originalClipboard.items) {
+    if (item.type === 'text/plain') {
+      dataTransfer.setData('text/plain', convertedText);
+    } else if (item.kind === 'file') {
+      const file = item.getAsFile();
+      if (file) dataTransfer.items.add(file);
+    } else if (item.kind === 'string') {
+      dataTransfer.setData(item.type, originalClipboard.getData(item.type));
+    }
+  }
+
+  const fakePasteEvent = new ClipboardEvent('paste', {
+    clipboardData: dataTransfer,
+    bubbles: true,
+    cancelable: true,
+  });
+
+  fakePasteEvent.isPesttoEvent = true;
+  return fakePasteEvent;
+}
+
+/**
  * Intercepta o evento de colar (paste) na FASE DE CAPTURA.
  * O 'true' no final do addEventListener é o que ativa essa fase.
  */
@@ -43,32 +75,16 @@ document.addEventListener(
     const converted = markdownToWhatsApp(rawText);
     console.log('Texto convertido:', converted);
 
-    // 5. Criamos a maleta de dados, preservando imagens e outros formatos do clipboard original
-    const dataTransfer = new DataTransfer();
-
-    for (const item of clipboard.items) {
-      if (item.type === 'text/plain') {
-        dataTransfer.setData('text/plain', converted);
-      } else if (item.kind === 'file') {
-        const file = item.getAsFile();
-        if (file) dataTransfer.items.add(file);
-      } else if (item.kind === 'string') {
-        dataTransfer.setData(item.type, clipboard.getData(item.type));
-      }
-    }
-
-    // 6. Criamos o evento de colar falso
-    const fakePasteEvent = new ClipboardEvent('paste', {
-      clipboardData: dataTransfer,
-      bubbles: true,
-      cancelable: true,
-    });
-
-    // Marcamos o evento para não entrarmos em um loop infinito no Passo 1
-    fakePasteEvent.isPesttoEvent = true;
+    // 5 e 6. Criamos a maleta de dados e o evento falso usando a função extraída
+    const fakePasteEvent = createPesttoPasteEvent(clipboard, converted);
 
     // 7. Injetamos o Cavalo de Tróia no exato elemento onde o usuário estava digitando!
     event.target.dispatchEvent(fakePasteEvent);
   },
   true
 );
+
+// Compatibilidade "Zero Build" para testes no Node.js/Vitest.
+if (typeof process !== 'undefined' && process.release.name === 'node') {
+  globalThis.createPesttoPasteEvent = createPesttoPasteEvent;
+}
