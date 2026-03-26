@@ -21,10 +21,10 @@ jobs:
           npm run build
 
       - name: Upload pra Loja da Google
-        uses: Klemensas/chrome-extension-upload-action@v1
+        uses: mobilefirstllc/chrome-extension-upload@v5
         with:
-          refresh-token: ${{ secrets.REFRESH_TOKEN }}
+          extension-id: ${{ secrets.EXTENSION_ID }}
           client-id: ${{ secrets.CLIENT_ID }}
           client-secret: ${{ secrets.CLIENT_SECRET }}
-          app-id: ${{ secrets.EXTENSION_ID }}
-          file-name: 'pestto-latest.zip'
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}
+          file-path: 'pestto-latest.zip'
