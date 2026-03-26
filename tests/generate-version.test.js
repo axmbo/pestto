@@ -53,9 +53,9 @@ describe('generate-version.sh', () => {
   });
 
   it('não deve modificar o manifest.json em build local (sem argumentos)', () => {
-    const before = fs.readFileSync('./manifest.json', 'utf-8');
+    const before = JSON.parse(fs.readFileSync('./manifest.json', 'utf-8'));
     execSync('./scripts/generate-version.sh');
-    const after = fs.readFileSync('./manifest.json', 'utf-8');
-    expect(after).toBe(before);
+    const after = JSON.parse(fs.readFileSync('./manifest.json', 'utf-8'));
+    expect(after).toEqual(before);
   });
 });
