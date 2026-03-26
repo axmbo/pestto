@@ -24,7 +24,9 @@ if [ -n "$1" ]; then
 const fs = require('fs');
 const m = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
 m.version = '$CHROME_VERSION';
-fs.writeFileSync('manifest.json', JSON.stringify(m, null, 2) + '\n');
+const original = fs.readFileSync('manifest.json', 'utf8');
+const formatted = JSON.stringify(m, null, 2) + (original.endsWith('\n') ? '\n' : '');
+fs.writeFileSync('manifest.json', formatted);
 "
   echo "📦 manifest.json atualizado para versão $CHROME_VERSION"
 fi
