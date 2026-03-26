@@ -21,7 +21,7 @@ jobs:
           npm run build
 
       - name: Upload pra Loja da Google
-        uses: mobilefirstllc/chrome-extension-upload@v5
+        uses: mnao305/chrome-extension-upload@v5.0.0
         with:
           extension-id: ${{ secrets.EXTENSION_ID }}
           client-id: ${{ secrets.CLIENT_ID }}
