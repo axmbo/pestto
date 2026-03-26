@@ -1,0 +1,30 @@
+name: Deploy na Chrome Web Store
+
+on:
+  workflow_dispatch: # Permite rodar manualmente na aba Actions
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Instalar Dependências e Buildar
+        run: |
+          npm ci || echo "Node modules não necessários ou cache"
+          npm run build
+
+      - name: Upload pra Loja da Google
+        uses: Klemensas/chrome-extension-upload-action@v2
+        with:
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}
+          client-id: ${{ secrets.CLIENT_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          app-id: ${{ secrets.EXTENSION_ID }}
+          file-name: 'pestto-latest.zip'
