@@ -45,9 +45,11 @@ describe('generate-version.sh', () => {
   });
 
   it('deve atualizar o manifest.json com o run_number do CI no 4º dígito', () => {
+    const savedManifest = fs.readFileSync('./manifest.json', 'utf-8');
     execSync('./scripts/generate-version.sh "42" "abc1234"');
     const manifest = JSON.parse(fs.readFileSync('./manifest.json', 'utf-8'));
     expect(manifest.version).toMatch(/^\d+\.\d+\.\d+\.42$/);
+    fs.writeFileSync('./manifest.json', savedManifest);
   });
 
   it('não deve modificar o manifest.json em build local (sem argumentos)', () => {
