@@ -20,32 +20,6 @@ jobs:
           npm ci || echo "Node modules não necessários ou cache"
           npm run build
 
-      - name: Debug - Testar Autenticação e Upload (curl)
-        run: |
-          TOKEN_RESPONSE=$(curl -s -X POST https://oauth2.googleapis.com/token \
-            -d "client_id=${{ secrets.CLIENT_ID }}" \
-            -d "client_secret=${{ secrets.CLIENT_SECRET }}" \
-            -d "refresh_token=${{ secrets.REFRESH_TOKEN }}" \
-            -d "grant_type=refresh_token")
-
-          echo "Resposta do Token (Campos):"
-          echo "$TOKEN_RESPONSE" | jq -r 'keys | .[]'
-
-          ACCESS_TOKEN=$(echo "$TOKEN_RESPONSE" | jq -r .access_token)
-
-          if [ "$ACCESS_TOKEN" = "null" ]; then
-            echo "ERRO: Falha ao obter access_token!"
-            echo "$TOKEN_RESPONSE" | jq .
-            exit 1
-          fi
-
-          echo "Testando Upload via curl..."
-          curl -s -v -X PUT \
-            -H "Authorization: Bearer $ACCESS_TOKEN" \
-            -H "x-goog-api-version: 2" \
-            -T pestto-latest.zip \
-            "https://www.googleapis.com/upload/chromewebstore/v1.1/items/${{ secrets.EXTENSION_ID }}" | jq .
-
       - name: Upload pra Loja da Google
         uses: mnao305/chrome-extension-upload@v5.0.0
         with:
