@@ -21,7 +21,7 @@ jobs:
           npm run build
 
       - name: Upload pra Loja da Google
-        uses: Klemensas/chrome-extension-upload-action@v2
+        uses: Klemensas/chrome-extension-upload-action@v1
         with:
           refresh-token: ${{ secrets.REFRESH_TOKEN }}
           client-id: ${{ secrets.CLIENT_ID }}
