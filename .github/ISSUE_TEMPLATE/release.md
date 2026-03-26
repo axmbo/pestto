@@ -25,9 +25,9 @@ assignees: ''
 ### 🌐 Publicação
 
 - [ ] Fazer push das tags para o GitHub: `git push origin main --tags`.
-- [ ] Verificar se o workflow de release no GitHub Actions terminou com sucesso.
-- [ ] Fazer upload do novo ZIP no [Chrome Developer Dashboard](https://chrome.google.com/webstore/devconsole/).
-- [ ] Atualizar notas de versão na loja.
+- [ ] Verificar se o workflow **Publicar Release Oficial** terminou com sucesso.
+- [ ] Disparar o workflow **Deploy na Chrome Web Store** manualmente na aba "Actions".
+- [ ] Validar o upload automático no painel da loja.
 
 ### 🏁 Finalização
 
