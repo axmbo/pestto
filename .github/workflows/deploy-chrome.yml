@@ -1,5 +1,8 @@
 name: Deploy na Chrome Web Store
 
+permissions:
+  contents: read
+
 on:
   release:
     types: [published]
