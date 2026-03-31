@@ -1,120 +1,166 @@
-# [0.3.0-rc.5](https://github.com/axmbo/pestto/compare/v0.3.0-rc.4...v0.3.0-rc.5) (2026-03-15)
-# [0.3.0-rc.4](https://github.com/axmbo/pestto/compare/v0.3.0-rc.3...v0.3.0-rc.4) (2026-03-15)
+# Changelog
 
+Todas as mudanças notáveis deste projeto serão documentadas neste arquivo.
 
-### Features
+O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e o projeto adota [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
-* Add new VS Code task for pushing Git changes with tags. ([770cced](https://github.com/axmbo/pestto/commit/770cced21fa77ae166a45e4612842ef2534327d1))
-* Add VS Code tasks for linting, formatting, and version management, and update the build task label. ([4573b5e](https://github.com/axmbo/pestto/commit/4573b5e2f745846d6b91db540f8f76e61c341f1a))
-# [0.3.0-rc.3](https://github.com/axmbo/pestto/compare/v0.3.0-rc.2...v0.3.0-rc.3) (2026-03-15)
+## [Nao Lancado]
 
+### Alterado
 
-### Features
+- Atualizacao de dependencias de desenvolvimento (`handlebars` 4.7.8 -> 4.7.9).
 
-* Add VS Code launch and task configurations for building and testing. ([6cfb6aa](https://github.com/axmbo/pestto/commit/6cfb6aa7488b5bef526e47015dea4d1e6c7f0578))
-* Separate test execution into run-once (`npm test`) and watch mode (`npm run test:watch`), updating VS Code tasks and documentation. ([88d788d](https://github.com/axmbo/pestto/commit/88d788de695ac97893b9ff5cde2af9069f638160))
-# [0.3.0-rc.2](https://github.com/axmbo/pestto/compare/v0.3.0-rc.1...v0.3.0-rc.2) (2026-03-15)
+### Corrigido
 
+- Ajustes de workflows para atender requisitos de permissao no GitHub Actions.
 
-### Bug Fixes
+### Seguranca
 
-* Prevent `generate-version.sh` from modifying `manifest.json` during local builds, updating it only for CI builds, and adjust tests accordingly. ([af554fa](https://github.com/axmbo/pestto/commit/af554faa3e19ee7c934fdf7e829272a748d3e385))
-# [0.3.0-rc.1](https://github.com/axmbo/pestto/compare/v0.3.0-rc.0...v0.3.0-rc.1) (2026-03-15)
+- Atualizacao de dependencias para mitigar vulnerabilidades moderadas em cadeia de build (`brace-expansion` e `yaml`).
 
+## [0.4.2] - 2026-03-26
 
-### Bug Fixes
+### Alterado
 
-* Remove pre-release suffixes from manifest version to comply with Chrome Web Store format. ([ae46b16](https://github.com/axmbo/pestto/commit/ae46b1639a812430719f20cf8a3611d20be72f87))
+- Versao atualizada para `0.4.2` para validar o fluxo de release oficial.
 
+## [0.3.0-rc.5] - 2026-03-15
 
-### Features
+### Adicionado
 
-* Implement manifest.json versioning with a 4th digit build number and remove pre-release suffixes from the base version. ([73f0c41](https://github.com/axmbo/pestto/commit/73f0c41a05a7581f5cb50186ba648bc3ae9c8501))
-# [0.3.0-rc.0](https://github.com/axmbo/pestto/compare/v0.2.6...v0.3.0-rc.0) (2026-03-15)
+- Nova task no VS Code para push do Git com tags.
+- Tasks de lint, formatacao e versionamento no VS Code, com ajuste do rotulo de build.
 
+## [0.3.0-rc.4] - 2026-03-15
 
-### Features
+### Alterado
 
-* Add 640x400 promotional image. ([9be63b2](https://github.com/axmbo/pestto/commit/9be63b2b26fc1ba489eaa691d3d4ab604ed4951a))
-* Add a guide for automating Chrome Web Store publication using GitHub Actions. ([5f0ff2d](https://github.com/axmbo/pestto/commit/5f0ff2d236bcc85057e3ed21c6c2669ec73cdc39))
-## [0.2.6](https://github.com/axmbo/pestto/compare/v0.2.5...v0.2.6) (2026-03-14)
+- Sem alteracoes funcionais registradas no historico legado.
 
-## [0.2.5](https://github.com/axmbo/pestto/compare/v0.2.4...v0.2.5) (2026-03-14)
+## [0.3.0-rc.3] - 2026-03-15
 
+### Adicionado
 
-### Bug Fixes
+- Configuracoes de launch e task no VS Code para build e testes.
+- Separacao de testes em execucao unica (`npm test`) e watch mode (`npm run test:watch`).
 
-* Restrict markdown conversion to single lines, adjust nested formatting output, and include additional icons in the build. ([abfa04e](https://github.com/axmbo/pestto/commit/abfa04ec631144ed8bf81fe5d3a2d0147184fd49))
+## [0.3.0-rc.2] - 2026-03-15
 
-## [0.2.4](https://github.com/axmbo/pestto/compare/v0.2.3...v0.2.4) (2026-03-14)
+### Corrigido
 
-## [0.2.3](https://github.com/axmbo/pestto/compare/v0.2.2...v0.2.3) (2026-03-14)
+- `generate-version.sh` deixou de alterar `manifest.json` em build local, mantendo a alteracao apenas no CI.
 
-## [0.2.2](https://github.com/axmbo/pestto/compare/v0.2.1...v0.2.2) (2026-03-14)
+## [0.3.0-rc.1] - 2026-03-15
 
-## [0.2.1](https://github.com/axmbo/pestto/compare/v0.2.0...v0.2.1) (2026-03-14)
+### Adicionado
 
-# [0.2.0](https://github.com/axmbo/pestto/compare/v0.1.2...v0.2.0) (2026-03-14)
+- Versionamento de `manifest.json` com quarto digito de build para compatibilidade com a Chrome Web Store.
 
+### Corrigido
 
-### Bug Fixes
+- Remocao de sufixos pre-release na versao do manifesto para atender ao formato aceito na loja.
 
-* Update manifest icon paths for 16px and 48px sizes. ([9a747f7](https://github.com/axmbo/pestto/commit/9a747f7e7f012f42c5c7242ccabf3a3c983d12f9))
+## [0.3.0-rc.0] - 2026-03-15
 
+### Adicionado
 
-### Features
+- Imagem promocional `640x400`.
+- Guia de automacao da publicacao na Chrome Web Store via GitHub Actions.
 
-* Add 16x16 and 48x48 application icons. ([969b8f2](https://github.com/axmbo/pestto/commit/969b8f2dba91faf8af196ca077fd079bbd04deaa))
-* Refactor markdown conversion logic for robust handling of nested and multiline formatting, adding new validation tests. ([862e3f3](https://github.com/axmbo/pestto/commit/862e3f30a38127c0e04806f06f7c2ddb0471dbb2))
+## [0.2.6] - 2026-03-14
 
-## [0.1.2](https://github.com/axmbo/pestto/compare/v0.1.1...v0.1.2) (2026-03-14)
+### Alterado
 
+- Sem alteracoes detalhadas no historico legado.
 
-### Bug Fixes
+## [0.2.5] - 2026-03-14
 
-* Downgrade project version from 0.1.2 to 0.1.1 in manifest and package files. ([42ecf0e](https://github.com/axmbo/pestto/commit/42ecf0eeec91392f96efd4b784a3ff0c9e71cb14))
+### Corrigido
 
+- Conversao Markdown restrita a linha unica, ajustes de formatacao aninhada e inclusao de icones adicionais no build.
 
-### Features
+## [0.2.4] - 2026-03-14
 
-* Centralize `version.js` generation into a new script with CI/local parameterization and add tests. ([b14374f](https://github.com/axmbo/pestto/commit/b14374ffe8f8d6dc7af7c36f1d3b9006363b4bdf))
+### Alterado
 
-## [0.1.1](https://github.com/axmbo/pestto/compare/v0.1.0...v0.1.1) (2026-03-08)
+- Sem alteracoes detalhadas no historico legado.
 
+## [0.2.3] - 2026-03-14
 
-### Bug Fixes
+### Alterado
 
-* gerar version.js no workflow de release ([7b088ca](https://github.com/axmbo/pestto/commit/7b088ca2f30f07ce41dfb95447d84ce1e1b9d9b4))
+- Sem alteracoes detalhadas no historico legado.
 
-# [0.1.0](https://github.com/axmbo/pestto/compare/1f4389e9427d80b774b76be568999ad7f3487979...v0.1.0) (2026-03-08)
+## [0.2.2] - 2026-03-14
 
+### Alterado
 
-### Bug Fixes
+- Sem alteracoes detalhadas no historico legado.
 
-* adiciona regra para ignorar artefatos de build no .gitignore ([8bd4349](https://github.com/axmbo/pestto/commit/8bd434996e491f58ecdb52756547be2e3a78c731))
-* arquivo version.js não estava sendo gerado no pipeline ([d352a61](https://github.com/axmbo/pestto/commit/d352a61a6ad8f665b890a24f8f128f317a23af0b))
-* colar texto com mais de 1 linha ([da6efb3](https://github.com/axmbo/pestto/commit/da6efb3ec0b35217fba1d15c63a11baa088ab9bd))
-* conversão correta de código em linha e em bloco ([aad5c8c](https://github.com/axmbo/pestto/commit/aad5c8c9e0660a0bde978818ae16100dc770afb1))
-* corrige estilo de log e formatação da versão beta na conversão de Markdown ([6100688](https://github.com/axmbo/pestto/commit/610068857c1048223eaf0f940b0fd2b3ed052750))
-* corrige nome do arquivo zip no script de build ([934c5c8](https://github.com/axmbo/pestto/commit/934c5c8d25a849e3ecfec287c882b2603deae982))
-* corrige script de build para usar variável de configuração zipName ([6047837](https://github.com/axmbo/pestto/commit/6047837cb08929a6a8448c47da5d26bbf06763c8))
-* Havia faltado o conteúdo do README.md ([399549b](https://github.com/axmbo/pestto/commit/399549b6f3536c8af4191514d59b8bebd080bad9))
-* não converte texto vindo do WhatsApp ([70859ee](https://github.com/axmbo/pestto/commit/70859ee3cdc4842384fcbe97e98b1b2d22876772))
-* remove export da função convertMarkdown ([505f626](https://github.com/axmbo/pestto/commit/505f62664c24aa62965214d64ba2a36b0467bf47))
+## [0.2.1] - 2026-03-14
 
+### Alterado
 
-### Features
+- Sem alteracoes detalhadas no historico legado.
 
-* add MIT License file ([3481646](https://github.com/axmbo/pestto/commit/348164690e4b59af798b7fb1c465a7f3c28d889c))
-* adiciona geração de informações de build no script de build ([7c91b98](https://github.com/axmbo/pestto/commit/7c91b9839b958bbc23c0c931eefd640df4d2da86))
-* adiciona ícone ao repositório ([c08fe87](https://github.com/axmbo/pestto/commit/c08fe87286da14159cbff0f9c2e1172a33e2e4ed))
-* adiciona lógica para obter nome do arquivo zip a partir da configuração do npm ([543c9cf](https://github.com/axmbo/pestto/commit/543c9cf44174233698c166a324f888e327ec245a))
-* adiciona script de build e corrige versão no package.json ([660a9fb](https://github.com/axmbo/pestto/commit/660a9fbc4258c85180d3de9d4ee199e584649f6e))
-* adiciona script para sincronizar versão do package.json no manifest.json ([71c8abd](https://github.com/axmbo/pestto/commit/71c8abd4e932beef985f464942391c3d7f06f54b))
-* adiciona script undo-version ao package.json ([97b021c](https://github.com/axmbo/pestto/commit/97b021c4d93f11654daa1c569e63461804c24072))
-* adiciona workflow de CI para testes e build, removendo o antigo workflow de testes ([fa87905](https://github.com/axmbo/pestto/commit/fa87905e235315dd8bc69c08168e5f6d199e0b29))
-* adiciona workflow de release e atualiza workflow de testes com geração de artefato ([ee4e6cb](https://github.com/axmbo/pestto/commit/ee4e6cb070dca1ed517285ac6a57d2d5e45eaa26))
-* atualiza lógica de conversão de Markdown para incluir informações de versão beta ([c8b80fe](https://github.com/axmbo/pestto/commit/c8b80fec6726c1ffad0203ff8bc432490f305391))
-* atualiza scripts de build e manifest para incluir version.js e exibir informações de build ([75bf5b6](https://github.com/axmbo/pestto/commit/75bf5b611e22df23282e4d7203f0f334443280d6))
-* renomeia função de conversão de Markdown e atualiza lógica de inserção no evento de colar ([3ad2ad2](https://github.com/axmbo/pestto/commit/3ad2ad2dde792078bc9ca0e7cbeebe193c2bafca))
-* versão inicial da extensão Pestto com conversão básica de Markdown ([1f4389e](https://github.com/axmbo/pestto/commit/1f4389e9427d80b774b76be568999ad7f3487979))
+## [0.2.0] - 2026-03-14
+
+### Adicionado
+
+- Icones da extensao em `16x16` e `48x48`.
+- Refactor da conversao Markdown para casos aninhados e multiline, com novos testes.
+
+### Corrigido
+
+- Caminhos dos icones no `manifest.json` para os tamanhos `16px` e `48px`.
+
+## [0.1.2] - 2026-03-14
+
+### Adicionado
+
+- Script centralizado para gerar `version.js` com parametrizacao para CI e build local.
+
+### Corrigido
+
+- Ajuste de versao em `manifest.json` e `package.json`.
+
+## [0.1.1] - 2026-03-08
+
+### Corrigido
+
+- Geracao de `version.js` no workflow de release.
+
+## [0.1.0] - 2026-03-08
+
+### Adicionado
+
+- Versao inicial da extensao Pestto com conversao basica de Markdown.
+- Script de build e sincronizacao de versao (`package.json` -> `manifest.json`).
+- Workflows de CI e release com artefato ZIP.
+- Arquivo de licenca MIT.
+
+### Corrigido
+
+- Conversao de texto multiline e de conteudo vindo do WhatsApp.
+- Conversao correta de codigo inline e em bloco.
+- Nome do ZIP e fluxo de build.
+- Geracao de `version.js` no pipeline.
+
+[Nao Lancado]: https://github.com/axmbo/pestto/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/axmbo/pestto/compare/v0.3.0-rc.5...v0.4.2
+[0.3.0-rc.5]: https://github.com/axmbo/pestto/compare/v0.3.0-rc.4...v0.3.0-rc.5
+[0.3.0-rc.4]: https://github.com/axmbo/pestto/compare/v0.3.0-rc.3...v0.3.0-rc.4
+[0.3.0-rc.3]: https://github.com/axmbo/pestto/compare/v0.3.0-rc.2...v0.3.0-rc.3
+[0.3.0-rc.2]: https://github.com/axmbo/pestto/compare/v0.3.0-rc.1...v0.3.0-rc.2
+[0.3.0-rc.1]: https://github.com/axmbo/pestto/compare/v0.3.0-rc.0...v0.3.0-rc.1
+[0.3.0-rc.0]: https://github.com/axmbo/pestto/compare/v0.2.6...v0.3.0-rc.0
+[0.2.6]: https://github.com/axmbo/pestto/compare/v0.2.5...v0.2.6
+[0.2.5]: https://github.com/axmbo/pestto/compare/v0.2.4...v0.2.5
+[0.2.4]: https://github.com/axmbo/pestto/compare/v0.2.3...v0.2.4
+[0.2.3]: https://github.com/axmbo/pestto/compare/v0.2.2...v0.2.3
+[0.2.2]: https://github.com/axmbo/pestto/compare/v0.2.1...v0.2.2
+[0.2.1]: https://github.com/axmbo/pestto/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/axmbo/pestto/compare/v0.1.2...v0.2.0
+[0.1.2]: https://github.com/axmbo/pestto/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/axmbo/pestto/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/axmbo/pestto/compare/1f4389e9427d80b774b76be568999ad7f3487979...v0.1.0

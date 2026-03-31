@@ -18,7 +18,8 @@ assignees: ''
 ### 📦 Preparação do Pacote
 
 - [ ] Atualizar versão no `package.json` e `manifest.json`: `npm version [patch|minor|major]`.
-- [ ] Gerar CHANGELOG: o script de versionamento já cuida disso (`npm run version`).
+- [ ] Atualizar `CHANGELOG.md` manualmente no formato Keep a Changelog.
+- [ ] Atualizar `RELEASE_NOTES.md` com o resumo da versão.
 - [ ] Gerar build final: `npm run build`.
 - [ ] Testar o arquivo ZIP gerado (`pestto-latest.zip`) instalando manualmente no Chrome.
 
