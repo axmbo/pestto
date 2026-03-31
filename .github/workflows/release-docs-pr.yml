@@ -1,0 +1,76 @@
+name: Gerar Docs de Release (PR)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versao alvo sem prefixo v (ex: 0.4.3)'
+        required: true
+      base_tag:
+        description: 'Tag base para comparar commits (ex: v0.4.2). Vazio usa a ultima tag.'
+        required: false
+      head_ref:
+        description: 'Referencia final de comparacao (branch, tag ou commit)'
+        required: false
+        default: HEAD
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  draft-docs-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Gerar rascunho de CHANGELOG e RELEASE NOTES
+        env:
+          AI_PROVIDER: ${{ vars.AI_PROVIDER || 'gemini' }}
+          AI_MODEL: ${{ vars.AI_MODEL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+        run: |
+          BASE_ARG=""
+          HEAD_ARG=""
+
+          if [ -n "${{ inputs.base_tag }}" ]; then
+            BASE_ARG="--base ${{ inputs.base_tag }}"
+          fi
+
+          if [ -n "${{ inputs.head_ref }}" ]; then
+            HEAD_ARG="--head ${{ inputs.head_ref }}"
+          fi
+
+          npm run release:docs -- --version "${{ inputs.version }}" $BASE_ARG $HEAD_ARG
+
+      - name: Criar PR com rascunho
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: 'docs(release): rascunho changelog/release notes v${{ inputs.version }}'
+          branch: 'chore/release-docs-v${{ inputs.version }}'
+          title: 'docs(release): preparar notas para v${{ inputs.version }}'
+          body: |
+            PR automatica para revisao das notas de release.
+
+            Escopo:
+            - Atualiza secao [Nao Lancado] do CHANGELOG.md a partir dos commits no intervalo.
+            - Adiciona rascunho da versao em RELEASE_NOTES.md.
+
+            Checklist:
+            - [ ] Revisar categorias e linguagem para publico final.
+            - [ ] Confirmar escopo tecnico com os commits do periodo.
+            - [ ] Ajustar o que for necessario antes do merge.
+          labels: |
+            release
+            documentation

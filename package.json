@@ -15,6 +15,7 @@
     "format:check": "prettier --check .",
     "build": "rm -f $npm_package_config_zipName && zip -q $npm_package_config_zipName manifest.json src/content.js src/converter.js src/version.js src/icons/icon-16.png src/icons/icon-48.png src/icons/icon-128.png",
     "version": "node scripts/sync-version.js && git add manifest.json",
+    "release:docs": "node scripts/generate-release-docs.js",
     "copy-tests": "node scripts/copiar_testes.js",
     "undo-version": "git tag -d $(git tag --points-at HEAD) && git reset --hard HEAD~1",
     "prepare": "husky"

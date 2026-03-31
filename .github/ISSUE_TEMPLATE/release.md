@@ -17,9 +17,9 @@ assignees: ''
 
 ### 📦 Preparação do Pacote
 
+- [ ] Executar o workflow **Gerar Docs de Release (PR)** e revisar a PR automática de documentação.
+- [ ] Fazer merge da PR de docs antes do bump de versão.
 - [ ] Atualizar versão no `package.json` e `manifest.json`: `npm version [patch|minor|major]`.
-- [ ] Atualizar `CHANGELOG.md` manualmente no formato Keep a Changelog.
-- [ ] Atualizar `RELEASE_NOTES.md` com o resumo da versão.
 - [ ] Gerar build final: `npm run build`.
 - [ ] Testar o arquivo ZIP gerado (`pestto-latest.zip`) instalando manualmente no Chrome.
 
