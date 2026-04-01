@@ -22,7 +22,7 @@ Referencia oficial do processo: `release.md`.
 
 - [ ] Executar o workflow **Gerar Docs de Release (PR)** e revisar a PR automática de documentação.
 - [ ] Fazer merge da PR de docs antes do bump de versão.
-- [ ] Se houver homologação distribuída, gerar e validar versão `rc/beta` via ZIP (sem loja), conforme `release.md`.
+- [ ] Se houver homologação distribuída, gerar e validar versão `rc/beta` via ZIP (sem loja), usando `npm run version:rc` ou `npm run version:beta`, conforme `release.md`.
 - [ ] Atualizar versão no `package.json` e `manifest.json`: `npm version [patch|minor|major]`.
 - [ ] Gerar build final: `npm run build`.
 - [ ] Testar o arquivo ZIP gerado (`pestto-latest.zip`) instalando manualmente no Chrome.
