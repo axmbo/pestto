@@ -74,42 +74,6 @@ async function buildWithOpenAI({ prompt }) {
   };
 }
 
-const ENGLISH_MARKERS = [
-  ' add ',
-  ' added ',
-  ' change ',
-  ' changed ',
-  ' update ',
-  ' updated ',
-  ' fix ',
-  ' fixed ',
-  ' improve ',
-  ' improved ',
-  ' remove ',
-  ' removed ',
-  ' security ',
-  ' release ',
-  ' notes ',
-  ' bump ',
-];
-
-function looksLikeEnglish(value) {
-  const text = ` ${String(value || '').toLowerCase()} `;
-  return ENGLISH_MARKERS.some((marker) => text.includes(marker));
-}
-
-function containsEnglishMarkers(aiData) {
-  const values = [
-    ...(Array.isArray(aiData?.resumo) ? aiData.resumo : []),
-    ...(Array.isArray(aiData?.adicionado) ? aiData.adicionado : []),
-    ...(Array.isArray(aiData?.alterado) ? aiData.alterado : []),
-    ...(Array.isArray(aiData?.corrigido) ? aiData.corrigido : []),
-    ...(Array.isArray(aiData?.seguranca) ? aiData.seguranca : []),
-  ];
-
-  return values.some((item) => looksLikeEnglish(item));
-}
-
 async function buildWithGemini({ prompt }) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
@@ -160,9 +124,10 @@ async function buildWithAI(commits) {
     'Retorne APENAS JSON valido com o formato:',
     '{"resumo": ["..."], "adicionado": ["..."], "alterado": ["..."], "corrigido": ["..."], "seguranca": ["..."]}',
     'Regras obrigatorias:',
-    '- Escreva TUDO em portugues brasileiro (pt-BR), independentemente do idioma dos commits.',
+    '- Escreva TUDO em portugues brasileiro (pt-BR), mesmo que os commits estejam em outro idioma.',
     '- Nao use ingles nas frases de saida.',
-    '- Respostas curtas, sem markdown, sem links e sem texto extra.',
+    '- Use frases curtas e objetivas.',
+    '- Nao use markdown, links ou texto fora do JSON.',
     '',
     'Commits:',
     ...commits.map((c) => `- ${c}`),
@@ -182,27 +147,77 @@ async function buildWithAI(commits) {
   );
 }
 
-async function normalizeAiDataToPortuguese(aiData) {
-  const prompt = [
-    'Reescreva o JSON abaixo para portugues brasileiro (pt-BR).',
-    'Mantenha o mesmo formato e as mesmas chaves.',
-    'Retorne APENAS JSON valido, sem markdown e sem texto extra.',
-    '',
-    JSON.stringify(aiData),
-  ].join('\n');
+const ENGLISH_MARKERS = [
+  ' add ',
+  ' added ',
+  ' change ',
+  ' changed ',
+  ' update ',
+  ' updated ',
+  ' fix ',
+  ' fixed ',
+  ' improve ',
+  ' improved ',
+  ' remove ',
+  ' removed ',
+  ' security ',
+  ' release ',
+  ' notes ',
+  ' bump ',
+];
 
-  const provider = (process.env.AI_PROVIDER || 'gemini').toLowerCase();
-  if (provider === 'openai') {
-    const result = await buildWithOpenAI({ prompt });
-    return result?.data || aiData;
+const PORTUGUESE_MARKERS = [
+  ' de ',
+  ' para ',
+  ' com ',
+  ' sem ',
+  ' que ',
+  ' em ',
+  ' nao ',
+  ' seguranca',
+  ' versao',
+  ' historico',
+  ' lancamento',
+  ' melhoria',
+  ' ajuste',
+  ' validacao',
+  ' configuracao',
+  ' dependencia',
+  ' dependencias',
+];
+
+function gatherAiValues(aiData) {
+  return [
+    ...(Array.isArray(aiData?.resumo) ? aiData.resumo : []),
+    ...(Array.isArray(aiData?.adicionado) ? aiData.adicionado : []),
+    ...(Array.isArray(aiData?.alterado) ? aiData.alterado : []),
+    ...(Array.isArray(aiData?.corrigido) ? aiData.corrigido : []),
+    ...(Array.isArray(aiData?.seguranca) ? aiData.seguranca : []),
+  ]
+    .map((item) => String(item || '').trim())
+    .filter(Boolean);
+}
+
+function seemsPortugueseOutput(aiData) {
+  const values = gatherAiValues(aiData);
+  if (!values.length) {
+    return true;
   }
 
-  if (provider === 'gemini') {
-    const result = await buildWithGemini({ prompt });
-    return result?.data || aiData;
+  const text = ` ${values.join(' ').toLowerCase()} `;
+  const englishHits = ENGLISH_MARKERS.filter((marker) =>
+    text.includes(marker)
+  ).length;
+  const portugueseHits = PORTUGUESE_MARKERS.filter((marker) =>
+    text.includes(marker)
+  ).length;
+  const hasPortugueseAccents = /[áéíóúâêôãõç]/i.test(text);
+
+  if (hasPortugueseAccents || portugueseHits >= englishHits) {
+    return true;
   }
 
-  return aiData;
+  return englishHits <= 1;
 }
 
 function titleCase(value) {
@@ -461,12 +476,14 @@ async function main() {
     const aiResult = await buildWithAI(commits);
     if (aiResult) {
       aiData = aiResult.data;
-      if (containsEnglishMarkers(aiData)) {
-        aiData = await normalizeAiDataToPortuguese(aiData);
-      }
       console.log(
         `🤖 Rascunho com IA habilitado (${aiResult.provider}/${aiResult.model}).`
       );
+      if (!seemsPortugueseOutput(aiData)) {
+        console.log(
+          '⚠️ Aviso: a saida da IA parece conter ingles. Revise o texto antes do merge.'
+        );
+      }
     }
   } catch (error) {
     console.log(
