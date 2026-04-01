@@ -74,6 +74,42 @@ async function buildWithOpenAI({ prompt }) {
   };
 }
 
+const ENGLISH_MARKERS = [
+  ' add ',
+  ' added ',
+  ' change ',
+  ' changed ',
+  ' update ',
+  ' updated ',
+  ' fix ',
+  ' fixed ',
+  ' improve ',
+  ' improved ',
+  ' remove ',
+  ' removed ',
+  ' security ',
+  ' release ',
+  ' notes ',
+  ' bump ',
+];
+
+function looksLikeEnglish(value) {
+  const text = ` ${String(value || '').toLowerCase()} `;
+  return ENGLISH_MARKERS.some((marker) => text.includes(marker));
+}
+
+function containsEnglishMarkers(aiData) {
+  const values = [
+    ...(Array.isArray(aiData?.resumo) ? aiData.resumo : []),
+    ...(Array.isArray(aiData?.adicionado) ? aiData.adicionado : []),
+    ...(Array.isArray(aiData?.alterado) ? aiData.alterado : []),
+    ...(Array.isArray(aiData?.corrigido) ? aiData.corrigido : []),
+    ...(Array.isArray(aiData?.seguranca) ? aiData.seguranca : []),
+  ];
+
+  return values.some((item) => looksLikeEnglish(item));
+}
+
 async function buildWithGemini({ prompt }) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
@@ -123,7 +159,10 @@ async function buildWithAI(commits) {
     'Classifique os commits abaixo em categorias de changelog.',
     'Retorne APENAS JSON valido com o formato:',
     '{"resumo": ["..."], "adicionado": ["..."], "alterado": ["..."], "corrigido": ["..."], "seguranca": ["..."]}',
-    'Regras: respostas curtas em portugues, sem markdown, sem links, sem texto extra.',
+    'Regras obrigatorias:',
+    '- Escreva TUDO em portugues brasileiro (pt-BR), independentemente do idioma dos commits.',
+    '- Nao use ingles nas frases de saida.',
+    '- Respostas curtas, sem markdown, sem links e sem texto extra.',
     '',
     'Commits:',
     ...commits.map((c) => `- ${c}`),
@@ -141,6 +180,29 @@ async function buildWithAI(commits) {
   throw new Error(
     `AI_PROVIDER invalido: ${provider}. Use "gemini" ou "openai".`
   );
+}
+
+async function normalizeAiDataToPortuguese(aiData) {
+  const prompt = [
+    'Reescreva o JSON abaixo para portugues brasileiro (pt-BR).',
+    'Mantenha o mesmo formato e as mesmas chaves.',
+    'Retorne APENAS JSON valido, sem markdown e sem texto extra.',
+    '',
+    JSON.stringify(aiData),
+  ].join('\n');
+
+  const provider = (process.env.AI_PROVIDER || 'gemini').toLowerCase();
+  if (provider === 'openai') {
+    const result = await buildWithOpenAI({ prompt });
+    return result?.data || aiData;
+  }
+
+  if (provider === 'gemini') {
+    const result = await buildWithGemini({ prompt });
+    return result?.data || aiData;
+  }
+
+  return aiData;
 }
 
 function titleCase(value) {
@@ -399,6 +461,9 @@ async function main() {
     const aiResult = await buildWithAI(commits);
     if (aiResult) {
       aiData = aiResult.data;
+      if (containsEnglishMarkers(aiData)) {
+        aiData = await normalizeAiDataToPortuguese(aiData);
+      }
       console.log(
         `🤖 Rascunho com IA habilitado (${aiResult.provider}/${aiResult.model}).`
       );
