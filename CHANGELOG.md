@@ -12,70 +12,15 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 - Adicionar modelo de *issue* de lançamento com checklist abrangente para novas versões.
 - Isola Lógica De Criação Do Evento Customizado De Colar.
 - Adicionar badge de fluxo de *CI* ao `README.md`.
-- Adicionar nova tarefa do *VS Code* para fazer push de mudanças do *Git* com tags.
-- Adicionar tarefas do *VS Code* para *linting*, formatação e gerenciamento de versão, e atualizar o rótulo da tarefa de build.
-- Adicionar configurações de inicialização e tarefa do *VS Code* para compilação e testes.
-- Adicionar guia para automatizar publicação na *Chrome Web Store* usando *GitHub Actions*.
-- Adicionar imagem promocional 640x400.
 
 ### Alterado
 
 - Aprimorar Regras De Saída E Validação De Texto Em Português.
 - Adicionar Suporte Para Normalização De Dados Em Português E Verificação De Marcadores Em Inglês.
 - Adicionar Workflow Para Gerar Rascunho De Changelog E Notas De Release.
-- Adicionar Arquivo Release_notes.md E Atualizar Checklist De Lançamento.
+- Adicionar Arquivo `RELEASE_NOTES.md` E Atualizar Checklist De Lançamento.
 - Atualizar versões de `brace-expansion` e `yaml` para 5.0.5 e 2.8.3, respectivamente.
 - Atualizar `handlebars` de 4.7.8 para 4.7.9.
-- Atualizar versão para 0.4.2 para teste de lançamento.
-- Integrar Deploy Na Chrome Store Com Aprovação Manual Em Releases.
-- Automação De Deploy Na Chrome Web Store Finalizada E Validada.
-- Atualizar versão para 0.4.1 para evitar conflito de transição.
-- Atualizar versão para 0.4.0 e testar com *Extension ID* real.
-- Usar Action Mnao305/chrome-extension-upload@v5.0.0.
-- Substituir Action De Deploy Pela Mobilefirstllc/chrome-extension-upload@v5.
-- Atualizar checklist de lançamento para refletir deploy automático da *Chrome Web Store* via *GitHub Actions*.
-- Adicionar Workflow De Deploy Automático Para Chrome Web Store.
-- Atualizar `tests/generate-version.test.js` com novos casos de teste.
-- Atualizar `picomatch` de 4.0.3 para 4.0.4.
-- Restaurar `manifest.json` após teste de *CI* para isolar estado de teste.
-- Plano inicial.
-- Permite Colar Nativamente Na Pesquisa E Ignora Textos Puros.
-- Adiciona Entropia Aos Tokens De Proteção De Código.
-- Preserva Arquivos Copiados E Valida O Elemento Alvo.
-- Acionar fluxo de trabalho de *CI* em *Pull Requests* para a branch principal.
-- 0.3.0-rc.5.
-- Atualizar resumo do projeto, detalhar novo sistema de versionamento e melhorar a documentação do fluxo de trabalho de desenvolvimento.
-- 0.3.0-rc.4.
-- 0.3.0-rc.3.
-- Separar execução de testes em execução única (`npm test`) e modo observação (`npm run test:watch`), atualizando tarefas do *VS Code* e documentação.
-- 0.3.0-rc.2.
-- Impedir que `generate-version.sh` modifique `manifest.json` durante compilações locais, atualizando-o apenas em compilações de *CI*, e ajustar testes de acordo.
-- 0.3.0-rc.1.
-- Atualizar versão do manifesto para 0.3.0.0.
-- 0.3.0-rc.0.
-- Mover arquivos de código-fonte para `src/`, scripts para `scripts/` e testes para `tests/`.
-- Atualizar resumo do projeto e `README` com nova versão, arquitetura, tipo de conversão, *CI/CD*, ferramentas de qualidade de código e instruções de instalação.
-- Formatar arquivos não selecionados em caso de falha de *pre-commit*.
-- Configurar ganchos de *pre-commit* do *Husky* para executar `lint-staged` para formatação e *linting*, e *Vitest* para testes.
-- Melhorar formatação e corrigir ênfase *Markdown* no guia de automação da *Chrome Web Store*.
-
-### Corrigido
-
-- Melhorado debug de *curl* para token e upload.
-- Adicionar etapa de upload *curl* para ver corpo do erro.
-- Corrigir Versão Da Action De Deploy Para V1.
-- Corrige A Atualização Do Manifest.json Para Manter A Formatação.
-- Potencial correção para alerta de *Code Scanning* nº 3: escape ou codificação incompleta de string.
-- Implementar versionamento de `manifest.json` com número de build de 4º dígito e remover sufixos de pré-lançamento da versão base.
-- Remover sufixos de pré-lançamento da versão do manifesto para estar em conformidade com o formato da *Chrome Web Store*.
-- Alterar `lint-staged` para modo verificação em vez de auto-correção.
-
-### Seguranca
-
-- Potencial correção para alerta de *Code Scanning* nº 5: fluxo de trabalho não contém permissões.
-- Adicionar *Actions*: permissão de escrita ao trabalho de build para upload de artefato.
-- Potencial correção para alerta de *Code Scanning* nº 2: fluxo de trabalho não contém permissões.
-- Corrige Vulnerabilidade De Prototype Pollution No Pacote Flatted.
 
 ## [0.4.2] - 2026-03-26
 
