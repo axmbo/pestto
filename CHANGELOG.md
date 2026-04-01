@@ -6,17 +6,21 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Nao Lancado]
 
+### Adicionado
+
+- Atualizar Ação De Criação De Pr Para Versão 8 E Ajustar Token.
+- Adicionar modelo de *issue* de lançamento com checklist abrangente para novas versões.
+- Isola Lógica De Criação Do Evento Customizado De Colar.
+- Adicionar badge de fluxo de *CI* ao `README.md`.
+
 ### Alterado
 
-- Atualizacao de dependencias de desenvolvimento (`handlebars` 4.7.8 -> 4.7.9).
-
-### Corrigido
-
-- Ajustes de workflows para atender requisitos de permissao no GitHub Actions.
-
-### Seguranca
-
-- Atualizacao de dependencias para mitigar vulnerabilidades moderadas em cadeia de build (`brace-expansion` e `yaml`).
+- Aprimorar Regras De Saída E Validação De Texto Em Português.
+- Adicionar Suporte Para Normalização De Dados Em Português E Verificação De Marcadores Em Inglês.
+- Adicionar Workflow Para Gerar Rascunho De Changelog E Notas De Release.
+- Adicionar Arquivo `RELEASE_NOTES.md` E Atualizar Checklist De Lançamento.
+- Atualizar versões de `brace-expansion` e `yaml` para 5.0.5 e 2.8.3, respectivamente.
+- Atualizar `handlebars` de 4.7.8 para 4.7.9.
 
 ## [0.4.2] - 2026-03-26
 

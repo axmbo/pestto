@@ -23,15 +23,15 @@ Copie o bloco abaixo para uma nova versao:
 
 - _Funcionalidades novas para usuarios._
 
-### Correcoes
+### Correções
 
 - _Bugs resolvidos e ajustes de comportamento._
 
-### Seguranca
+### Segurança
 
 - _Atualizacoes de dependencia, hardening, mitigacoes._
 
-### Observacoes de Deploy
+### Observações de Deploy
 
 - _Notas operacionais de release/rollout, se houver._
 ```
@@ -40,50 +40,20 @@ Copie o bloco abaixo para uma nova versao:
 
 ### Resumo
 
-- Release de consolidacao das mudancas introduzidas desde a versao `0.2.6`.
-- Foco em robustez operacional de CI/CD, deploy na Chrome Web Store e reducao de risco de seguranca.
+- Esta versão melhora a experiência de uso em ações de copiar e colar conteúdo.
+- O foco foi tornar as interações mais confiáveis, com menos risco de perda de informação.
 
 ### Novidades
 
-- Automacao de deploy na Chrome Web Store integrada ao fluxo de release no GitHub Actions.
-- Template de issue para checklist de release e padronizacao do processo de publicacao.
-- Evolucao das tasks de desenvolvimento (testes, lint, formatacao e versao) no VS Code.
+- Preservação aprimorada do conteúdo copiado, reduzindo falhas em cenários de conversão.
+- Validação mais segura do destino da ação, evitando operações em contextos incorretos.
+- Tratamento mais robusto de colagem e pesquisa, com comportamento mais estável no uso diário.
 
-### Correcoes
+### Correções
 
-- Correcoes no fluxo de versao do `manifest.json`, incluindo preservacao de formatacao e isolamento em testes de CI.
-- Ajustes no pipeline de release/deploy para aumentar confiabilidade do empacotamento e envio.
-- Melhorias no conteudo e no conversor para preservar arquivos copiados, validar alvo e tratar colagem/pesquisa de forma mais segura.
+- Correções no conteúdo e no conversor para evitar perda de dados em cópias e colagens.
+- Ajustes de validação para reduzir ações inválidas e melhorar a previsibilidade do resultado.
 
-### Seguranca
+### Segurança
 
-- Harden de workflows com ajustes de permissoes em GitHub Actions (code scanning alerts).
-- Atualizacoes de dependencias para mitigar vulnerabilidades conhecidas (`flatted`, `picomatch`, `handlebars`, `brace-expansion`, `yaml`).
-
-### Observacoes de Deploy
-
-- Base de comparacao desta release: `v0.2.6..HEAD`.
-- A publicacao final na Chrome Web Store depende do estado do item no painel (ex.: `pending review` ou `ready to publish` podem bloquear upload via API).
-
-## [0.4.2] - 2026-03-26
-
-### Resumo
-
-- Release oficial de validacao do pipeline de publicacao.
-
-### Novidades
-
-- Consolidacao da automacao de release e deploy para a Chrome Web Store.
-
-### Correcoes
-
-- Ajustes no fluxo operacional de empacotamento/publicacao.
-
-### Seguranca
-
-- Sem alteracoes de seguranca documentadas nesta release.
-
-### Observacoes de Deploy
-
-- Publicacao na loja depende do estado do item no painel da Chrome Web Store.
-- Em estado `pending review` ou `ready to publish`, a API pode bloquear novo upload (`ITEM_NOT_UPDATABLE`).
+- Reforços de segurança internos para tornar a extensão mais confiável durante o uso.
