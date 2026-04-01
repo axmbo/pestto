@@ -13,6 +13,48 @@ Regra de uso:
 Copie o bloco abaixo para uma nova versao:
 
 ```md
+
+## [0.4.3] - 2026-04-01 (Rascunho)
+
+### Resumo
+
+- Release preparada automaticamente a partir do historico de commits.
+- Base de comparacao: v0.2.6..HEAD.
+
+### Novidades
+
+- Atualizar Ação De Criação De Pr Para Versão 8 E Ajustar Token.
+- Add Release Issue Template With A Comprehensive Checklist For New Versions.
+- Isola Lógica De Criação Do Evento Customizado De Colar.
+- Add Ci Workflow Badge To Readme.md.
+- Add New Vs Code Task For Pushing Git Changes With Tags..
+- Add Vs Code Tasks For Linting, Formatting, And Version Management, And Update The Build Task Label..
+- Add Vs Code Launch And Task Configurations For Building And Testing..
+- Add A Guide For Automating Chrome Web Store Publication Using Github Actions..
+- Add 640x400 Promotional Image..
+
+### Correcoes
+
+- Improved Curl Debug For Token And Upload.
+- Add Curl Upload Step To See Error Body.
+- Corrigir Versão Da Action De Deploy Para V1.
+- Corrige A Atualização Do Manifest.json Para Manter A Formatação.
+- Potential Fix For Code Scanning Alert No. 3: Incomplete String Escaping Or Encoding.
+- Implement Manifest.json Versioning With A 4th Digit Build Number And Remove Pre-release Suffixes From The Base Version..
+- Remove Pre-release Suffixes From Manifest Version To Comply With Chrome Web Store Format..
+- Change Lint-staged To Check Mode Instead Of Auto-fix.
+
+### Seguranca
+
+- Potential Fix For Code Scanning Alert No. 5: Workflow Does Not Contain Permissions.
+- Add Actions: Write Permission To Build Job For Artifact Upload.
+- Potential Fix For Code Scanning Alert No. 2: Workflow Does Not Contain Permissions.
+- Corrige Vulnerabilidade De Prototype Pollution No Pacote Flatted.
+
+### Observacoes de Deploy
+
+- Validar pipeline de release no GitHub e status do item na Chrome Web Store antes do upload final.
+
 ## [X.Y.Z] - YYYY-MM-DD
 
 ### Resumo
@@ -87,3 +129,4 @@ Copie o bloco abaixo para uma nova versao:
 
 - Publicacao na loja depende do estado do item no painel da Chrome Web Store.
 - Em estado `pending review` ou `ready to publish`, a API pode bloquear novo upload (`ITEM_NOT_UPDATABLE`).
+

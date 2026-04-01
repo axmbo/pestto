@@ -6,17 +6,76 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e 
 
 ## [Nao Lancado]
 
+### Adicionado
+
+- Atualizar Ação De Criação De Pr Para Versão 8 E Ajustar Token.
+- Add Release Issue Template With A Comprehensive Checklist For New Versions.
+- Isola Lógica De Criação Do Evento Customizado De Colar.
+- Add Ci Workflow Badge To Readme.md.
+- Add New Vs Code Task For Pushing Git Changes With Tags..
+- Add Vs Code Tasks For Linting, Formatting, And Version Management, And Update The Build Task Label..
+- Add Vs Code Launch And Task Configurations For Building And Testing..
+- Add A Guide For Automating Chrome Web Store Publication Using Github Actions..
+- Add 640x400 Promotional Image..
+
 ### Alterado
 
-- Atualizacao de dependencias de desenvolvimento (`handlebars` 4.7.8 -> 4.7.9).
+- Aprimorar Regras De Saída E Validação De Texto Em Português.
+- Adicionar Suporte Para Normalização De Dados Em Português E Verificação De Marcadores Em Inglês.
+- Adicionar Workflow Para Gerar Rascunho De Changelog E Notas De Release.
+- Adicionar Arquivo Release_notes.md E Atualizar Checklist De Lançamento.
+- Bump Brace-expansion And Yaml Versions To 5.0.5 And 2.8.3 Respectively.
+- Bump Handlebars From 4.7.8 To 4.7.9.
+- Bump Version To 0.4.2 For Release Test.
+- Integrar Deploy Na Chrome Store Com Aprovação Manual Em Releases.
+- Automação De Deploy Na Chrome Web Store Finalizada E Validada.
+- Bump Version To 0.4.1 To Avoid Transition Conflict.
+- Bump Version To 0.4.0 And Test With Real Extension Id.
+- Usar Action Mnao305/chrome-extension-upload@v5.0.0.
+- Substituir Action De Deploy Pela Mobilefirstllc/chrome-extension-upload@v5.
+- Update Release Checklist To Reflect Automated Chrome Web Store Deployment Via Github Actions..
+- Adicionar Workflow De Deploy Automático Para Chrome Web Store.
+- Update Tests/generate-version.test.js With New Test Cases.
+- Bump Picomatch From 4.0.3 To 4.0.4.
+- Restore Manifest.json After Ci Test To Isolate Test State.
+- Initial Plan.
+- Permite Colar Nativamente Na Pesquisa E Ignora Textos Puros.
+- Adiciona Entropia Aos Tokens De Proteção De Código.
+- Preserva Arquivos Copiados E Valida O Elemento Alvo.
+- Trigger Ci Workflow On Pull Requests To The Main Branch..
+- 0.3.0-rc.5.
+- Update Project Summary, Detail New Versioning System, And Enhance Development Workflow Documentation..
+- 0.3.0-rc.4.
+- 0.3.0-rc.3.
+- Separate Test Execution Into Run-once (`npm Test`) And Watch Mode (`npm Run Test:watch`), Updating Vs Code Tasks And Documentation..
+- 0.3.0-rc.2.
+- Prevent `generate-version.sh` From Modifying `manifest.json` During Local Builds, Updating It Only For Ci Builds, And Adjust Tests Accordingly..
+- 0.3.0-rc.1.
+- Update Manifest Version To 0.3.0.0..
+- 0.3.0-rc.0.
+- Relocate Source Files To `src/`, Scripts To `scripts/`, And Tests To `tests/`..
+- Update Project Summary And Readme With New Version, Architecture, Conversion Type, Ci/cd, Code Quality Tools, And Installation Instructions..
+- Format Unstaged Files On Pre-commit Failure.
+- Set Up Husky Pre-commit Hooks To Run Lint-staged For Formatting And Linting, And Vitest For Testing..
+- Improve Formatting And Correct Markdown Emphasis In Chrome Web Store Automation Guide..
 
 ### Corrigido
 
-- Ajustes de workflows para atender requisitos de permissao no GitHub Actions.
+- Improved Curl Debug For Token And Upload.
+- Add Curl Upload Step To See Error Body.
+- Corrigir Versão Da Action De Deploy Para V1.
+- Corrige A Atualização Do Manifest.json Para Manter A Formatação.
+- Potential Fix For Code Scanning Alert No. 3: Incomplete String Escaping Or Encoding.
+- Implement Manifest.json Versioning With A 4th Digit Build Number And Remove Pre-release Suffixes From The Base Version..
+- Remove Pre-release Suffixes From Manifest Version To Comply With Chrome Web Store Format..
+- Change Lint-staged To Check Mode Instead Of Auto-fix.
 
 ### Seguranca
 
-- Atualizacao de dependencias para mitigar vulnerabilidades moderadas em cadeia de build (`brace-expansion` e `yaml`).
+- Potential Fix For Code Scanning Alert No. 5: Workflow Does Not Contain Permissions.
+- Add Actions: Write Permission To Build Job For Artifact Upload.
+- Potential Fix For Code Scanning Alert No. 2: Workflow Does Not Contain Permissions.
+- Corrige Vulnerabilidade De Prototype Pollution No Pacote Flatted.
 
 ## [0.4.2] - 2026-03-26
 
