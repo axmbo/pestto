@@ -59,8 +59,10 @@ npm run version:beta
 ```
 
 2. Envie commit/tag.
-3. Publique no GitHub como pre-release.
+3. O workflow `Publicar Release Oficial` marca automaticamente como pre-release quando a tag contem `-beta.N` ou `-rc.N`.
 4. Distribua o ZIP da release RC/Beta para homologadores.
+
+Observacao: as notas da release passam a incluir um bloco padrao de instalacao e um link para `docs/INSTALACAO.md`.
 
 Instalacao para homologacao (usuarios tecnicos):
 
