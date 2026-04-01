@@ -15,7 +15,7 @@ Objetivos do processo:
 - Homologacao distribuida: `X.Y.Z-rc.N` ou `X.Y.Z-beta.N` (ex.: `0.4.3-rc.1`).
 - RC/Beta nunca vai para a loja.
 - RC/Beta e distribuida por ZIP via GitHub Release para usuarios tecnicos.
-- Para gerar RC/Beta com npm, sempre informe `--preid` (ex.: `--preid=rc`), para evitar versoes no formato `-0`.
+- Para gerar RC/Beta com npm, use `npm run version:rc` ou `npm run version:beta` (nunca `npm version prerelease` sem `--preid`, pois gera versoes no formato `-0`).
 
 ## Fluxo Oficial (Fim a Fim)
 
@@ -49,13 +49,13 @@ Use quando houver validacao manual por POs/usuarios-chave tecnicos.
 1. Gere versao de homologacao:
 
 ```bash
-npm version prerelease --preid=rc
+npm run version:rc
 ```
 
 Para rodar homologacao Beta, use:
 
 ```bash
-npm version prerelease --preid=beta
+npm run version:beta
 ```
 
 2. Envie commit/tag.
