@@ -82,6 +82,12 @@ npm run format      # formata todos os arquivos
 npm run format:check  # apenas verifica (sem alterar)
 ```
 
+## 🚢 Release e Deploy
+
+O processo de liberação (homologação por ZIP RC, checklist, publicação oficial e deploy na loja) está centralizado em [release.md](release.md).
+
+Se você é novo no projeto e precisa liberar uma versão, comece por lá.
+
 ## 🤝 Contribuição
 
 Contribuições são bem-vindas! O foco atual é manter a extensão pequena, clara e com as permissões mínimas possíveis. Se você encontrar casos onde a conversão falha (edge cases do Regex), sinta-se à vontade para abrir uma _Issue_ ou enviar um _Pull Request_.

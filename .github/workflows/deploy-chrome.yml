@@ -4,9 +4,12 @@ permissions:
   contents: read
 
 on:
-  release:
-    types: [published]
-  workflow_dispatch: # Permite rodar manualmente na aba Actions
+  workflow_dispatch:
+    inputs:
+      confirm_deploy:
+        description: 'Digite SIM_DEPLOY_LOJA para confirmar deploy na Chrome Web Store'
+        required: true
+        type: string
 
 jobs:
   publish:
@@ -20,6 +23,48 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+
+      - name: Confirmacao explicita obrigatoria
+        shell: bash
+        run: |
+          set -euo pipefail
+          CONFIRM="${{ github.event.inputs.confirm_deploy }}"
+
+          if [[ "$CONFIRM" != "SIM_DEPLOY_LOJA" ]]; then
+            echo "::error::Deploy cancelado: confirmacao invalida. Para prosseguir, execute novamente e informe exatamente SIM_DEPLOY_LOJA."
+            {
+              echo "## Deploy cancelado"
+              echo "- Motivo: confirmacao explicita nao fornecida"
+              echo "- Valor informado: $CONFIRM"
+              echo "- Valor esperado: SIM_DEPLOY_LOJA"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+      - name: Bloquear deploy de pre-release (RC/Beta)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          fail_blocked() {
+            local reason="$1"
+            echo "::error::Deploy bloqueado na Chrome Web Store. Motivo: $reason"
+            echo "::error::Como proceder: publique RC/Beta apenas como GitHub Pre-release e distribua o ZIP para homologacao tecnica."
+            echo "::error::Consulte o guia em release.md para o fluxo correto."
+            {
+              echo "## Deploy bloqueado"
+              echo "- Motivo: $reason"
+              echo "- Acao esperada: usar RC/Beta somente via ZIP no GitHub Release"
+              echo "- Guia: release.md"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          }
+
+          VERSION="$(node -p "require('./package.json').version")"
+
+          if [[ "$VERSION" =~ -(rc|beta)(\.|$) ]]; then
+            fail_blocked "versao do package.json e pre-release ($VERSION)"
+          fi
 
       - name: Instalar Dependências e Buildar
         run: |
