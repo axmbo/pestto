@@ -68,6 +68,8 @@ Matemática: 2 * 3 = 6 e 4 * 5 = 20.
 Inline com marcador falso: `código com **negrito** falso`.
 Formatação incompleta: aqui vai um **negrito sem fechamento.
 Sem formatação: texto completamente normal.
+Multilinha: **primeira linha
+e segunda linha**.
 ```
 
 ### Esperado
@@ -76,6 +78,7 @@ Sem formatação: texto completamente normal.
 2. Marcações dentro de código inline continuam iguais.
 3. Formatação incompleta não é convertida.
 4. Texto sem markdown não é alterado.
+5. Formatação que cruza quebra de linha não é convertida.
 
 ## Testes candidatos para promoção
 
