@@ -37,6 +37,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
+
           cat > release-notes.md << 'EOF'
           ## Instalacao
 
@@ -51,6 +53,19 @@ jobs:
           gh api repos/${{ github.repository }}/releases/generate-notes \
             -f tag_name=${{ github.ref_name }} \
             --jq '.body' > generated-notes.md
+
+          if [[ ! -s generated-notes.md ]] || grep -qx 'null' generated-notes.md; then
+            {
+              echo "### Falha na geracao automatica das release notes"
+              echo
+              echo "- Tag: ${{ github.ref_name }}"
+              echo "- Causa: retorno vazio ou nulo da API de generate-notes"
+              echo "- Acao: validar GH_TOKEN/permissoes e tentar novamente"
+            } >> "$GITHUB_STEP_SUMMARY"
+
+            echo "Falha ao gerar notas automaticas da release para ${{ github.ref_name }}." >&2
+            exit 1
+          fi
 
           if ! grep -q "^## What's Changed" generated-notes.md; then
             {
@@ -77,6 +92,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
+
           PRE_RELEASE_FLAG=""
 
           case "${{ github.ref_name }}" in
