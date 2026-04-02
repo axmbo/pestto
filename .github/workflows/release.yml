@@ -56,6 +56,16 @@ jobs:
             exit 1
           }
 
+          fail_generate_notes() {
+            local cause="$1"
+            local error_message="$2"
+
+            fail_release_notes \
+              "$cause" \
+              "validar GH_TOKEN/permissões, conectividade e tentar novamente" \
+              "$error_message"
+          }
+
           ensure_section_with_fallback() {
             local heading="$1"
             local fallback_line="$2"
@@ -83,18 +93,16 @@ jobs:
           if ! gh api repos/${{ github.repository }}/releases/generate-notes \
             -f tag_name=${{ github.ref_name }} \
             --jq '.body' > generated-notes.md; then
-            fail_release_notes \
+            fail_generate_notes \
               "erro ao chamar a API de generate-notes" \
-              "validar GH_TOKEN/permissões, conectividade e tentar novamente" \
               "Falha ao chamar a API de generate-notes para ${{ github.ref_name }}."
           fi
 
           GENERATED_NOTES_CONTENT="$(tr -d '[:space:]' < generated-notes.md)"
 
           if [[ -z "$GENERATED_NOTES_CONTENT" || "$GENERATED_NOTES_CONTENT" == "null" ]]; then
-            fail_release_notes \
+            fail_generate_notes \
               "retorno vazio ou nulo da API de generate-notes" \
-              "validar GH_TOKEN/permissões e tentar novamente" \
               "Falha ao gerar notas automáticas da release para ${{ github.ref_name }}."
           fi
 
