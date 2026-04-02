@@ -129,6 +129,48 @@ Esperado:
 
 Checkpoint: se os três casos passarem, as regras de bypass estão funcionais.
 
+## Fluxo 5 - Estresse Consolidado
+
+Objetivo: validar casos de borda em um único cenário, sem troca de contexto.
+
+### Entrada
+
+````md
+Antes do código **negrito**.
+
+```js
+const a = "**não converter**";
+```
+
+Entre blocos com *itálico* e `código inline`.
+
+```bash
+echo "*também não converter*"
+```
+
+Depois com ~~tachado~~, `npm test`, 2 * 3 = 6 e ***prioridade alta***.
+Espaços inválidos: ** inválido** e *também inválido *.
+Produto: **São Paulo** e *açúcar* 😊.
+- Item com **negrito** na lista.
+Multilinha **linha 1
+e linha 2** não converte.
+````
+
+### Esperado
+
+1. `**negrito**` fora dos blocos vira `*negrito*`.
+2. `*itálico*` fora dos blocos vira `_itálico_`.
+3. `~~tachado~~` vira `~tachado~`.
+4. `***prioridade alta***` vira `_*prioridade alta*_`.
+5. `** inválido**` e `*também inválido *` permanecem iguais (espaço na borda invalida a marcação).
+6. `2 * 3 = 6` permanece igual (asterisco solto não forma par válido).
+7. `` `npm test` `` e `` `código inline` `` permanecem iguais.
+8. Blocos `js` e `bash` permanecem exatamente iguais.
+9. `**São Paulo**` vira `*São Paulo*` e `*açúcar*` vira `_açúcar_`.
+10. Emoji (`😊`) e acentos permanecem intactos.
+11. Marcador de lista (`-`) permanece igual.
+12. Formatação multilinha não é convertida.
+
 ## Testes candidatos para promoção
 
 Os itens abaixo ainda não fazem parte do fluxo principal. Eles estão organizados por prioridade para validação e futura promoção ao roteiro oficial.
