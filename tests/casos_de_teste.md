@@ -106,11 +106,26 @@ Esperado:
 
 - Copiar `texto completamente normal 123`.
 - Colar no composer.
+- Abrir o DevTools do navegador (Console) e executar antes da cola:
+
+    ```js
+    window.__pesttoSyntheticPasteCount = 0;
+    document.addEventListener(
+        'paste',
+        (e) => {
+            if (e.isPesttoEvent) window.__pesttoSyntheticPasteCount += 1;
+        },
+        true
+    );
+    ```
+- Em seguida, ainda no composer, copiar e colar `**controle de evento sintético**`.
 
 Esperado:
 - O conteúdo final permanece `texto completamente normal 123`.
 - Não há diferença observável entre colar com ou sem Pestto ativo.
-- Nenhum evento sintético é disparado quando não há conversão.
+- `window.__pesttoSyntheticPasteCount` permanece `0` após a cola.
+- Após a cola de `**controle de evento sintético**`, o contador fica maior que `0`.
+- O trecho `**controle de evento sintético**` é convertido para `*controle de evento sintético*`.
 
 Checkpoint: se os três casos passarem, as regras de bypass estão funcionais.
 
