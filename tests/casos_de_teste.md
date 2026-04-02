@@ -80,6 +80,40 @@ e segunda linha**.
 4. Texto sem markdown não é alterado.
 5. Formatação que cruza quebra de linha não é convertida.
 
+## Fluxo 4 - Interceptação Segura
+
+Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo nativo.
+
+### 4.1 - Alvo não editável (barra lateral)
+
+- Copiar `**negrito**`.
+- Colar no campo de busca da barra lateral do WhatsApp.
+
+Esperado:
+- O texto aparece como `**negrito**`, sem conversão.
+- Bypass acionado pela proteção da barra lateral.
+
+### 4.2 - Cópia interna do WhatsApp
+
+- Copiar uma mensagem de uma bolha de conversa dentro do próprio WhatsApp.
+- Colar no composer.
+
+Esperado:
+- O conteúdo é preservado exatamente como copiado, sem reconversão.
+- Bypass acionado por tipo MIME `application/whatsapp`.
+
+### 4.3 - Passthrough para texto sem markdown
+
+- Copiar `texto completamente normal 123`.
+- Colar no composer.
+
+Esperado:
+- O conteúdo final permanece `texto completamente normal 123`.
+- Não há diferença observável entre colar com ou sem Pestto ativo.
+- Nenhum evento sintético é disparado quando não há conversão.
+
+Checkpoint: se os três casos passarem, as regras de bypass estão funcionais.
+
 ## Testes candidatos para promoção
 
 Os itens abaixo ainda não fazem parte do fluxo principal. Eles estão organizados por prioridade para validação e futura promoção ao roteiro oficial.
