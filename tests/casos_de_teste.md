@@ -104,9 +104,7 @@ Esperado:
 
 ### 4.3 - Passthrough para texto sem markdown
 
-- Copiar `texto completamente normal 123`.
-- Colar no composer.
-- Abrir o DevTools do navegador (Console) e executar antes da cola:
+- Abrir o DevTools do navegador (Console) e executar:
 
     ```js
     window.__pesttoSyntheticPasteCount = 0;
@@ -118,6 +116,8 @@ Esperado:
         true
     );
     ```
+- Copiar `texto completamente normal 123`.
+- Colar no composer.
 - Em seguida, ainda no composer, copiar e colar `**controle de evento sintético**`.
 
 Esperado:
