@@ -56,6 +56,19 @@ jobs:
             exit 1
           }
 
+          ensure_section_with_fallback() {
+            local heading="$1"
+            local fallback_line="$2"
+
+            if ! grep -q "^## ${heading}" generated-notes.md; then
+              {
+                echo
+                echo "## ${heading}"
+                echo "${fallback_line}"
+              } >> generated-notes.md
+            fi
+          }
+
           cat > release-notes.md << 'EOF'
           ## Instalação
 
@@ -85,21 +98,8 @@ jobs:
               "Falha ao gerar notas automáticas da release para ${{ github.ref_name }}."
           fi
 
-          if ! grep -q "^## What's Changed" generated-notes.md; then
-            {
-              echo
-              echo "## What's Changed"
-              echo "- No pull requests were merged in this release window."
-            } >> generated-notes.md
-          fi
-
-          if ! grep -q "^## New Contributors" generated-notes.md; then
-            {
-              echo
-              echo "## New Contributors"
-              echo "- No first-time contributors in this release window."
-            } >> generated-notes.md
-          fi
+          ensure_section_with_fallback "What's Changed" "- No pull requests were merged in this release window."
+          ensure_section_with_fallback "New Contributors" "- No first-time contributors in this release window."
 
           {
             echo
