@@ -391,6 +391,7 @@ function buildReleaseNotesBlock({
     : [
         '- Sem atualizacoes de seguranca explicitamente identificadas no intervalo.',
       ];
+  const roteiroManualPath = 'tests/casos_de_teste.md';
 
   return [
     `## [${version}] - ${date} (Rascunho)`,
@@ -412,6 +413,11 @@ function buildReleaseNotesBlock({
     '### Seguranca',
     '',
     ...effectiveSeguranca,
+    '',
+    '### Teste Manual',
+    '',
+    `- Para testar a nova versão, siga este roteiro de testes manuais: [${roteiroManualPath}](${roteiroManualPath}).`,
+    '- Sempre que houver feature importante, atualize o roteiro de testes manuais antes da release.',
     '',
     '### Observacoes de Deploy',
     '',

@@ -31,6 +31,11 @@ Copie o bloco abaixo para uma nova versao:
 
 - _Atualizacoes de dependencia, hardening, mitigacoes._
 
+### Teste Manual
+
+- _Para testar a nova versão, siga o roteiro: [tests/casos_de_teste.md](tests/casos_de_teste.md)._
+- _Se houver feature importante, atualize o roteiro antes da release._
+
 ### Observações de Deploy
 
 - _Notas operacionais de release/rollout, se houver._

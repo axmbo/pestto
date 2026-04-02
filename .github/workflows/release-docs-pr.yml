@@ -62,16 +62,17 @@ jobs:
           branch: 'chore/release-docs-v${{ inputs.version }}'
           title: 'docs(release): preparar notas para v${{ inputs.version }}'
           body: |
-            PR automatica para revisao das notas de release.
+            PR automática para revisão das notas de release.
 
             Escopo:
-            - Atualiza secao [Nao Lancado] do CHANGELOG.md a partir dos commits no intervalo.
-            - Adiciona rascunho da versao em RELEASE_NOTES.md.
+            - Atualiza seção [Não Lançado] do CHANGELOG.md a partir dos commits no intervalo.
+            - Adiciona rascunho da versão em RELEASE_NOTES.md.
 
             Checklist:
-            - [ ] Revisar categorias e linguagem para publico final.
-            - [ ] Confirmar escopo tecnico com os commits do periodo.
-            - [ ] Ajustar o que for necessario antes do merge.
+            - [ ] Revisar categorias e linguagem para público final.
+            - [ ] Confirmar escopo técnico com os commits do período.
+            - [ ] Se houver feature importante, atualizar `tests/casos_de_teste.md` e revisar a seção de teste manual em `RELEASE_NOTES.md`.
+            - [ ] Ajustar o que for necessário antes do merge.
           labels: |
             release
             documentation
