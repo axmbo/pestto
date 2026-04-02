@@ -39,6 +39,23 @@ jobs:
         run: |
           set -euo pipefail
 
+          fail_release_notes() {
+            local cause="$1"
+            local action="$2"
+            local error_message="$3"
+
+            {
+              echo "### Falha na geração automática das release notes"
+              echo
+              echo "- Tag: ${{ github.ref_name }}"
+              echo "- Causa: $cause"
+              echo "- Ação: $action"
+            } >> "$GITHUB_STEP_SUMMARY"
+
+            echo "$error_message" >&2
+            exit 1
+          }
+
           cat > release-notes.md << 'EOF'
           ## Instalacao
 
@@ -50,21 +67,22 @@ jobs:
           Guia completo: https://github.com/axmbo/pestto/blob/main/docs/INSTALACAO.md
           EOF
 
-          gh api repos/${{ github.repository }}/releases/generate-notes \
+          if ! gh api repos/${{ github.repository }}/releases/generate-notes \
             -f tag_name=${{ github.ref_name }} \
-            --jq '.body' > generated-notes.md
+            --jq '.body' > generated-notes.md; then
+            fail_release_notes \
+              "erro ao chamar a API de generate-notes" \
+              "validar GH_TOKEN/permissoes, conectividade e tentar novamente" \
+              "Falha ao chamar a API de generate-notes para ${{ github.ref_name }}."
+          fi
 
-          if [[ ! -s generated-notes.md ]] || grep -qx 'null' generated-notes.md; then
-            {
-              echo "### Falha na geracao automatica das release notes"
-              echo
-              echo "- Tag: ${{ github.ref_name }}"
-              echo "- Causa: retorno vazio ou nulo da API de generate-notes"
-              echo "- Acao: validar GH_TOKEN/permissoes e tentar novamente"
-            } >> "$GITHUB_STEP_SUMMARY"
+          GENERATED_NOTES_CONTENT="$(tr -d '[:space:]' < generated-notes.md)"
 
-            echo "Falha ao gerar notas automaticas da release para ${{ github.ref_name }}." >&2
-            exit 1
+          if [[ -z "$GENERATED_NOTES_CONTENT" || "$GENERATED_NOTES_CONTENT" == "null" ]]; then
+            fail_release_notes \
+              "retorno vazio ou nulo da API de generate-notes" \
+              "validar GH_TOKEN/permissoes e tentar novamente" \
+              "Falha ao gerar notas automaticas da release para ${{ github.ref_name }}."
           fi
 
           if ! grep -q "^## What's Changed" generated-notes.md; then
