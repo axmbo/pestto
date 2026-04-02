@@ -1,28 +1,28 @@
-# Instalacao do Pestto
+# Instalação do Pestto
 
 Este guia explica como instalar o Pestto manualmente a partir de um arquivo ZIP de release.
 
-## Instalacao por ZIP (releases Beta/RC)
+## Instalação por ZIP (releases Beta/RC)
 
 1. Acesse a release desejada no GitHub e baixe o arquivo `pestto-vX.Y.Z.zip`.
 2. Abra `chrome://extensions/` no Chrome, Edge ou Brave.
 3. Ative o modo desenvolvedor.
-4. Arraste o arquivo ZIP para a pagina de extensoes.
-5. Confirme a instalacao.
+4. Arraste o arquivo ZIP para a página de extensões.
+5. Confirme a instalação.
 
-## Instalacao via Chrome Web Store (release estavel)
+## Instalação via Chrome Web Store (release estável)
 
-Quando houver versao estavel publicada na loja, prefira a instalacao pela Chrome Web Store:
+Quando houver versão estável publicada na loja, prefira a instalação pela Chrome Web Store:
 
 https://chromewebstore.google.com/detail/gkgbejhaebncdjjkmejinkdmnomcijgi
 
-## Atualizacao
+## Atualização
 
-1. Remova a versao antiga antes de instalar outra versao por ZIP.
+1. Remova a versão antiga antes de instalar outra versão por ZIP.
 2. Instale novamente usando o processo acima.
 
-## Troubleshooting rapido
+## Troubleshooting rápido
 
-- Se o navegador bloquear o arquivo, baixe novamente pela pagina oficial da release.
-- Se a extensao nao aparecer, recarregue a pagina de extensoes e tente de novo.
-- Se houver conflito, remova versoes anteriores com mesmo ID antes de reinstalar.
+- Se o navegador bloquear o arquivo, baixe novamente pela página oficial da release.
+- Se a extensão não aparecer, recarregue a página de extensões e tente de novo.
+- Se houver conflito, remova versões anteriores com mesmo ID antes de reinstalar.

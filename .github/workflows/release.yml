@@ -57,12 +57,12 @@ jobs:
           }
 
           cat > release-notes.md << 'EOF'
-          ## Instalacao
+          ## Instalação
 
           1. Baixe o arquivo `pestto-${{ github.ref_name }}.zip` desta release.
           2. Abra `chrome://extensions/` no Chrome, Edge ou Brave.
           3. Ative o modo desenvolvedor.
-          4. Arraste o ZIP para a pagina de extensoes para instalar.
+          4. Arraste o ZIP para a página de extensões para instalar.
 
           Guia completo: https://github.com/axmbo/pestto/blob/main/docs/INSTALACAO.md
           EOF
@@ -72,7 +72,7 @@ jobs:
             --jq '.body' > generated-notes.md; then
             fail_release_notes \
               "erro ao chamar a API de generate-notes" \
-              "validar GH_TOKEN/permissoes, conectividade e tentar novamente" \
+              "validar GH_TOKEN/permissões, conectividade e tentar novamente" \
               "Falha ao chamar a API de generate-notes para ${{ github.ref_name }}."
           fi
 
@@ -81,8 +81,8 @@ jobs:
           if [[ -z "$GENERATED_NOTES_CONTENT" || "$GENERATED_NOTES_CONTENT" == "null" ]]; then
             fail_release_notes \
               "retorno vazio ou nulo da API de generate-notes" \
-              "validar GH_TOKEN/permissoes e tentar novamente" \
-              "Falha ao gerar notas automaticas da release para ${{ github.ref_name }}."
+              "validar GH_TOKEN/permissões e tentar novamente" \
+              "Falha ao gerar notas automáticas da release para ${{ github.ref_name }}."
           fi
 
           if ! grep -q "^## What's Changed" generated-notes.md; then
