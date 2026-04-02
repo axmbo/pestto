@@ -40,7 +40,7 @@ Objetivo: garantir que código não seja alterado, mantendo o mesmo setup do Flu
 ### Entrada
 
 ````md
-Comando em linha: use `npm install` antes de rodar.
+**Conversão obrigatória fora dos blocos** — `npm install` antes de rodar.
 
 ```javascript
 // O conteúdo dentro do bloco deve ser ignorado pela conversão
@@ -51,9 +51,9 @@ console.log(text);
 
 ### Esperado
 
-1. O código em linha permanece exatamente igual.
-2. O bloco de código permanece exatamente igual.
-3. Apenas texto fora de código pode ser convertido.
+1. `**Conversão obrigatória fora dos blocos**` foi convertido para `*Conversão obrigatória fora dos blocos*`.
+2. O código em linha (`npm install`) permanece exatamente igual.
+3. O bloco de código permanece exatamente igual.
 
 Checkpoint: fim dos fluxos principais. Prossiga obrigatoriamente para o Fluxo 3.
 
