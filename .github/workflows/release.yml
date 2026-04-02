@@ -34,6 +34,8 @@ jobs:
         run: mv ${{ env.ZIP_NAME }} pestto-${{ github.ref_name }}.zip
 
       - name: Montar notas da release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           cat > release-notes.md << 'EOF'
           ## Instalacao
@@ -45,6 +47,31 @@ jobs:
 
           Guia completo: https://github.com/axmbo/pestto/blob/main/docs/INSTALACAO.md
           EOF
+
+          gh api repos/${{ github.repository }}/releases/generate-notes \
+            -f tag_name=${{ github.ref_name }} \
+            --jq '.body' > generated-notes.md
+
+          if ! grep -q "^## What's Changed" generated-notes.md; then
+            {
+              echo
+              echo "## What's Changed"
+              echo "- No pull requests were merged in this release window."
+            } >> generated-notes.md
+          fi
+
+          if ! grep -q "^## New Contributors" generated-notes.md; then
+            {
+              echo
+              echo "## New Contributors"
+              echo "- No first-time contributors in this release window."
+            } >> generated-notes.md
+          fi
+
+          {
+            echo
+            cat generated-notes.md
+          } >> release-notes.md
 
       - name: Publicar na aba Releases
         env:
@@ -59,6 +86,5 @@ jobs:
           esac
 
           gh release create ${{ github.ref_name }} pestto-${{ github.ref_name }}.zip \
-            --generate-notes \
             --notes-file release-notes.md \
             ${PRE_RELEASE_FLAG}
