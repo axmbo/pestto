@@ -88,6 +88,12 @@ jobs:
           4. Arraste o ZIP para a página de extensões para instalar.
 
           Guia completo: https://github.com/axmbo/pestto/blob/main/docs/INSTALACAO.md
+
+            ## Teste e homologação
+
+            Antes de publicar e homologar esta release, execute a validação manual dos principais cenários de conversão seguindo o roteiro em:
+
+            https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/tests/casos_de_teste.md
           EOF
 
           if ! gh api repos/${{ github.repository }}/releases/generate-notes \
