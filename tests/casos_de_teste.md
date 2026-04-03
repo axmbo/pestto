@@ -90,26 +90,31 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
     ```js
     window.__pesttoObs = { synthetic: 0, sideBypass: 0, whatsappBypass: 0 };
-    document.addEventListener(
-        'paste',
-        (e) => {
-            if (e.isPesttoEvent) {
-                window.__pesttoObs.synthetic += 1;
-                return;
-            }
 
-            const target = e.target;
-            if (target?.closest && target.closest('#side')) {
-                window.__pesttoObs.sideBypass += 1;
-            }
+    if (!window.__pesttoObsListenerInstalled) {
+        document.addEventListener(
+            'paste',
+            (e) => {
+                if (e.isPesttoEvent) {
+                    window.__pesttoObs.synthetic += 1;
+                    return;
+                }
 
-            const types = Array.from(e.clipboardData?.types || []);
-            if (types.includes('application/whatsapp')) {
-                window.__pesttoObs.whatsappBypass += 1;
-            }
-        },
-        true
-    );
+                const target = e.target;
+                if (target?.closest && target.closest('#side')) {
+                    window.__pesttoObs.sideBypass += 1;
+                }
+
+                const types = Array.from(e.clipboardData?.types || []);
+                if (types.includes('application/whatsapp')) {
+                    window.__pesttoObs.whatsappBypass += 1;
+                }
+            },
+            true
+        );
+
+        window.__pesttoObsListenerInstalled = true;
+    }
     ```
 - Copiar `**negrito**`.
 - Colar no campo de busca da barra lateral do WhatsApp.
