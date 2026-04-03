@@ -40,7 +40,7 @@ Objetivo: garantir que código não seja alterado, mantendo o mesmo setup do Flu
 ### Entrada
 
 ````md
-Comando em linha: use `npm install` antes de rodar.
+**Conversão obrigatória fora dos blocos** — `npm install` antes de rodar.
 
 ```javascript
 // O conteúdo dentro do bloco deve ser ignorado pela conversão
@@ -51,11 +51,11 @@ console.log(text);
 
 ### Esperado
 
-1. O código em linha permanece exatamente igual.
-2. O bloco de código permanece exatamente igual.
-3. Apenas texto fora de código pode ser convertido.
+1. `**Conversão obrigatória fora dos blocos**` foi convertido para `*Conversão obrigatória fora dos blocos*`.
+2. O código em linha (`npm install`) permanece exatamente igual.
+3. O bloco de código permanece exatamente igual.
 
-Checkpoint: fim dos fluxos principais. Prossiga obrigatoriamente para o Fluxo 3.
+Checkpoint: fim da etapa de conversão/segurança. Prossiga obrigatoriamente para o Fluxo 3.
 
 ## Fluxo 3 - Não Regressão (Guard Rails)
 
@@ -68,6 +68,8 @@ Matemática: 2 * 3 = 6 e 4 * 5 = 20.
 Inline com marcador falso: `código com **negrito** falso`.
 Formatação incompleta: aqui vai um **negrito sem fechamento.
 Sem formatação: texto completamente normal.
+Multilinha: **primeira linha
+e segunda linha**.
 ```
 
 ### Esperado
@@ -76,137 +78,144 @@ Sem formatação: texto completamente normal.
 2. Marcações dentro de código inline continuam iguais.
 3. Formatação incompleta não é convertida.
 4. Texto sem markdown não é alterado.
+5. Formatação que cruza quebra de linha não é convertida.
 
-## Testes candidatos para promoção
+## Fluxo 4 - Interceptação Segura
 
-Os itens abaixo ainda não fazem parte do fluxo principal. Eles estão organizados por prioridade para validação e futura promoção ao roteiro oficial.
+Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo nativo.
 
-### P0 - Alta prioridade
+### 4.1 - Bypass da barra lateral
 
-1. Alvo não editável deve ser ignorado.
-
-    Exemplo de execução:
-    - Copiar `**negrito**`.
-    - Colar no campo de busca da barra lateral do WhatsApp.
-
-    Esperado:
-    - O Pestto não intercepta a cola.
-    - O texto aparece como `**negrito**`, sem conversão.
-
-2. Cópia interna do WhatsApp deve ser ignorada.
-
-    Exemplo de execução:
-    - Copiar uma mensagem já existente dentro do próprio WhatsApp.
-    - Colar no composer.
-
-    Esperado:
-    - O Pestto não reconverte o conteúdo.
-    - A mensagem colada preserva exatamente o conteúdo copiado.
-
-3. Texto sem alteração deve seguir o fluxo nativo de colar.
-
-    Exemplo de execução:
-    - Copiar `texto completamente normal 123`.
-    - Colar no composer.
-
-    Esperado:
-    - O conteúdo final permanece `texto completamente normal 123`.
-    - Não há diferença observável entre colar com ou sem Pestto ativo.
-
-### P1 - Média prioridade
-
-1. Espaços nas bordas da marcação:
-    - Entrada: `** texto** e **texto ** e * itálico* e *itálico *`
-    - Esperado: o texto permanece exatamente igual, sem conversão, pois o Markdown não considera a marcação válida quando há espaço logo após o marcador de abertura ou logo antes do marcador de fechamento.
-2. Múltiplos blocos de código no mesmo texto.
-
-    Entrada:
-
-    ````md
-    Antes do código **negrito**.
+- Abrir o DevTools do navegador (Console) e executar:
 
     ```js
-    const a = "**não converter**";
+    window.__pesttoObs = { synthetic: 0, sideBypass: 0, whatsappBypass: 0 };
+
+    if (!window.__pesttoObsListenerInstalled) {
+        document.addEventListener(
+            'paste',
+            (e) => {
+                if (e.isPesttoEvent) {
+                    window.__pesttoObs.synthetic += 1;
+                    return;
+                }
+
+                const target = e.target;
+                if (target?.closest && target.closest('#side')) {
+                    window.__pesttoObs.sideBypass += 1;
+                }
+
+                const types = Array.from(e.clipboardData?.types || []);
+                if (types.includes('application/whatsapp')) {
+                    window.__pesttoObs.whatsappBypass += 1;
+                }
+            },
+            true
+        );
+
+        window.__pesttoObsListenerInstalled = true;
+    }
     ```
+- Copiar `**negrito**`.
+- Colar no campo de busca da barra lateral do WhatsApp.
 
-    Entre blocos com *itálico*.
+Esperado:
+- O texto aparece como `**negrito**`, sem conversão.
+- `window.__pesttoObs.sideBypass` aumenta após a cola.
+- `window.__pesttoObs.synthetic` não aumenta nesse passo.
 
-    ```bash
-    echo "*também não converter*"
+### 4.2 - Cópia interna do WhatsApp
+
+- Copiar uma mensagem de uma bolha de conversa dentro do próprio WhatsApp.
+- Colar no composer.
+
+Esperado:
+- O conteúdo é preservado exatamente como copiado, sem reconversão.
+- `window.__pesttoObs.whatsappBypass` aumenta após a cola.
+- `window.__pesttoObs.synthetic` não aumenta nesse passo.
+
+### 4.3 - Passthrough para texto sem markdown
+
+- Abrir o DevTools do navegador (Console) e executar:
+
+    ```js
+    window.__pesttoSyntheticPasteCount = 0;
+    window.__pesttoSyntheticPasteListener =
+        window.__pesttoSyntheticPasteListener ||
+        ((e) => {
+            if (e.isPesttoEvent) window.__pesttoSyntheticPasteCount += 1;
+        });
+
+    if (!window.__pesttoSyntheticPasteListenerInstalled) {
+        document.addEventListener(
+            'paste',
+            window.__pesttoSyntheticPasteListener,
+            true
+        );
+        window.__pesttoSyntheticPasteListenerInstalled = true;
+    }
     ```
+- Copiar `texto completamente normal 123`.
+- Colar no composer.
+- Em seguida, ainda no composer, copiar e colar `**controle de evento sintético**`.
 
-    Depois dos blocos com ~~tachado~~.
-    ````
+Esperado:
+- O conteúdo final permanece `texto completamente normal 123`.
+- Não há diferença observável entre colar com ou sem Pestto ativo.
+- `window.__pesttoSyntheticPasteCount` permanece `0` após a cola.
+- Após a cola de `**controle de evento sintético**`, o contador fica maior que `0`.
+- O trecho `**controle de evento sintético**` é convertido para `*controle de evento sintético*`.
 
-    Esperado:
-    - `**negrito**` fora do código converte para `*negrito*`.
-    - `*itálico*` fora do código converte para `_itálico_`.
-    - `~~tachado~~` fora do código converte para `~tachado~`.
-    - O conteúdo dos dois blocos de código permanece exatamente igual.
+Checkpoint: se os três casos passarem, as regras de bypass estão funcionais.
 
-3. Mistura intensa de formatos na mesma mensagem longa.
+## Fluxo 5 - Estresse Consolidado
 
-    Entrada:
+Objetivo: validar casos de borda em um único cenário, sem troca de contexto.
 
-    ```md
-    Resumo da entrega: **pronto**, com *ajustes finos*, custo 2 * 3 = 6, comando `npm test`, bloco ~~estável~~ e ***prioridade alta***.
-    Segunda linha com **outro negrito** e texto normal.
-    ```
+### Entrada
 
-    Esperado:
-    - `**pronto**` vira `*pronto*`.
-    - `*ajustes finos*` vira `_ajustes finos_`.
-    - `2 * 3 = 6` permanece igual.
-    - `` `npm test` `` permanece igual.
-    - `~~estável~~` vira `~estável~`.
-    - `***prioridade alta***` vira `_*prioridade alta*_`.
-    - A segunda linha também converte apenas as marcações válidas.
+````md
+Antes do código **negrito**.
 
-### P2 - Baixa prioridade
+```js
+const a = "**não converter**";
+```
 
-1. Caracteres especiais, acentuação e emoji em mensagens promocionais.
+Entre blocos com *itálico* e `código inline`.
 
-    Entrada:
+```bash
+echo "*também não converter*"
+```
 
-    ```md
-    Produto: **São Paulo** em promoção e *açúcar* orgânico.
-    Status: **aprovado** para João, Maria e Ana 😊.
-    Preço: 10% de desconto e ação em São Paulo.
-    ```
+Depois com ~~tachado~~, `npm test`, 2 * 3 = 6 e ***prioridade alta***.
+Espaços inválidos: ** inválido** e *também inválido *.
+Produto: **São Paulo** e *açúcar* 😊.
+- Item com **negrito** na lista.
+Multilinha **linha 1
+e linha 2** não converte.
+````
 
-    Esperado:
-    - `**São Paulo**` vira `*São Paulo*`.
-    - `*açúcar*` vira `_açúcar_`.
-    - `**aprovado**` vira `*aprovado*`.
-    - Acentos, cedilha (`ç`), `%` e emoji permanecem intactos.
-2. Casos com listas e markdown misto para diferenciar de formatação inline.
+### Esperado
 
-    Entrada:
-
-    ```md
-    - Item com **negrito**
-    - Item com *itálico*
-    - Item com `npm install`
-    - Item com 2 * 3 = 6
-    ```
-
-    Esperado:
-    - Os marcadores da lista permanecem iguais.
-    - `**negrito**` vira `*negrito*`.
-    - `*itálico*` vira `_itálico_`.
-    - `` `npm install` `` permanece igual.
-    - `2 * 3 = 6` permanece igual.
+1. `**negrito**` fora dos blocos vira `*negrito*`.
+2. `*itálico*` fora dos blocos vira `_itálico_`.
+3. `~~tachado~~` vira `~tachado~`.
+4. `***prioridade alta***` vira `_*prioridade alta*_`.
+5. `** inválido**` e `*também inválido *` permanecem iguais (espaço na borda invalida a marcação).
+6. `2 * 3 = 6` permanece igual (asterisco solto não forma par válido).
+7. `` `npm test` `` e `` `código inline` `` permanecem iguais.
+8. Blocos `js` e `bash` permanecem exatamente iguais.
+9. `**São Paulo**` vira `*São Paulo*` e `*açúcar*` vira `_açúcar_`.
+10. Emoji (`😊`) e acentos permanecem intactos.
+11. Marcador de lista (`-`) permanece igual.
+12. Formatação multilinha não é convertida.
 
 ## Status do roteiro
 
-### Oficial hoje
+### Fluxos oficiais
 
-1. Negrito, itálico, tachado e aninhado.
-2. Código inline e bloco de código protegidos.
-3. Matemática com asteriscos, incompleto aberto e texto sem markdown.
-
-### Candidatos prontos para validação
-
-1. Regras de interceptação de paste do content script.
-2. Casos de borda com espaços na marcação.
-3. Cenários longos com mistura de formatos, listas, caracteres especiais e múltiplos blocos de código.
+1. **Fluxo 1** - Negrito, itálico, tachado e aninhado (smoke test).
+2. **Fluxo 2** - Proteção de código inline e bloco; conversão seletiva fora do código.
+3. **Fluxo 3** - Guard rails: asteriscos matemáticos, formatação incompleta, multilinha e texto sem markdown.
+4. **Fluxo 4** - Interceptação segura: barra lateral, cópia interna e passthrough nativo.
+5. **Fluxo 5** - Estresse consolidado: múltiplos blocos, espaços inválidos, caracteres especiais, emoji, listas e multilinha.
