@@ -84,7 +84,7 @@ e segunda linha**.
 
 Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo nativo.
 
-### 4.1 - Alvo não editável (barra lateral)
+### 4.1 - Bypass da barra lateral
 
 - Copiar `**negrito**`.
 - Colar no campo de busca da barra lateral do WhatsApp.
