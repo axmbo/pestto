@@ -140,13 +140,20 @@ Esperado:
 
     ```js
     window.__pesttoSyntheticPasteCount = 0;
-    document.addEventListener(
-        'paste',
-        (e) => {
+    window.__pesttoSyntheticPasteListener =
+        window.__pesttoSyntheticPasteListener ||
+        ((e) => {
             if (e.isPesttoEvent) window.__pesttoSyntheticPasteCount += 1;
-        },
-        true
-    );
+        });
+
+    if (!window.__pesttoSyntheticPasteListenerInstalled) {
+        document.addEventListener(
+            'paste',
+            window.__pesttoSyntheticPasteListener,
+            true
+        );
+        window.__pesttoSyntheticPasteListenerInstalled = true;
+    }
     ```
 - Copiar `texto completamente normal 123`.
 - Colar no composer.
