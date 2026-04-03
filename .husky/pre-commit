@@ -3,8 +3,8 @@
 branch="$(git rev-parse --abbrev-ref HEAD)"
 
 if [ "$branch" = "main" ]; then
-  echo "ERRO: Commits diretos na branch main estão proibidos!"
-  echo "Por favor, mude para outra branch (git checkout -b minha-tarefa)."
+  echo "ERRO: Commits diretos na branch main estão proibidos!" >&2
+  echo "Por favor, mude para outra branch (git checkout -b minha-tarefa)." >&2
   exit 1
 fi
 
