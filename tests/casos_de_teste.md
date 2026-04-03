@@ -86,12 +86,38 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 ### 4.1 - Bypass da barra lateral
 
+- Abrir o DevTools do navegador (Console) e executar:
+
+    ```js
+    window.__pesttoObs = { synthetic: 0, sideBypass: 0, whatsappBypass: 0 };
+    document.addEventListener(
+        'paste',
+        (e) => {
+            if (e.isPesttoEvent) {
+                window.__pesttoObs.synthetic += 1;
+                return;
+            }
+
+            const target = e.target;
+            if (target?.closest && target.closest('#side')) {
+                window.__pesttoObs.sideBypass += 1;
+            }
+
+            const types = Array.from(e.clipboardData?.types || []);
+            if (types.includes('application/whatsapp')) {
+                window.__pesttoObs.whatsappBypass += 1;
+            }
+        },
+        true
+    );
+    ```
 - Copiar `**negrito**`.
 - Colar no campo de busca da barra lateral do WhatsApp.
 
 Esperado:
 - O texto aparece como `**negrito**`, sem conversão.
-- Bypass acionado pela proteção da barra lateral.
+- `window.__pesttoObs.sideBypass` aumenta após a cola.
+- `window.__pesttoObs.synthetic` não aumenta nesse passo.
 
 ### 4.2 - Cópia interna do WhatsApp
 
@@ -100,7 +126,8 @@ Esperado:
 
 Esperado:
 - O conteúdo é preservado exatamente como copiado, sem reconversão.
-- Bypass acionado por tipo MIME `application/whatsapp`.
+- `window.__pesttoObs.whatsappBypass` aumenta após a cola.
+- `window.__pesttoObs.synthetic` não aumenta nesse passo.
 
 ### 4.3 - Passthrough para texto sem markdown
 
