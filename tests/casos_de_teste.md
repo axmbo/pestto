@@ -217,5 +217,5 @@ e linha 2** não converte.
 1. **Fluxo 1** - Negrito, itálico, tachado e aninhado (smoke test).
 2. **Fluxo 2** - Proteção de código inline e bloco; conversão seletiva fora do código.
 3. **Fluxo 3** - Guard rails: asteriscos matemáticos, formatação incompleta, multilinha e texto sem markdown.
-4. **Fluxo 4** - Interceptação segura: alvo não editável, barra lateral, cópia interna e passthrough nativo.
+4. **Fluxo 4** - Interceptação segura: barra lateral, cópia interna e passthrough nativo.
 5. **Fluxo 5** - Estresse consolidado: múltiplos blocos, espaços inválidos, caracteres especiais, emoji, listas e multilinha.
