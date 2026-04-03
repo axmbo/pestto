@@ -55,7 +55,7 @@ console.log(text);
 2. O código em linha (`npm install`) permanece exatamente igual.
 3. O bloco de código permanece exatamente igual.
 
-Checkpoint: fim dos fluxos principais. Prossiga obrigatoriamente para o Fluxo 3.
+Checkpoint: fim da etapa de conversão/segurança. Prossiga obrigatoriamente para o Fluxo 3.
 
 ## Fluxo 3 - Não Regressão (Guard Rails)
 
