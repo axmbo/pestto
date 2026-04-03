@@ -84,45 +84,16 @@ e segunda linha**.
 
 Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo nativo.
 
+Regra deste fluxo: o teste é 100% caixa-preta (ou seja, valida apenas entradas e saídas visíveis na interface, sem inspecionar a implementação interna). Validar apenas comportamento visível no WhatsApp Web, sem abrir DevTools.
+
 ### 4.1 - Bypass da barra lateral
 
-- Abrir o DevTools do navegador (Console) e executar:
-
-    ```js
-    window.__pesttoObs = { synthetic: 0, sideBypass: 0, whatsappBypass: 0 };
-
-    if (!window.__pesttoObsListenerInstalled) {
-        document.addEventListener(
-            'paste',
-            (e) => {
-                if (e.isPesttoEvent) {
-                    window.__pesttoObs.synthetic += 1;
-                    return;
-                }
-
-                const target = e.target;
-                if (target?.closest && target.closest('#side')) {
-                    window.__pesttoObs.sideBypass += 1;
-                }
-
-                const types = Array.from(e.clipboardData?.types || []);
-                if (types.includes('application/whatsapp')) {
-                    window.__pesttoObs.whatsappBypass += 1;
-                }
-            },
-            true
-        );
-
-        window.__pesttoObsListenerInstalled = true;
-    }
-    ```
 - Copiar `**negrito**`.
 - Colar no campo de busca da barra lateral do WhatsApp.
 
 Esperado:
 - O texto aparece como `**negrito**`, sem conversão.
-- `window.__pesttoObs.sideBypass` aumenta após a cola.
-- `window.__pesttoObs.synthetic` não aumenta nesse passo.
+- A busca funciona normalmente e não há comportamento estranho no campo de pesquisa.
 
 ### 4.2 - Cópia interna do WhatsApp
 
@@ -131,30 +102,10 @@ Esperado:
 
 Esperado:
 - O conteúdo é preservado exatamente como copiado, sem reconversão.
-- `window.__pesttoObs.whatsappBypass` aumenta após a cola.
-- `window.__pesttoObs.synthetic` não aumenta nesse passo.
+- Não há duplicações, perda de conteúdo ou travamento da entrada.
 
 ### 4.3 - Passthrough para texto sem markdown
 
-- Abrir o DevTools do navegador (Console) e executar:
-
-    ```js
-    window.__pesttoSyntheticPasteCount = 0;
-    window.__pesttoSyntheticPasteListener =
-        window.__pesttoSyntheticPasteListener ||
-        ((e) => {
-            if (e.isPesttoEvent) window.__pesttoSyntheticPasteCount += 1;
-        });
-
-    if (!window.__pesttoSyntheticPasteListenerInstalled) {
-        document.addEventListener(
-            'paste',
-            window.__pesttoSyntheticPasteListener,
-            true
-        );
-        window.__pesttoSyntheticPasteListenerInstalled = true;
-    }
-    ```
 - Copiar `texto completamente normal 123`.
 - Colar no composer.
 - Em seguida, ainda no composer, copiar e colar `**controle de evento sintético**`.
@@ -162,11 +113,13 @@ Esperado:
 Esperado:
 - O conteúdo final permanece `texto completamente normal 123`.
 - Não há diferença observável entre colar com ou sem Pestto ativo.
-- `window.__pesttoSyntheticPasteCount` permanece `0` após a cola.
-- Após a cola de `**controle de evento sintético**`, o contador fica maior que `0`.
 - O trecho `**controle de evento sintético**` é convertido para `*controle de evento sintético*`.
 
-Checkpoint: se os três casos passarem, as regras de bypass estão funcionais.
+Checkpoint: se os três casos passarem, as regras de bypass estão funcionais do ponto de vista do usuário.
+
+Observação técnica: a verificação de contadores internos, flags de evento e marcadores sintéticos deve ficar na suíte automatizada correspondente a este fluxo (unitária ou de integração).
+Essa cobertura é complementar a estes casos manuais.
+O roteiro manual valida o comportamento visível ao usuário, enquanto a suíte automatizada/documentação associada valida os estados internos e sinais técnicos.
 
 ## Fluxo 5 - Estresse Consolidado
 
