@@ -98,6 +98,8 @@ Checkpoint: fim da etapa de conversão/segurança.
 
 Objetivo: verificar que o Pestto não injeta tags HTML e que o texto plain do clipboard é usado corretamente.
 
+> **Pré-condição:** este documento deve estar aberto em modo renderizado — preview do VS Code (`Ctrl+Shift+V`) ou aba do GitHub. Abri-lo no arquivo `.md` bruto fará o clipboard conter os asteriscos e o teste perderá o propósito.
+
 > O trecho abaixo está **renderizado**. Selecione-o com o cursor e copie (Ctrl+C):
 
 ---
