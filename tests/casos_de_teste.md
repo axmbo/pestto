@@ -148,7 +148,7 @@ A saída deve ser **idêntica** à entrada — nenhuma linha é convertida.
 | 5 | `Multilinha: **primeira linha` / `e segunda linha**.` | idênticas |
 | 6 | `* Item de lista Markdown.` | idêntica (asterisco seguido de espaço não é marcador de itálico) |
 | 7 | `~~ espaço no tachado ~~` | idêntica (espaço na borda invalida o tachado) |
-| 8 | `_texto com underscores_` | idêntica (sintaxe nativa do WhatsApp; o conversor não toca underscores) |
+| 8 | `_texto com underscores_` | idêntica (já é sintaxe nativa do WhatsApp para itálico — não há conversão necessária) |
 
 Checkpoint: se todas as linhas forem idênticas à entrada, os guard rails estão funcionais.
 
