@@ -295,7 +295,7 @@ fim.
 | `**São Paulo**` / `*açúcar*` | `*São Paulo*` / `_açúcar_` | — |
 | `- Item com **negrito** na lista.` | `- Item com *negrito* na lista.` | — |
 | Emoji `😊`, acentos, multilinha | inalterados | — |
-| `2**3 + 4**2` | `2*3 + 4*2` | ⚠️ **não implementado**: `2`+U+FEFF+`*3 + 4*`+U+FEFF+`2` ([issue #18](https://github.com/axmbo/pestto/issues/18)) |
+| `2**3 + 4**2` | `2*3 + 4*2` | ⚠️ **não implementado**: `2`+U+FEFF+`*3 + 4*`+U+FEFF+`2` ([issue #18](https://github.com/axmbo/pestto/issues/18)). No estado atual, `*3 + 4*` é renderizado pelo WhatsApp como itálico — o texto visível após o envio fica incorreto. |
 | `*entre blocos*` (fora dos blocos) | `_entre blocos_` | — |
 | `**negrito duplo**` (fora dos blocos) | `*negrito duplo*` | — |
 | Bloco `js` (`bloco1()`) | inalterado | — |
