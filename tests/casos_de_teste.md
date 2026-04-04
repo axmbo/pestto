@@ -52,6 +52,8 @@ Mensagem: *negrito*, _itálico_, ~tachado~ e _*aninhado*_.
 
 Checkpoint: se este bloco passar, a conversão principal está funcional.
 
+[↑ Índice](#índice)
+
 ## Fluxo 2 - Segurança da Conversão
 
 Objetivo: garantir que código não seja alterado.
@@ -77,6 +79,8 @@ console.log(text);
 | 3 | Bloco `javascript` | inalterado |
 
 Checkpoint: fim da etapa de conversão/segurança.
+
+[↑ Índice](#índice)
 
 ## Fluxo 3 - Não Regressão (Guard Rails)
 
@@ -104,6 +108,8 @@ A saída deve ser **idêntica** à entrada — nenhuma linha é convertida.
 | 3 | `Formatação incompleta: aqui vai um **negrito sem fechamento.` | idêntica |
 | 4 | `Sem formatação: texto completamente normal.` | idêntica |
 | 5 | `Multilinha: **primeira linha` / `e segunda linha**.` | idênticas |
+
+[↑ Índice](#índice)
 
 ## Fluxo 4 - Interceptação Segura
 
@@ -142,6 +148,8 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 | 3 | Conversão aplicada | `*controle de evento sintético*` → **controle de evento sintético** |
 
 Checkpoint: se os três casos passarem, as regras de bypass estão funcionais.
+
+[↑ Índice](#índice)
 
 ## Fluxo 5 - Estresse Consolidado
 
@@ -197,3 +205,5 @@ Produto: **São Paulo** e _açúcar_ 😊.
 - Item com **negrito** na lista.
 
 > Blocos `js`/`bash`, espaços inválidos (`** inválido**`, `*também inválido *`) e multilinha: inalterados.
+
+[↑ Índice](#índice)
