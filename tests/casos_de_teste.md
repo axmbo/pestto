@@ -81,11 +81,30 @@ console.log(text);
 
 | # | O que verificar | Saída da extensão | Aparência no WhatsApp |
 |---|---|---|---|
-| 1 | Texto fora do bloco | `*Conversão obrigatória fora dos blocos*` | **Conversão obrigatória fora dos blocos** |
-| 2 | Código inline `` `npm install` `` | inalterado | inalterado |
+| 1 | Linha completa fora do bloco | `*Conversão obrigatória fora dos blocos* — \`npm install\` antes de rodar.` | **Conversão obrigatória fora dos blocos** — `npm install` antes de rodar. |
+| 2 | Código inline `` `npm install` `` (dentro da linha convertida) | inalterado | inalterado |
 | 3 | Bloco `javascript` | inalterado | inalterado |
 
 Checkpoint: fim da etapa de conversão/segurança.
+
+### 2.2 - Cola de texto renderizado (Markdown preview)
+
+Objetivo: verificar que o Pestto não injeta tags HTML e que o texto plain do clipboard é usado corretamente.
+
+> O trecho abaixo está **renderizado**. Selecione-o com o cursor e copie (Ctrl+C):
+
+---
+
+**negrito** e *itálico*
+
+---
+
+1. Selecionar e copiar o trecho renderizado acima.
+2. Colar no composer do WhatsApp.
+
+**Esperado:**
+- O texto aparece como `negrito e itálico` — sem asteriscos e sem tags HTML (`<strong>`, `<b>`).
+- Nenhuma conversão de Markdown é realizada (o clipboard `text/plain` não contém marcadores).
 
 [↑ Índice](#índice)
 
@@ -102,6 +121,8 @@ Formatação incompleta: aqui vai um **negrito sem fechamento.
 Sem formatação: texto completamente normal.
 Multilinha: **primeira linha
 e segunda linha**.
+* Item de lista Markdown.
+~~ espaço no tachado ~~
 ```
 
 ### Esperado
@@ -115,6 +136,8 @@ A saída deve ser **idêntica** à entrada — nenhuma linha é convertida.
 | 3 | `Formatação incompleta: aqui vai um **negrito sem fechamento.` | idêntica |
 | 4 | `Sem formatação: texto completamente normal.` | idêntica |
 | 5 | `Multilinha: **primeira linha` / `e segunda linha**.` | idênticas |
+| 6 | `* Item de lista Markdown.` | idêntica (asterisco seguido de espaço não é marcador de itálico) |
+| 7 | `~~ espaço no tachado ~~` | idêntica (espaço na borda invalida o tachado) |
 
 [↑ Índice](#índice)
 
@@ -135,12 +158,18 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 ### 4.2 - Cópia interna do WhatsApp
 
+> **Contexto:** ao copiar uma bolha de conversa, o WhatsApp adiciona o tipo MIME `application/whatsapp` à área de transferência. O Pestto detecta esse tipo e **aborta a conversão**, devolvendo o controle ao WhatsApp.
+>
+> Neste teste, `*mundo*` é **sintaxe de negrito do WhatsApp** — não Markdown itálico. Sem essa proteção, o Pestto converteria `*mundo*` para `_mundo_` (itálico), alterando o significado da formatação.
+
 1. No campo de entrada do WhatsApp, **digite** (não copie): `olá *mundo*`
-2. Na bolha enviada, selecione e copie o texto.
-3. Cole no campo de entrada do WhatsApp.
+2. Envie a mensagem.
+3. Na bolha enviada, selecione e copie o texto.
+4. Cole no campo de entrada do WhatsApp.
 
 **Esperado:**
-- O texto deve aparecer exatamente como copiado: `olá *mundo*` — sem reconversão, duplicação ou travamento.
+- O texto aparece no campo como `olá *mundo*` — com asteriscos, sem conversão para `olá _mundo_`.
+- Nenhuma duplicação ou travamento.
 
 ### 4.3 - Passthrough para texto sem markdown
 
@@ -153,7 +182,16 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 |---|---|---|
 | 2 | Texto colado no composer | `texto completamente normal 123` — inalterado |
 
-Checkpoint: se os três casos passarem, as regras de bypass estão funcionais.
+### 4.4 - Cola de imagem
+
+1. Copiar uma imagem de qualquer fonte externa (ex.: screenshot, imagem de um site).
+2. Colar no composer do WhatsApp.
+
+**Esperado:**
+- A imagem é colada normalmente (preview aparece no composer).
+- Nenhum travamento, artefato de texto ou mensagem de erro visível.
+
+Checkpoint: se os quatro casos passarem, as regras de bypass estão funcionais.
 
 [↑ Índice](#índice)
 
@@ -182,6 +220,7 @@ Produto: **São Paulo** e *açúcar* 😊.
 - Item com **negrito** na lista.
 Multilinha **linha 1
 e linha 2** não converte.
+2**3 + 4**2 (negrito sem espaço separador).
 ````
 
 ### Esperado
@@ -198,6 +237,7 @@ e linha 2** não converte.
 | `**São Paulo**` / `*açúcar*` | `*São Paulo*` / `_açúcar_` |
 | `- Item com **negrito** na lista.` | `- Item com *negrito* na lista.` |
 | Emoji `😊`, acentos, multilinha | inalterados |
+| `2**3 + 4**2` | `2`+U+FEFF+`*3 + 4*`+U+FEFF+`2` — ⚠️ **não implementado** ([issue #18](https://github.com/axmbo/pestto/issues/18)); saída atual: `2*3 + 4*2` |
 
 **Aparência no WhatsApp (linhas convertidas):**
 
