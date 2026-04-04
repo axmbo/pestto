@@ -209,13 +209,19 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 - A imagem é colada normalmente (preview aparece no composer).
 - Nenhum travamento, artefato de texto ou mensagem de erro visível.
 
-### 4.5 - Paste em campo não editável
+### 4.5 - Paste na barra de busca de conversas
+
+> **Contexto:** a barra de busca de conversas (painel lateral) é um campo editável —
+> mas o `content.js` tem um guard explícito que retorna sem processar quando
+> `target.closest('#side')` é verdadeiro.
 
 1. Copiar `**negrito**`.
-2. Clicar na barra de endereço do Chrome e colar (Ctrl+V).
+2. Clicar na barra de busca de conversas (painel lateral esquerdo do WhatsApp Web).
+3. Colar (Ctrl+V).
 
 **Esperado:**
 - O texto aparece como `**negrito**`, sem conversão.
+- A busca funciona normalmente.
 
 Checkpoint: se os cinco casos passarem, as regras de bypass estão funcionais.
 
