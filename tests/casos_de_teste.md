@@ -160,9 +160,7 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 > **Regra:** caixa-preta — validar apenas o comportamento visível no WhatsApp Web, sem abrir DevTools.
 
-### 4.1 - Bypass da barra lateral
-
-> **Contexto:** o Pestto encerra a execução imediatamente ao detectar que o alvo do evento está dentro do seletor `#side` (barra lateral), antes de criar qualquer evento sintético. O campo de busca recebe o paste nativo do navegador normalmente.
+### 4.1 - Bypass da barra lateral[^1]
 
 1. Copiar `**negrito**`.
 2. Colar no campo de busca da barra lateral do WhatsApp.
@@ -171,13 +169,9 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 - O texto aparece como `**negrito**`, sem conversão.
 - A busca funciona normalmente.
 
-### 4.2 - Cópia interna do WhatsApp
+### 4.2 - Cópia interna do WhatsApp[^2]
 
 > **Pré-condição:** execute este caso em uma conversa consigo mesmo ("Eu") ou em um contato de teste dedicado — para não enviar mensagens em conversas reais.
-
-> **Contexto:** ao copiar uma bolha de conversa, o WhatsApp adiciona o tipo MIME `application/whatsapp` à área de transferência. O Pestto detecta esse tipo e **aborta a conversão**, devolvendo o controle ao WhatsApp.
->
-> Neste teste, `*mundo*` é **sintaxe de negrito do WhatsApp** — não Markdown itálico. Sem essa proteção, o Pestto converteria `*mundo*` para `_mundo_` (itálico), alterando o significado da formatação.
 
 **Setup:**
 
@@ -213,9 +207,7 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 - A imagem é colada normalmente (preview aparece no composer).
 - Nenhum travamento, artefato de texto ou mensagem de erro visível.
 
-### 4.5 - Cola de imagem com texto simultâneos
-
-> **Contexto:** ao selecionar conteúdo rico em uma página, o clipboard recebe simultaneamente um item `file` (imagem) e itens `text/plain`/`text/html`. O `content.js` deve preservar ambos no evento sintético — o arquivo via `dataTransfer.items.add(file)` e o texto convertido via `setData`.
+### 4.5 - Cola de imagem com texto simultâneos[^3]
 
 > **Pré-condição:** abrir `tests/fixtures/test-page.html` no Chrome via `file:///` (ex.: `file:///home/<usuário>/Dev/pestto/tests/fixtures/test-page.html`). A página contém texto formatado e uma imagem prontos para seleção.
 
@@ -295,7 +287,7 @@ fim.
 | `**São Paulo**` / `*açúcar*` | `*São Paulo*` / `_açúcar_` | — |
 | `- Item com **negrito** na lista.` | `- Item com *negrito* na lista.` | — |
 | Emoji `😊`, acentos, multilinha | inalterados | — |
-| `2**3 + 4**2` | `2*3 + 4*2` | ⚠️ **não implementado**: `2`+U+FEFF+`*3 + 4*`+U+FEFF+`2` ([issue #18](https://github.com/axmbo/pestto/issues/18)). No estado atual, `*3 + 4*` é renderizado pelo WhatsApp como itálico — o texto visível após o envio fica incorreto. |
+| `2**3 + 4**2` | `2*3 + 4*2` | ⚠️ não implementado[^4] |
 | `*entre blocos*` (fora dos blocos) | `_entre blocos_` | — |
 | `**negrito duplo**` (fora dos blocos) | `*negrito duplo*` | — |
 | Bloco `js` (`bloco1()`) | inalterado | — |
@@ -316,3 +308,13 @@ Produto: **São Paulo** e _açúcar_ 😊.
 > Blocos `js`/`bash`, espaços inválidos (`** inválido**`, `*também inválido *`) e multilinha: inalterados.
 
 [↑ Índice](#índice)
+
+---
+
+[^1]: O Pestto encerra a execução ao detectar que o alvo do evento está dentro do seletor `#side` (barra lateral), antes de criar qualquer evento sintético. O campo de busca recebe o paste nativo normalmente.
+
+[^2]: Ao copiar uma bolha de conversa, o WhatsApp adiciona o tipo MIME `application/whatsapp` ao clipboard. O Pestto detecta esse tipo e aborta a conversão, devolvendo o controle ao WhatsApp. Sem essa proteção, `*mundo*` (negrito nativo do WhatsApp) seria convertido para `_mundo_` (itálico Markdown), alterando o significado da formatação.
+
+[^3]: Ao selecionar conteúdo rico em uma página, o clipboard recebe simultaneamente um item `file` (imagem) e itens `text/plain`/`text/html`. O `content.js` deve preservar ambos no evento sintético — o arquivo via `dataTransfer.items.add(file)` e o texto convertido via `setData`.
+
+[^4]: Caso não implementado — ver [issue #18](https://github.com/axmbo/pestto/issues/18). No estado atual, `*3 + 4*` é renderizado pelo WhatsApp como itálico, deixando o texto visível incorreto após o envio.
