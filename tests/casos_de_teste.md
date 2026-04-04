@@ -126,6 +126,7 @@ Multilinha: **primeira linha
 e segunda linha**.
 * Item de lista Markdown.
 ~~ espaço no tachado ~~
+**a** e **b**
 ```
 
 ### Esperado
@@ -141,8 +142,9 @@ A saída deve ser **idêntica** à entrada — nenhuma linha é convertida.
 | 5 | `Multilinha: **primeira linha` / `e segunda linha**.` | idênticas |
 | 6 | `* Item de lista Markdown.` | idêntica (asterisco seguido de espaço não é marcador de itálico) |
 | 7 | `~~ espaço no tachado ~~` | idêntica (espaço na borda invalida o tachado) |
+| 8 | `**a** e **b**` | `*a* e *b*` (dois marcadores do mesmo tipo na mesma linha — coberto também pelo teste unitário `converter.test.js`) |
 
-Checkpoint: se todas as sete linhas forem idênticas à entrada, os guard rails estão funcionais.
+Checkpoint: se as sete primeiras linhas forem idênticas à entrada e a linha 8 for convertida corretamente, os guard rails estão funcionais.
 
 [↑ Índice](#índice)
 
