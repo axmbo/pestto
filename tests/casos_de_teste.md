@@ -25,7 +25,7 @@ Prioridade: impacto no usuário primeiro, risco técnico em seguida.
 
 > **Critério de falha:** se qualquer saída divergir do esperado, o teste falhou — anote o conteúdo colado, o resultado obtido e o número do fluxo. Abra uma issue com a tag `bug` se ainda não houver uma para o problema encontrado.
 
-<details>
+<details open>
 <summary>Legenda visual</summary>
 
 Os blocos "Aparência no WhatsApp" usam Markdown padrão para aproximar o visual do que o WhatsApp renderiza após o envio.
