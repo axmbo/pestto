@@ -72,11 +72,11 @@ console.log(text);
 
 ### Esperado
 
-| # | O que verificar | Resultado esperado |
-|---|---|---|
-| 1 | Texto fora do bloco | `*Conversão obrigatória fora dos blocos*` → **Conversão obrigatória fora dos blocos** |
-| 2 | Código inline `` `npm install` `` | inalterado |
-| 3 | Bloco `javascript` | inalterado |
+| # | O que verificar | Saída da extensão | Aparência no WhatsApp |
+|---|---|---|---|
+| 1 | Texto fora do bloco | `*Conversão obrigatória fora dos blocos*` | **Conversão obrigatória fora dos blocos** |
+| 2 | Código inline `` `npm install` `` | inalterado | inalterado |
+| 3 | Bloco `javascript` | inalterado | inalterado |
 
 Checkpoint: fim da etapa de conversão/segurança.
 
