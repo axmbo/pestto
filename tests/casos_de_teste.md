@@ -128,11 +128,12 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 ### 4.2 - Cópia interna do WhatsApp
 
-1. Copiar uma mensagem de uma bolha de conversa dentro do próprio WhatsApp.
-2. Colar no composer.
+1. No campo de entrada do WhatsApp, **digite** (não copie): `olá *mundo*`
+2. Na bolha enviada, selecione e copie o texto.
+3. Cole no campo de entrada do WhatsApp.
 
 **Esperado:**
-- O conteúdo é preservado exatamente como copiado, sem reconversão, duplicação ou travamento.
+- O texto deve aparecer exatamente como copiado: `olá *mundo*` — sem reconversão, duplicação ou travamento.
 
 ### 4.3 - Passthrough para texto sem markdown
 
