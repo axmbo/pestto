@@ -200,8 +200,6 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 - A imagem é colada normalmente (preview aparece no composer).
 - Nenhum travamento, artefato de texto ou mensagem de erro visível.
 
-Checkpoint: se os quatro casos passarem, as regras de bypass estão funcionais.
-
 ### 4.5 - Paste em campo não editável
 
 1. Copiar `**negrito**`.
