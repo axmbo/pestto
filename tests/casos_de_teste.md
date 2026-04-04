@@ -22,7 +22,7 @@ Prioridade: impacto no usuário primeiro, risco técnico em seguida.
 2. Nos Fluxos 1–3 e 5, cole o bloco de entrada inteiro de uma só vez (Ctrl+V) — mesmo que o bloco contenha trechos de código internos (como no Fluxo 5). O Fluxo 4 tem passos próprios de interação.
 3. Compare com o resultado esperado de cada etapa.
 
-> **Critério de falha:** se qualquer saída divergir do esperado, o teste falhou — anote o conteúdo colado, o resultado obtido e o número do fluxo.
+> **Critério de falha:** se qualquer saída divergir do esperado, o teste falhou — anote o conteúdo colado, o resultado obtido e o número do fluxo. Abra uma issue com a tag `bug` se ainda não houver uma para o problema encontrado.
 
 <details>
 <summary>Legenda visual</summary>
