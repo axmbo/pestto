@@ -200,6 +200,16 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 Checkpoint: se os quatro casos passarem, as regras de bypass estão funcionais.
 
+### 4.5 - Paste em campo não editável
+
+1. Copiar `**negrito**`.
+2. Clicar na barra de endereço do Chrome e colar (Ctrl+V).
+
+**Esperado:**
+- O texto aparece como `**negrito**`, sem conversão.
+
+Checkpoint: se os cinco casos passarem, as regras de bypass estão funcionais.
+
 [↑ Índice](#índice)
 
 ## Fluxo 5 - Estresse Consolidado
