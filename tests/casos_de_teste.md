@@ -68,7 +68,7 @@ Checkpoint: se as duas linhas passarem, a conversão principal está funcional.
 
 ## Fluxo 2 - Segurança da Conversão
 
-Objetivo: garantir que código não seja alterado.
+Objetivo: garantir que (1) código não seja alterado pela conversão e (2) texto copiado de fonte renderizada não seja re-processado indevidamente.
 
 ### 2.1 - Proteção de Blocos de Código
 
