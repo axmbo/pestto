@@ -1,17 +1,26 @@
 # Casos de Teste Manual - Pestto
 
-Este roteiro foi organizado para ser executado do início ao fim com o mínimo de trocas de contexto.
 Prioridade: impacto no usuário primeiro, risco técnico em seguida.
 
-## Como executar com menos passos
+## Como executar
 
 1. Abra o WhatsApp Web e selecione qualquer conversa.
 2. Cole os blocos na ordem abaixo.
 3. Compare com o resultado esperado de cada etapa.
 
-## Roteiro oficial atual
+<details>
+<summary>Legenda visual</summary>
 
-Os fluxos desta seção já fazem parte do roteiro principal e devem ser executados do início ao fim.
+Os blocos "Aparência no WhatsApp" usam Markdown padrão para aproximar o visual do que o WhatsApp renderiza após o envio.
+
+| Token na saída da extensão | Markdown usado neste documento | Aparência | Fallback textual |
+|---|---|---|---|
+| `*texto*` | `**texto**` | **texto** | negrito |
+| `_texto_` | `_texto_` | _texto_ | itálico |
+| `~texto~` | `~~texto~~` | ~~texto~~ | tachado |
+| `_*texto*_` | `***texto***` | ***texto*** | negrito+itálico |
+
+</details>
 
 ## Fluxo 1 - Essencial (Smoke Test)
 
@@ -25,17 +34,19 @@ Mensagem: **negrito**, *itálico*, ~~tachado~~ e ***aninhado***.
 
 ### Esperado
 
+**Saída da extensão:**
+
 ```txt
 Mensagem: *negrito*, _itálico_, ~tachado~ e _*aninhado*_.
 ```
 
-Observação: o resultado esperado para o trecho aninhado é _*aninhado*_.
+**Aparência no WhatsApp:** Mensagem: **negrito**, _itálico_, ~~tachado~~ e ***aninhado***.
 
 Checkpoint: se este bloco passar, a conversão principal está funcional.
 
 ## Fluxo 2 - Segurança da Conversão
 
-Objetivo: garantir que código não seja alterado, mantendo o mesmo setup do Fluxo 1.
+Objetivo: garantir que código não seja alterado.
 
 ### Entrada
 
@@ -51,15 +62,17 @@ console.log(text);
 
 ### Esperado
 
-1. `**Conversão obrigatória fora dos blocos**` foi convertido para `*Conversão obrigatória fora dos blocos*`.
-2. O código em linha (`npm install`) permanece exatamente igual.
-3. O bloco de código permanece exatamente igual.
+| # | O que verificar | Resultado esperado |
+|---|---|---|
+| 1 | Texto fora do bloco | `*Conversão obrigatória fora dos blocos*` → **Conversão obrigatória fora dos blocos** |
+| 2 | Código inline `` `npm install` `` | inalterado |
+| 3 | Bloco `javascript` | inalterado |
 
-Checkpoint: fim da etapa de conversão/segurança. Prossiga obrigatoriamente para o Fluxo 3.
+Checkpoint: fim da etapa de conversão/segurança.
 
 ## Fluxo 3 - Não Regressão (Guard Rails)
 
-Objetivo: validar cenários que devem ser mantidos sem conversão indevida.
+Objetivo: validar que nenhuma linha abaixo é alterada pela extensão.
 
 ### Entrada
 
@@ -74,56 +87,57 @@ e segunda linha**.
 
 ### Esperado
 
-1. Asteriscos matemáticos continuam iguais.
-2. Marcações dentro de código inline continuam iguais.
-3. Formatação incompleta não é convertida.
-4. Texto sem markdown não é alterado.
-5. Formatação que cruza quebra de linha não é convertida.
+A saída deve ser **idêntica** à entrada — nenhuma linha é convertida.
+
+| # | Linha | Saída esperada |
+|---|---|---|
+| 1 | `Matemática: 2 * 3 = 6 e 4 * 5 = 20.` | idêntica |
+| 2 | `` Inline com marcador falso: `código com **negrito** falso`. `` | idêntica |
+| 3 | `Formatação incompleta: aqui vai um **negrito sem fechamento.` | idêntica |
+| 4 | `Sem formatação: texto completamente normal.` | idêntica |
+| 5 | `Multilinha: **primeira linha` / `e segunda linha**.` | idênticas |
 
 ## Fluxo 4 - Interceptação Segura
 
 Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo nativo.
 
-Regra deste fluxo: o teste é 100% caixa-preta (ou seja, valida apenas entradas e saídas visíveis na interface, sem inspecionar a implementação interna). Validar apenas comportamento visível no WhatsApp Web, sem abrir DevTools.
+> **Regra:** caixa-preta — validar apenas o comportamento visível no WhatsApp Web, sem abrir DevTools.
 
 ### 4.1 - Bypass da barra lateral
 
-- Copiar `**negrito**`.
-- Colar no campo de busca da barra lateral do WhatsApp.
+1. Copiar `**negrito**`.
+2. Colar no campo de busca da barra lateral do WhatsApp.
 
-Esperado:
+**Esperado:**
 - O texto aparece como `**negrito**`, sem conversão.
-- A busca funciona normalmente e não há comportamento estranho no campo de pesquisa.
+- A busca funciona normalmente.
 
 ### 4.2 - Cópia interna do WhatsApp
 
-- Copiar uma mensagem de uma bolha de conversa dentro do próprio WhatsApp.
-- Colar no composer.
+1. Copiar uma mensagem de uma bolha de conversa dentro do próprio WhatsApp.
+2. Colar no composer.
 
-Esperado:
-- O conteúdo é preservado exatamente como copiado, sem reconversão.
-- Não há duplicações, perda de conteúdo ou travamento da entrada.
+**Esperado:**
+- O conteúdo é preservado exatamente como copiado, sem reconversão, duplicação ou travamento.
 
 ### 4.3 - Passthrough para texto sem markdown
 
-- Copiar `texto completamente normal 123`.
-- Colar no composer.
-- Em seguida, ainda no composer, copiar e colar `**controle de evento sintético**`.
+1. Copiar `texto completamente normal 123`.
+2. Colar no composer.
+3. Ainda no composer, copiar e colar `**controle de evento sintético**`.
 
-Esperado:
-- O conteúdo final permanece `texto completamente normal 123`.
-- Não há diferença observável entre colar com ou sem Pestto ativo.
-- O trecho `**controle de evento sintético**` é convertido para `*controle de evento sintético*`.
+**Esperado:**
 
-Checkpoint: se os três casos passarem, as regras de bypass estão funcionais do ponto de vista do usuário.
+| Passo | Verificação | Resultado |
+|---|---|---|
+| 2 | Texto colado no composer | `texto completamente normal 123` — inalterado |
+| 3 | Conversão aplicada | `*controle de evento sintético*` → **controle de evento sintético** |
 
-Observação técnica: a verificação de contadores internos, flags de evento e marcadores sintéticos deve ficar na suíte automatizada correspondente a este fluxo (unitária ou de integração).
-Essa cobertura é complementar a estes casos manuais.
-O roteiro manual valida o comportamento visível ao usuário, enquanto a suíte automatizada/documentação associada valida os estados internos e sinais técnicos.
+Checkpoint: se os três casos passarem, as regras de bypass estão funcionais.
 
 ## Fluxo 5 - Estresse Consolidado
 
-Objetivo: validar casos de borda em um único cenário, sem troca de contexto.
+Objetivo: validar casos de borda em um único cenário.
 
 ### Entrada
 
@@ -150,18 +164,31 @@ e linha 2** não converte.
 
 ### Esperado
 
-1. `**negrito**` fora dos blocos vira `*negrito*`.
-2. `*itálico*` fora dos blocos vira `_itálico_`.
-3. `~~tachado~~` vira `~tachado~`.
-4. `***prioridade alta***` vira `_*prioridade alta*_`.
-5. `** inválido**` e `*também inválido *` permanecem iguais (espaço na borda invalida a marcação).
-6. `2 * 3 = 6` permanece igual (asterisco solto não forma par válido).
-7. `` `npm test` `` e `` `código inline` `` permanecem iguais.
-8. Blocos `js` e `bash` permanecem exatamente iguais.
-9. `**São Paulo**` vira `*São Paulo*` e `*açúcar*` vira `_açúcar_`.
-10. Emoji (`😊`) e acentos permanecem intactos.
-11. Marcador de lista (`-`) permanece igual.
-12. Formatação multilinha não é convertida.
+| Entrada | Saída esperada |
+|---|---|
+| `**negrito**` (fora de bloco) | `*negrito*` |
+| `*itálico*` (fora de bloco) | `_itálico_` |
+| `~~tachado~~` | `~tachado~` |
+| `***prioridade alta***` | `_*prioridade alta*_` |
+| `** inválido**` / `*também inválido *` | inalterados (espaço na borda invalida) |
+| `2 * 3 = 6` | inalterado (asterisco solto) |
+| Código inline e blocos `js`/`bash` | inalterados |
+| `**São Paulo**` / `*açúcar*` | `*São Paulo*` / `_açúcar_` |
+| Emoji `😊`, acentos, marcador `-`, multilinha | inalterados |
+
+**Aparência no WhatsApp (linhas convertidas):**
+
+Antes do código **negrito**.
+
+Entre blocos com _itálico_ e `código inline`.
+
+Depois com ~~tachado~~, `npm test`, 2 * 3 = 6 e ***prioridade alta***.
+
+Produto: **São Paulo** e _açúcar_ 😊.
+
+- Item com **negrito** na lista.
+
+> Blocos `js`/`bash`, espaços inválidos (`** inválido**`, `*também inválido *`) e multilinha: inalterados.
 
 ## Status do roteiro
 
