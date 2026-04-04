@@ -169,6 +169,8 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 ### 4.2 - Cópia interna do WhatsApp
 
+> **Pré-condição:** execute este caso em uma conversa consigo mesmo ("Eu") ou em um contato de teste dedicado — para não enviar mensagens em conversas reais.
+
 > **Contexto:** ao copiar uma bolha de conversa, o WhatsApp adiciona o tipo MIME `application/whatsapp` à área de transferência. O Pestto detecta esse tipo e **aborta a conversão**, devolvendo o controle ao WhatsApp.
 >
 > Neste teste, `*mundo*` é **sintaxe de negrito do WhatsApp** — não Markdown itálico. Sem essa proteção, o Pestto converteria `*mundo*` para `_mundo_` (itálico), alterando o significado da formatação.
