@@ -211,7 +211,20 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 - A imagem é colada normalmente (preview aparece no composer).
 - Nenhum travamento, artefato de texto ou mensagem de erro visível.
 
-Checkpoint: se os quatro casos passarem, as regras de bypass estão funcionais.
+### 4.5 - Cola de imagem com texto simultâneos
+
+> **Contexto:** ao selecionar conteúdo rico em uma página externa (ex.: GitHub README com imagem inline e texto formatado), o clipboard recebe simultaneamente um item `file` (imagem) e itens `text/plain`/`text/html`. O `content.js` deve preservar ambos no evento sintético — o arquivo via `dataTransfer.items.add(file)` e o texto convertido via `setData`.
+
+1. Em uma página externa com imagem inline e texto Markdown (ex.: um README do GitHub com `**negrito**` e uma imagem), selecionar um trecho que inclua tanto o texto bold quanto a imagem.
+2. Copiar (Ctrl+C).
+3. Colar no composer do WhatsApp.
+
+**Esperado:**
+- O preview da imagem aparece no composer.
+- O texto da seleção aparece convertido (ex.: `*negrito*`).
+- Nenhum travamento, perda de dados ou mensagem de erro visível.
+
+Checkpoint: se os cinco casos passarem, as regras de bypass estão funcionais.
 
 [↑ Índice](#índice)
 
