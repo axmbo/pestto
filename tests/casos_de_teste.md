@@ -215,7 +215,7 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 > **Contexto:** ao selecionar conteúdo rico em uma página externa (ex.: GitHub README com imagem inline e texto formatado), o clipboard recebe simultaneamente um item `file` (imagem) e itens `text/plain`/`text/html`. O `content.js` deve preservar ambos no evento sintético — o arquivo via `dataTransfer.items.add(file)` e o texto convertido via `setData`.
 
-1. Em uma página externa com imagem inline e texto Markdown (ex.: um README do GitHub com `**negrito**` e uma imagem), selecionar um trecho que inclua tanto o texto bold quanto a imagem.
+1. Em uma página externa com imagem inline e texto Markdown (ex.: um README do GitHub com `**negrito**` e uma imagem), selecionar um trecho que inclua tanto o texto em negrito quanto a imagem.
 2. Copiar (Ctrl+C).
 3. Colar no composer do WhatsApp.
 
