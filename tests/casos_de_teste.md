@@ -228,7 +228,17 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 - O texto da seleção aparece como `Texto com *negrito* e _itálico_ para conversão pelo Pestto.` — marcadores convertidos para sintaxe WhatsApp.
 - Nenhum travamento, perda de dados ou mensagem de erro visível.
 
-Checkpoint: se os cinco casos passarem, as regras de bypass estão funcionais.
+### 4.6 - Cola fora do composer (elemento não editável)
+
+1. Copiar `**negrito**`.
+2. Clicar em uma bolha de mensagem na área da conversa (fora do campo de entrada) para tirar o foco do composer.
+3. Colar (Ctrl+V).
+
+**Esperado:**
+- Nada é inserido — o navegador não executa paste fora de campos editáveis.
+- Nenhum erro visível, travamento ou artefato de texto.
+
+Checkpoint: se os **seis** casos passarem, as regras de bypass estão funcionais.
 
 [↑ Índice](#índice)
 
