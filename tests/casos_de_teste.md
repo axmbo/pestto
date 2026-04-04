@@ -232,19 +232,19 @@ e linha 2** não converte.
 
 ### Esperado
 
-| Entrada | Saída esperada |
-|---|---|
-| `**negrito**` (fora de bloco) | `*negrito*` |
-| `*itálico*` (fora de bloco) | `_itálico_` |
-| `~~tachado~~` | `~tachado~` |
-| `***prioridade alta***` | `_*prioridade alta*_` |
-| `** inválido**` / `*também inválido *` | inalterados (espaço na borda invalida) |
-| `2 * 3 = 6` | inalterado (asterisco solto) |
-| Código inline e blocos `js`/`bash` | inalterados |
-| `**São Paulo**` / `*açúcar*` | `*São Paulo*` / `_açúcar_` |
-| `- Item com **negrito** na lista.` | `- Item com *negrito* na lista.` |
-| Emoji `😊`, acentos, multilinha | inalterados |
-| `2**3 + 4**2` | `2`+U+FEFF+`*3 + 4*`+U+FEFF+`2` — ⚠️ **não implementado** ([issue #18](https://github.com/axmbo/pestto/issues/18)); saída atual: `2*3 + 4*2` |
+| Entrada | Saída atual esperada | Saída futura |
+|---|---|---|
+| `**negrito**` (fora de bloco) | `*negrito*` | — |
+| `*itálico*` (fora de bloco) | `_itálico_` | — |
+| `~~tachado~~` | `~tachado~` | — |
+| `***prioridade alta***` | `_*prioridade alta*_` | — |
+| `** inválido**` / `*também inválido *` | inalterados (espaço na borda invalida) | — |
+| `2 * 3 = 6` | inalterado (asterisco solto) | — |
+| Código inline e blocos `js`/`bash` | inalterados | — |
+| `**São Paulo**` / `*açúcar*` | `*São Paulo*` / `_açúcar_` | — |
+| `- Item com **negrito** na lista.` | `- Item com *negrito* na lista.` | — |
+| Emoji `😊`, acentos, multilinha | inalterados | — |
+| `2**3 + 4**2` | `2*3 + 4*2` | `2`+U+FEFF+`*3 + 4*`+U+FEFF+`2` ([issue #18](https://github.com/axmbo/pestto/issues/18)) |
 
 **Aparência no WhatsApp (linhas convertidas):**
 
