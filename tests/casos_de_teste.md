@@ -18,6 +18,7 @@ Prioridade: impacto no usuário primeiro, risco técnico em seguida.
 - Extensão Pestto habilitada em `chrome://extensions`.
 - Estado inicial: WhatsApp Web aberto, conversa selecionada, sem modais sobrepostas, janela em foco.
 
+**Fluxo básico:**
 1. Abra o WhatsApp Web e selecione qualquer conversa.
 2. Nos Fluxos 1–3 e 5, cole o bloco de entrada inteiro de uma só vez (Ctrl+V) — mesmo que o bloco contenha trechos de código internos (como no Fluxo 5). O Fluxo 4 tem passos próprios de interação.
 3. Entre fluxos, limpe o campo de entrada do WhatsApp (Ctrl+A + Delete) antes de iniciar o próximo.
