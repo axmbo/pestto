@@ -196,7 +196,8 @@ e linha 2** não converte.
 | `2 * 3 = 6` | inalterado (asterisco solto) |
 | Código inline e blocos `js`/`bash` | inalterados |
 | `**São Paulo**` / `*açúcar*` | `*São Paulo*` / `_açúcar_` |
-| Emoji `😊`, acentos, marcador `-`, multilinha | inalterados |
+| `- Item com **negrito** na lista.` | `- Item com *negrito* na lista.` |
+| Emoji `😊`, acentos, multilinha | inalterados |
 
 **Aparência no WhatsApp (linhas convertidas):**
 
