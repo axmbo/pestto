@@ -15,6 +15,7 @@ Prioridade: impacto no usuário primeiro, risco técnico em seguida.
 **Pré-condições:**
 - Browser: Chrome 120 ou superior.
 - Versão da extensão em teste: `x.y.z` _(preencha antes de iniciar)_.
+- Extensão Pestto habilitada em `chrome://extensions`.
 - Estado inicial: WhatsApp Web aberto, conversa selecionada, sem modais sobrepostas, janela em foco.
 
 1. Abra o WhatsApp Web e selecione qualquer conversa.
