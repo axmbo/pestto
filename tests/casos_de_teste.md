@@ -268,6 +268,15 @@ Produto: **São Paulo** e *açúcar* 😊.
 Multilinha **linha 1
 e linha 2** não converte.
 2**3 + 4**2 (negrito sem espaço separador).
+*entre blocos*
+```js
+bloco1();
+```
+**negrito duplo**
+```bash
+bloco2
+```
+fim.
 ````
 
 ### Esperado
@@ -287,6 +296,10 @@ e linha 2** não converte.
 | `- Item com **negrito** na lista.` | `- Item com *negrito* na lista.` | — |
 | Emoji `😊`, acentos, multilinha | inalterados | — |
 | `2**3 + 4**2` | `2*3 + 4*2` | ⚠️ **não implementado**: `2`+U+FEFF+`*3 + 4*`+U+FEFF+`2` ([issue #18](https://github.com/axmbo/pestto/issues/18)) |
+| `*entre blocos*` (fora dos blocos) | `_entre blocos_` | — |
+| `**negrito duplo**` (fora dos blocos) | `*negrito duplo*` | — |
+| Bloco `js` (`bloco1()`) | inalterado | — |
+| Bloco `bash` (`bloco2`) | inalterado | — |
 
 **Aparência no WhatsApp (linhas convertidas):**
 
