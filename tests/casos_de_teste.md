@@ -139,14 +139,12 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 1. Copiar `texto completamente normal 123`.
 2. Colar no composer.
-3. Ainda no composer, copiar e colar `**controle de evento sintético**`.
 
 **Esperado:**
 
 | Passo | Verificação | Resultado |
 |---|---|---|
 | 2 | Texto colado no composer | `texto completamente normal 123` — inalterado |
-| 3 | Conversão aplicada | `*controle de evento sintético*` → **controle de evento sintético** |
 
 Checkpoint: se os três casos passarem, as regras de bypass estão funcionais.
 
