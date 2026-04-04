@@ -21,6 +21,8 @@ Prioridade: impacto no usuário primeiro, risco técnico em seguida.
 2. Cole os blocos na ordem abaixo.
 3. Compare com o resultado esperado de cada etapa.
 
+> **Critério de falha:** se qualquer saída divergir do esperado, o teste falhou — anote o conteúdo colado, o resultado obtido e o número do fluxo.
+
 <details>
 <summary>Legenda visual</summary>
 
