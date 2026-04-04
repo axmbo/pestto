@@ -2,6 +2,14 @@
 
 Prioridade: impacto no usuário primeiro, risco técnico em seguida.
 
+## Índice
+
+1. [Fluxo 1 - Essencial (Smoke Test)](#fluxo-1---essencial-smoke-test)
+2. [Fluxo 2 - Segurança da Conversão](#fluxo-2---segurança-da-conversão)
+3. [Fluxo 3 - Não Regressão (Guard Rails)](#fluxo-3---não-regressão-guard-rails)
+4. [Fluxo 4 - Interceptação Segura](#fluxo-4---interceptação-segura)
+5. [Fluxo 5 - Estresse Consolidado](#fluxo-5---estresse-consolidado)
+
 ## Como executar
 
 1. Abra o WhatsApp Web e selecione qualquer conversa.
@@ -189,13 +197,3 @@ Produto: **São Paulo** e _açúcar_ 😊.
 - Item com **negrito** na lista.
 
 > Blocos `js`/`bash`, espaços inválidos (`** inválido**`, `*também inválido *`) e multilinha: inalterados.
-
-## Status do roteiro
-
-### Fluxos oficiais
-
-1. **Fluxo 1** - Negrito, itálico, tachado e aninhado (smoke test).
-2. **Fluxo 2** - Proteção de código inline e bloco; conversão seletiva fora do código.
-3. **Fluxo 3** - Guard rails: asteriscos matemáticos, formatação incompleta, multilinha e texto sem markdown.
-4. **Fluxo 4** - Interceptação segura: barra lateral, cópia interna e passthrough nativo.
-5. **Fluxo 5** - Estresse consolidado: múltiplos blocos, espaços inválidos, caracteres especiais, emoji, listas e multilinha.
