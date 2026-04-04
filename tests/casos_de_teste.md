@@ -66,7 +66,9 @@ Checkpoint: se este bloco passar, a conversão principal está funcional.
 
 Objetivo: garantir que código não seja alterado.
 
-### Entrada
+### 2.1 - Proteção de Blocos de Código
+
+#### Entrada
 
 ````md
 **Conversão obrigatória fora dos blocos** — `npm install` antes de rodar.
@@ -78,11 +80,7 @@ console.log(text);
 ```
 ````
 
-### Esperado
-
-| # | O que verificar | Saída da extensão | Aparência no WhatsApp |
-|---|---|---|---|
-| 1 | Linha completa fora do bloco | `*Conversão obrigatória fora dos blocos* — \`npm install\` antes de rodar.` | **Conversão obrigatória fora dos blocos** — `npm install` antes de rodar. |
+#### Esperado | `*Conversão obrigatória fora dos blocos* — \`npm install\` antes de rodar.` | **Conversão obrigatória fora dos blocos** — `npm install` antes de rodar. |
 | 2 | Código inline `` `npm install` `` (dentro da linha convertida) | inalterado | inalterado |
 | 3 | Bloco `javascript` | inalterado | inalterado |
 
