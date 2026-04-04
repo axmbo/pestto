@@ -175,9 +175,14 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 >
 > Neste teste, `*mundo*` é **sintaxe de negrito do WhatsApp** — não Markdown itálico. Sem essa proteção, o Pestto converteria `*mundo*` para `_mundo_` (itálico), alterando o significado da formatação.
 
+**Setup:**
+
 1. No campo de entrada do WhatsApp, **digite** (não copie): `olá *mundo*`
 2. Envie a mensagem.
 3. Na bolha enviada, selecione e copie o texto.
+
+**Teste:**
+
 4. Cole no campo de entrada do WhatsApp.
 
 **Esperado:**
