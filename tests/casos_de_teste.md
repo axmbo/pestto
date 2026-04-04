@@ -223,7 +223,7 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 **Esperado:**
 - O preview da imagem aparece no composer.
-- O texto da seleção aparece convertido (ex.: `*negrito*`).
+- O texto da seleção aparece como `Texto com *negrito* e _itálico_ para conversão pelo Pestto.` — marcadores convertidos para sintaxe WhatsApp.
 - Nenhum travamento, perda de dados ou mensagem de erro visível.
 
 Checkpoint: se os cinco casos passarem, as regras de bypass estão funcionais.
