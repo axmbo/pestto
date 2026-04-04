@@ -247,6 +247,8 @@ e linha 2** não converte.
 
 | Entrada | Saída esperada | Saída futura |
 |---|---|---|
+| `Antes do código **negrito**.` | `Antes do código *negrito*.` | — |
+| `Entre blocos com *itálico* e \`código inline\`.` | ``Entre blocos com _itálico_ e `código inline`.`` | — |
 | `**negrito**` (fora de bloco) | `*negrito*` | — |
 | `*itálico*` (fora de bloco) | `_itálico_` | — |
 | `~~tachado~~` | `~tachado~` | — |
