@@ -19,7 +19,7 @@ Prioridade: impacto no usuário primeiro, risco técnico em seguida.
 - Estado inicial: WhatsApp Web aberto, conversa selecionada, sem modais sobrepostas, janela em foco.
 
 1. Abra o WhatsApp Web e selecione qualquer conversa.
-2. Nos Fluxos 1–3 e 5, cole os blocos de entrada na ordem indicada. O Fluxo 4 tem passos próprios de interação.
+2. Nos Fluxos 1–3 e 5, cole o bloco de entrada inteiro de uma só vez (Ctrl+V). O Fluxo 5 tem dois blocos de código embutidos — cole o bloco completo de uma vez. O Fluxo 4 tem passos próprios de interação.
 3. Compare com o resultado esperado de cada etapa.
 
 > **Critério de falha:** se qualquer saída divergir do esperado, o teste falhou — anote o conteúdo colado, o resultado obtido e o número do fluxo.
