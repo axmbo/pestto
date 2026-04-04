@@ -232,7 +232,7 @@ e linha 2** não converte.
 
 ### Esperado
 
-| Entrada | Saída atual esperada | Saída futura |
+| Entrada | Saída esperada | Saída futura |
 |---|---|---|
 | `**negrito**` (fora de bloco) | `*negrito*` | — |
 | `*itálico*` (fora de bloco) | `_itálico_` | — |
@@ -244,7 +244,7 @@ e linha 2** não converte.
 | `**São Paulo**` / `*açúcar*` | `*São Paulo*` / `_açúcar_` | — |
 | `- Item com **negrito** na lista.` | `- Item com *negrito* na lista.` | — |
 | Emoji `😊`, acentos, multilinha | inalterados | — |
-| `2**3 + 4**2` | `2*3 + 4*2` | `2`+U+FEFF+`*3 + 4*`+U+FEFF+`2` ([issue #18](https://github.com/axmbo/pestto/issues/18)) |
+| `2**3 + 4**2` | `2*3 + 4*2` | ⚠️ **não implementado**: `2`+U+FEFF+`*3 + 4*`+U+FEFF+`2` ([issue #18](https://github.com/axmbo/pestto/issues/18)) |
 
 **Aparência no WhatsApp (linhas convertidas):**
 
