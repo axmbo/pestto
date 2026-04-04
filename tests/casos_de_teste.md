@@ -213,9 +213,11 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 ### 4.5 - Cola de imagem com texto simultâneos
 
-> **Contexto:** ao selecionar conteúdo rico em uma página externa (ex.: GitHub README com imagem inline e texto formatado), o clipboard recebe simultaneamente um item `file` (imagem) e itens `text/plain`/`text/html`. O `content.js` deve preservar ambos no evento sintético — o arquivo via `dataTransfer.items.add(file)` e o texto convertido via `setData`.
+> **Contexto:** ao selecionar conteúdo rico em uma página, o clipboard recebe simultaneamente um item `file` (imagem) e itens `text/plain`/`text/html`. O `content.js` deve preservar ambos no evento sintético — o arquivo via `dataTransfer.items.add(file)` e o texto convertido via `setData`.
 
-1. Em uma página externa com imagem inline e texto Markdown (ex.: um README do GitHub com `**negrito**` e uma imagem), selecionar um trecho que inclua tanto o texto em negrito quanto a imagem.
+> **Pré-condição:** abrir `tests/fixtures/test-page.html` no Chrome via `file:///` (ex.: `file:///home/<usuário>/Dev/pestto/tests/fixtures/test-page.html`). A página contém texto formatado e uma imagem prontos para seleção.
+
+1. Na página `tests/fixtures/test-page.html`, selecionar com o cursor todo o conteúdo dentro da caixa azul tracejada (inclui o parágrafo com **negrito** e a imagem do ícone).
 2. Copiar (Ctrl+C).
 3. Colar no composer do WhatsApp.
 

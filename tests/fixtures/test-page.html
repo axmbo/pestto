@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pestto — Fixture para teste de cola mista (Fluxo 4.5)</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        line-height: 1.6;
+      }
+      .instructions {
+        background: #fff8e1;
+        border-left: 4px solid #f9a825;
+        padding: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+      }
+      .test-content {
+        border: 2px dashed #90caf9;
+        padding: 1rem 1.5rem;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fixture de Teste — Fluxo 4.5</h1>
+
+    <div class="instructions">
+      <strong>Como usar (Fluxo 4.5):</strong>
+      <ol>
+        <li>
+          Abra esta página no Chrome via
+          <code>file:///…/tests/fixtures/test-page.html</code>.
+        </li>
+        <li>
+          Selecione com o cursor
+          <strong>todo o conteúdo dentro da caixa azul</strong> abaixo (texto +
+          imagem).
+        </li>
+        <li>Copie com <kbd>Ctrl+C</kbd>.</li>
+        <li>Cole no composer do WhatsApp Web (<kbd>Ctrl+V</kbd>).</li>
+        <li>
+          Verifique o resultado esperado descrito em
+          <code>tests/casos_de_teste.md</code>.
+        </li>
+      </ol>
+    </div>
+
+    <div class="test-content">
+      <p>
+        Texto com <strong>negrito</strong> e <em>itálico</em> para conversão
+        pelo Pestto.
+      </p>
+      <img
+        src="../../src/icons/icon-48.png"
+        alt="Ícone Pestto 48px"
+        width="48"
+        height="48"
+      />
+    </div>
+  </body>
+</html>
