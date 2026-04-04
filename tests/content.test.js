@@ -84,4 +84,25 @@ describe('createPesttoPasteEvent', () => {
 
     expect(event.clipboardData.items._files).toContain(fakeFile);
   });
+
+  it('deve produzir eventos independentes em colagens sequenciais', () => {
+    const makeClipboard = (plainText) => ({
+      items: [{ kind: 'string', type: 'text/plain', getAsFile: () => null }],
+      getData: (type) => (type === 'text/plain' ? plainText : null),
+    });
+
+    const event1 = createPesttoPasteEvent(
+      makeClipboard('entrada 1'),
+      '*negrito*'
+    );
+    const event2 = createPesttoPasteEvent(
+      makeClipboard('entrada 2'),
+      '_itálico_'
+    );
+
+    expect(event1.isPesttoEvent).toBe(true);
+    expect(event2.isPesttoEvent).toBe(true);
+    expect(event1.clipboardData.getData('text/plain')).toBe('*negrito*');
+    expect(event2.clipboardData.getData('text/plain')).toBe('_itálico_');
+  });
 });
