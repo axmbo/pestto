@@ -162,6 +162,8 @@ Objetivo: validar que o Pestto só intervém quando deve, sem quebrar o fluxo na
 
 ### 4.1 - Bypass da barra lateral
 
+> **Contexto:** o Pestto encerra a execução imediatamente ao detectar que o alvo do evento está dentro do seletor `#side` (barra lateral), antes de criar qualquer evento sintético. O campo de busca recebe o paste nativo do navegador normalmente.
+
 1. Copiar `**negrito**`.
 2. Colar no campo de busca da barra lateral do WhatsApp.
 
