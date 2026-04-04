@@ -8,7 +8,7 @@ Prioridade: impacto no usuário primeiro, risco técnico em seguida.
 2. [Fluxo 2 - Segurança da Conversão](#fluxo-2---segurança-da-conversão)
 3. [Fluxo 3 - Não Regressão (Guard Rails)](#fluxo-3---não-regressão-guard-rails)
 4. [Fluxo 4 - Interceptação Segura](#fluxo-4---interceptação-segura)
-5. [Fluxo 5 - Estresse Consolidado](#fluxo-5---estresse-consolidado)
+5. [Fluxo 5 - Casos de Borda Consolidados](#fluxo-5---casos-de-borda-consolidados)
 
 ## Como executar
 
@@ -215,7 +215,7 @@ Checkpoint: se os quatro casos passarem, as regras de bypass estão funcionais.
 
 [↑ Índice](#índice)
 
-## Fluxo 5 - Estresse Consolidado
+## Fluxo 5 - Casos de Borda Consolidados
 
 Objetivo: validar casos de borda em um único cenário.
 
