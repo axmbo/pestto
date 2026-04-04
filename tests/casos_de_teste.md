@@ -80,7 +80,11 @@ console.log(text);
 ```
 ````
 
-#### Esperado | `*Conversão obrigatória fora dos blocos* — \`npm install\` antes de rodar.` | **Conversão obrigatória fora dos blocos** — `npm install` antes de rodar. |
+#### Esperado
+
+| # | O que verificar | Saída da extensão | Aparência no WhatsApp |
+|---|---|---|---|
+| 1 | Conversão obrigatória fora dos blocos | `*Conversão obrigatória fora dos blocos* — \`npm install\` antes de rodar.` | **Conversão obrigatória fora dos blocos** — `npm install` antes de rodar. |
 | 2 | Código inline `` `npm install` `` (dentro da linha convertida) | inalterado | inalterado |
 | 3 | Bloco `javascript` | inalterado | inalterado |
 
@@ -137,6 +141,8 @@ A saída deve ser **idêntica** à entrada — nenhuma linha é convertida.
 | 5 | `Multilinha: **primeira linha` / `e segunda linha**.` | idênticas |
 | 6 | `* Item de lista Markdown.` | idêntica (asterisco seguido de espaço não é marcador de itálico) |
 | 7 | `~~ espaço no tachado ~~` | idêntica (espaço na borda invalida o tachado) |
+
+Checkpoint: se todas as sete linhas forem idênticas à entrada, os guard rails estão funcionais.
 
 [↑ Índice](#índice)
 
