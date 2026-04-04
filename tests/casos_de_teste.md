@@ -89,9 +89,8 @@ console.log(text);
 
 | # | O que verificar | Saída da extensão | Aparência no WhatsApp |
 |---|---|---|---|
-| 1 | Conversão obrigatória fora dos blocos | `*Conversão obrigatória fora dos blocos* — \`npm install\` antes de rodar.` | **Conversão obrigatória fora dos blocos** — `npm install` antes de rodar. |
-| 2 | Código inline `` `npm install` `` (dentro da linha convertida) | inalterado | inalterado |
-| 3 | Bloco `javascript` | inalterado | inalterado |
+| 1 | Linha completa fora do bloco (inclui código inline preservado) | `` *Conversão obrigatória fora dos blocos* — `npm install` antes de rodar. `` | **Conversão obrigatória fora dos blocos** — `npm install` antes de rodar. |
+| 2 | Bloco `javascript` | inalterado | inalterado |
 
 Checkpoint: fim da etapa de conversão/segurança.
 
