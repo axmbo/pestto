@@ -69,15 +69,16 @@ describe('Conversor Markdown -> WhatsApp', () => {
     expect(convertMarkdown(input)).toBe(expected);
   });
 
-  // Bug conhecido: 2**3 é negrito sem espaço separador antes do marcador.
-  // O Markdown renderiza "3" em negrito; o WhatsApp exige espaço antes do "*".
+  // Bug conhecido: em `2**3 + 4**2`, o par `**...**` envolve `3 + 4`,
+  // mas o WhatsApp não reconhece bem o negrito quando há dígitos colados
+  // aos `*` nas bordas do trecho convertido.
   // Solução planejada: inserir U+FEFF (ZWNBSP) entre o dígito e o asterisco.
   // Rastreado em: https://github.com/axmbo/pestto/issues/18
   it.fails(
     'deve inserir separador invisível (U+FEFF) em negrito colado sem espaço (2**3)',
     () => {
       const input = '2**3 + 4**2';
-      // U+FEFF posicionado antes do primeiro * e após o último * de cada par,
+      // U+FEFF posicionado entre o dígito e o `*` de abertura/fechamento,
       // para que o WhatsApp reconheça o marcador sem exibir os asteriscos.
       const expected = '2\uFEFF*3 + 4*\uFEFF2';
       expect(convertMarkdown(input)).toBe(expected);
