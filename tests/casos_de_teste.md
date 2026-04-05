@@ -318,4 +318,4 @@ Produto: **São Paulo** e _açúcar_ 😊.
 
 [^3]: Ao selecionar conteúdo rico em uma página, o clipboard recebe simultaneamente um item `file` (imagem) e itens `text/plain`/`text/html`. O `content.js` deve preservar ambos no evento sintético — o arquivo via `dataTransfer.items.add(file)` e o texto convertido via `setData`.
 
-[^4]: Caso não implementado — ver [issue #18](https://github.com/axmbo/pestto/issues/18). No estado atual, `*3 + 4*` é renderizado pelo WhatsApp como itálico, deixando o texto visível incorreto após o envio.
+[^4]: Caso não implementado — ver [issue #18](https://github.com/axmbo/pestto/issues/18). No estado atual, `2*3 + 4*2` é renderizado pelo WhatsApp como texto normal, diferente do esperado.
